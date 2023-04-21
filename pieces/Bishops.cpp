@@ -1,3 +1,4 @@
+
 #include "Bishops.h"
 #include "bits/stdc++.h"
 
@@ -5,24 +6,42 @@ Bishops::Bishops(uint64_t _bishops) : bishops(_bishops) {}
 
 void Bishops::Move() {
     uint_8 row = 0, column = 0;
-    for (int pos = 0; i < SQUARES; ++pos, ++row, ++column) {
+    for (int64_t pos = 0; i < SQUARES; ++pos, ++row, ++column) {
         if (column == COLUMNS) {
             columns = 0;
             ++rows;
         }
-        uint8_t aux_row;
-        uint8_t aux_column;
-
-        // dreapta sus
-        aux_row = row, aux_column = column;s
-        for (int i = 0; i < min(ROWS - row, COLUMNS - column); ++i) {
-            possible_moves[i] |= (1 << (pos + i * 9));
+        for (int64_t i = 0; i < min(ROWS - row - 1, COLUMNS - column - 1); ++i) {
+            possible_moves[pos] |= (1ULL << (pos + (i + 1) * 9));
         }
         // stanga sus
-        for (int i = 1; i <= min(ROWS - row, COLUMNS))
-
-
+        for (int64_t i = 0; i < min(ROWS - row - 1, column); ++i) {
+            possible_moves[pos] |= (1ULL << (pos + (i + 1) * 7));
+        }
+        // dreapta jos
+        for (int64_t i = 0; i < min(row, COLUMNS - column - 1); ++i) {
+            possible_moves[pos] |= (1ULL << (pos - (i + 1) * 7));
+        }
+        // stanga jos
+        for (int64_t i = 0; i < min(row, column); ++i) {
+            possible_moves[pos] |= (1ULL << (pos + (i + 1) * 9));
+        }
     }
+
+    int64_t aux_row;
+    int64_t aux_column;
+    // for (int64_t i = 0; i < SQUARES; ++i) {
+    //     // sunt pe pozitia i, afisez tabla cu pozitii de aici.
+    //     for (aux_row = ROWS - 1; aux_row >= 0; --aux_row) {
+    //         for (aux_column = 0; aux_column < COLUMNS; ++aux_column) {
+    //             cout << (((possible_moves[i]) & (1ULL << ((aux_row) * ROWS + aux_column))) > 0) << " ";
+    //         }
+    //         cout << "\n";
+    //     }
+    //     cout << "\n";
+    // }
+    cout << "ok bro\n";
+    
     /*2^i
     8 X X X X X X X X
     7 X X X X X X X X

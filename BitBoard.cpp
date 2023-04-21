@@ -1,6 +1,7 @@
 #include "BitBoard.h"
 
 #include <bits/stdc++.h>
+#include "pieces/Queens.h"
 
 BitBoard::BitBoard() {
 
@@ -28,13 +29,15 @@ BitBoard::BitBoard() {
 }
 
 // approved by mihai
-uint64_t getRank(int r) {
+uint64_t static getRank(int r) {
     return (0xffULL << (8 * (r - 1)));
 }
 
 // approved by mihai
-uint64_t getFile(int f) {
-    return (0x8080808080808080ULL >> (f - 1));
+// file index starts from 1
+uint64_t static getFile(int f) {
+        
+    return (0x0101010101010101ULL << (f - 1));
 }
 
 

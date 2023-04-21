@@ -30,8 +30,8 @@ class BitBoard {
    static uint64_t blackPieces;
    static uint64_t whitePieces;
 
-   uint64_t getRank(int r);
-   uint64_t getFile(int f);
+   uint64_t static getRank(int r);
+   uint64_t static getFile(int f);
 
    // constructor
    BitBoard();

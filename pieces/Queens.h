@@ -3,11 +3,11 @@
 
 #include <bits/stdc++.h>
 
-class Queen {
+class Queens {
 public:
-    uint64_t queen;
+    uint64_t queens;
 
-    Queen(uint64_t _queen);
+    Queens(uint64_t _queens);
 
     void Move();
 };
