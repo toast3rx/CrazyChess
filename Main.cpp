@@ -230,7 +230,7 @@ class EngineComponents {
   void processIncomingMove(Move *move) {
     if (state.value() == FORCE_MODE || state.value() == RECV_NEW) {
       bot.value()->recordMove(move, sideToMove);
-      toggleSideToMove();
+      toggleSideToMove(); 
     } else if (state.value() == PLAYING) {
       bot.value()->recordMove(move, sideToMove);
       toggleSideToMove();

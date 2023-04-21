@@ -3,24 +3,39 @@
 #include <bits/stdc++.h>
 
 BitBoard::BitBoard() {
-    whitePawns = 0xff00ULL;
-    blackPawns = 0xff000000000000ULL;
 
-    whiteRooks = 0x81;
-    blackRooks = 0x8100000000000000ULL;
+    whitePawns = new Pawns(0xff00ULL);
+    blackPawns = new Pawns(0xff000000000000ULL);
 
-    whiteBishops = 0x24;
-    blackBishops = 0x2400000000000000ULL;
+    whiteRooks = new Rooks(0x81);
+    blackRooks = new Rooks(0x8100000000000000ULL);
 
-    whiteKnights = 0x42;
-    blackKnights = 0x4200000000000000ULL;
+    whiteBishops = new Bishops(0x24);
+    blackBishops = new Bishops(0x2400000000000000ULL);
 
-    whiteQueens = 0x10ULL;
-    blackQueens = 0x1000000000000000ULL;
+    // Initialize the knights
+    whiteKnights = new Knights(0x42);
+    blackKnights = new Knights(0x4200000000000000ULL);
 
-    whiteKing = 0x8ULL;
-    blackKing = 0x8000000000000000ULL;
+    whiteQueens = new Queens(0x8ULL);
+    blackQueens = new Queens(0x8000000000000000ULL);
 
+    whiteKing = new King(0x10ULL);
+    blackKing = new King(0x1000000000000000ULL);
+
+    whitePieces = whitePawns->pawns | whiteRooks->rooks | whiteBishops->bishops | whiteKnights->knights | whiteQueens->queen | whiteKing->king;
+    blackPieces = blackPawns->pawns | blackRooks->rooks | blackBishops->bishops | blackKnights->knights | blackQueens->queen | blackKing->king;
 }
+
+// approved by mihai
+uint64_t getRank(int r) {
+    return (0xffULL << (8 * (r - 1)));
+}
+
+// approved by mihai
+uint64_t getFile(int f) {
+    return (0x8080808080808080ULL >> (f - 1));
+}
+
 
 
