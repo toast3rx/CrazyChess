@@ -1,7 +1,7 @@
 #ifndef ROOKS_H
 #define ROOKS_H
 #include <bits/stdc++.h>
-class BitBoard;
+#include "../Utils.h"
 
 class Rooks {
 public:
@@ -24,7 +24,7 @@ public:
     uint64_t RookAttacks[64][4096] = {{0}};
 
 
-     static const uint64_t RookMagic[64] = {
+    constexpr static const uint64_t RookMagic[64] = {
         0x80004000976080ULL,
         0x1040400010002000ULL,
         0x4880200210000980ULL,
@@ -91,7 +91,7 @@ public:
         0x1001040311802142ULL,
     };
 
-    static const int RookOnes[64] = {
+    constexpr static const int RookOnes[64] = {
         12, 11, 11, 11, 11, 11, 11, 12,
         11, 10, 10, 10, 10, 10, 10, 11,
         11, 10, 10, 10, 10, 10, 10, 11,

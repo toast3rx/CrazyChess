@@ -2,8 +2,8 @@
 #define BITBOARD_H
 #include <bits/stdc++.h>
 #include "./pieces/Pawns.h"
-#include "./pieces/Knights.h"
 #include "./pieces/Rooks.h"
+#include "./pieces/Knights.h"
 #include "./pieces/Bishops.h"
 #include "./pieces/Queens.h"
 #include "./pieces/King.h"
@@ -13,20 +13,20 @@ class BitBoard {
  public:
 
    // white pieces
-   static class Pawns* whitePawns;
-   static class Rooks* whiteRooks;
-   static class Bishops* whiteBishops;
-   static class Knights* whiteKnights;
-   static class Queens* whiteQueens;
-   static class King* whiteKing;
+   static  Pawns *whitePawns ;
+   static  Rooks* whiteRooks;
+   static  Bishops* whiteBishops;
+   static  Knights* whiteKnights;
+   static  Queens* whiteQueens;
+   static  King* whiteKing;
 
-   // black pieces
-   static class Pawns* blackPawns;
-   static class Rooks* blackRooks;
-   static class Bishops* blackBishops;
-   static class Knights* blackKnights;
-   static class Queens* blackQueens;
-   static class King* blackKing;
+  //  // black pieces
+   static  Pawns* blackPawns;
+   static  Rooks* blackRooks;
+   static  Bishops* blackBishops;
+   static  Knights* blackKnights;
+   static  Queens* blackQueens;
+   static  King* blackKing;
 
    static uint64_t blackPieces;
    static uint64_t whitePieces;
@@ -48,4 +48,6 @@ class BitBoard {
    BitBoard();
 
 };
+
+
 #endif

@@ -3,7 +3,9 @@
 
 #include <bits/stdc++.h>
 #include <vector>
+#include <string>
 #include "../Move.h"
+#include "../Utils.h"
 
 
 class Knights {

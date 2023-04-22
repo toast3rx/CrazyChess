@@ -22,14 +22,6 @@ int getBits(uint64_t n) {
     return __builtin_popcountll(n);
 }
 
-uint64_t getRank(int r) {
-    return (0xffULL << (8 * (r - 1)));
-}
-
-uint64_t getFile(int f) {
-    return (0x0101010101010101ULL << (f - 1));
-}
-
 int getRookKey(int square, uint64_t blockers) {
 
     return (blockers * Rooks::RookMagic[square]) >> (64 - Rooks::RookOnes[square]);
@@ -65,8 +57,8 @@ void Rooks::Move() {
 void Rooks::initRookAllMoves() {
     for (int sq = 0; sq < 64; sq++) {
         RookMoveFromSquare[sq] = 0;
-        uint64_t sideMoves = (getRank(sq / 8 + 1) & ~getFile(1) & ~getFile(8));
-        uint64_t upDownMoves = (getFile(sq % 8 + 1) & ~getRank(1) & ~getRank(8));
+		uint64_t sideMoves = (Utils::getRank(sq / 8 + 1) & ~Utils::getFile(1) & ~Utils::getFile(8));
+		uint64_t upDownMoves = (Utils::getFile(sq % 8 + 1) & ~Utils::getRank(1) & ~Utils::getRank(8));
         RookMoveFromSquare[sq] = ((sideMoves | upDownMoves) & ~(1ULL << sq));
     }
 }

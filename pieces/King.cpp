@@ -4,7 +4,7 @@
 
 King::King(uint64_t _king) : king(_king) {}
 
-void King::Move() {
-
+void King::Move()
+{
 
 }
