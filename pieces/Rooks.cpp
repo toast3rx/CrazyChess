@@ -1,33 +1,42 @@
 #include "Rooks.h"
 
-
-int getLsbIdx(int64_t n) {
+int getLsbIdx(uint64_t n) {
     int pos = 0;
-    while (!(n & 1)) {
-        n >>= 1;
+    while ((n & 1) == 0) {
+        if (n == 0) {
+            return pos;
+        }
+        n = (n >> 1);
         pos++;
     }
     return pos;
 }
 
-int popLsb(int64_t &n) {
-    int LsbIndex = getLsbIdx(n);
+int popLsb(uint64_t &n) {
+    int LsbIndex = __builtin_ffsll(n) - 1;
     n = n & (n - 1);
     return LsbIndex;
 }
 
-int getBits(int64_t n) {
-    int pos = 0;
-    while (n) {
-        n >>= 1;
-        pos++;
-    }
-
-    return pos;
+int getBits(uint64_t n) {
+    return __builtin_popcountll(n);
 }
 
-int64_t getBlockersFromPerm(int perm, int64_t mask) {
-    int64_t blockers = 0;
+uint64_t getRank(int r) {
+    return (0xffULL << (8 * (r - 1)));
+}
+
+uint64_t getFile(int f) {
+    return (0x0101010101010101ULL << (f - 1));
+}
+
+int getRookKey(int square, uint64_t blockers) {
+
+    return (blockers * Rooks::RookMagic[square]) >> (64 - Rooks::RookOnes[square]);
+}
+
+uint64_t getBlockersFromPerm(int perm, uint64_t mask, int debug) {
+    uint64_t blockers = 0;
     int bits = getBits(mask);
     // iterate through all "one" bits of the mask
     for (int i = 0; i < bits; i++) {
@@ -35,7 +44,7 @@ int64_t getBlockersFromPerm(int perm, int64_t mask) {
         int bitPos = popLsb(mask);
         // if it is a blocker from the permutation add it to the blockers
         if (perm & (1 << i)) {
-            blockers |= (1 << bitPos);
+            blockers = (blockers | (1ULL << bitPos));
         }
     }
     return blockers;
@@ -44,7 +53,6 @@ int64_t getBlockersFromPerm(int perm, int64_t mask) {
 Rooks::Rooks(uint64_t _rooks) : rooks(_rooks) {
 
     initRookAllMoves();
-    initRookOnes();
     initRookMagicTable();
 
 }
@@ -56,18 +64,10 @@ void Rooks::Move() {
 
 void Rooks::initRookAllMoves() {
     for (int sq = 0; sq < 64; sq++) {
-        RookMoveFromSquare[sq] |= BitBoard::getRank((sq / 8) + 1) & ~BitBoard::getRank(1) & ~BitBoard::getRank(8);
-        RookMoveFromSquare[sq] |= BitBoard::getFile((sq % 8) + 1) & ~BitBoard::getFile(1) & ~BitBoard::getFile(8);
-    }
-}
-
-void Rooks::initRookOnes() {
-    for (int sq = 0; sq < 64; sq++) {
-        int64_t mask = RookMoveFromSquare[sq];
-        while (mask) {
-            RookOnes[sq] += (mask & 1);
-            mask >>= 1;
-        }
+        RookMoveFromSquare[sq] = 0;
+        uint64_t sideMoves = (getRank(sq / 8 + 1) & ~getFile(1) & ~getFile(8));
+        uint64_t upDownMoves = (getFile(sq % 8 + 1) & ~getRank(1) & ~getRank(8));
+        RookMoveFromSquare[sq] = ((sideMoves | upDownMoves) & ~(1ULL << sq));
     }
 }
 
@@ -76,26 +76,62 @@ void Rooks::initRookMagicTable() {
     for (int sq = 0; sq < 64; sq++) {
 
         for (int blockersPerm = 0; blockersPerm < (1 << RookOnes[sq]); blockersPerm++) {
-            int64_t blockers = getBlockersFromPerm(blockersPerm, RookMoveFromSquare[sq]);
-            RookAttacks[sq][(blockers * RookMagic[sq]) >> (64 - RookOnes[sq])] = makeValidMove(sq, blockers);
+            uint64_t blockers = getBlockersFromPerm(blockersPerm, RookMoveFromSquare[sq], 0) & ~(1 << sq);
+            RookAttacks[sq][getRookKey(sq, blockers)] = 0;
+            RookAttacks[sq][getRookKey(sq, blockers)] = makeValidMove(sq, blockers);
         }
     }
-
 }
 
-int64_t Rooks::getRookAttacks(int square, int64_t blockers) {
+uint64_t Rooks::getRookAttacks(int square, uint64_t blockers) {
 
     blockers &= RookMoveFromSquare[square];
-    int64_t key = (blockers * RookMagic[square]) >> (64 - RookOnes[square]);
+    uint64_t key = getRookKey(square, blockers);
+
     return RookAttacks[square][key];
 }
 
-int64_t Rooks::makeValidMove(int square, int64_t blockers) {
-    int64_t attacks = 0;
+uint64_t Rooks::makeValidMove(int square, uint64_t blockers) {
+    uint64_t attacks = 0;
+    int column = square % 8;
+    int row = square / 8;
 
-    int64_t north = BitBoard::getFile(1) << square;
-    int64_t south = BitBoard::getFile(8) >> (63 - square);
-    // int64_t east = (1 << (square | 7)) - (1 << square);
-    return 0;
+    /// stanga
+    for (int j = 1; j <= column; j++) {
+        attacks |= (1ULL << (square - j));
+        if (attacks & blockers) {
+            blockers = (blockers & ~attacks);
+            break;
+        }
+    }
+
+    /// dreapta
+    for (int j = 1; j <= 7 - column; j++) {
+        attacks |= (1ULL << (square + j));
+        if (attacks & blockers) {
+            blockers = (blockers & ~attacks);
+            break;
+        }
+    }
+
+    /// sus
+    for (int j = 1; j <= 7 - row; j++) {
+        attacks |= (1ULL << (square + j * 8));
+        if (attacks & blockers) {
+            blockers = (blockers & ~attacks);
+            break;
+        }
+    }
+
+    /// jos
+    for (int j = 1; j <= row; j++) {
+        attacks |= (1ULL << (square - j * 8));
+        if (attacks & blockers) {
+            blockers = (blockers & ~attacks);
+            break;
+        }
+    }
+
+    return attacks;
 }
 
