@@ -11,7 +11,8 @@ class Bot {
 
  public:
   /* Declare custom fields below */
-
+  static std::unordered_map<char, int> filesToNumber;
+  static std::unordered_map<char, int> numberToFiles;
   /* Declare custom fields above */
   Bot();
 

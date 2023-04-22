@@ -1,9 +1,9 @@
-CXXFLAGS = -g -Wall -Werror -std=c++17
+CXXFLAGS = -g -Wall -std=c++17
 LDLIBS =
 
 PRGM  = Main
-SRCS := $(wildcard *.cpp)
-HDRS := $(wildcard *.h)
+SRCS := $(wildcard *.cpp) $(wildcard pieces/*.cpp)
+HDRS := $(wildcard *.h) $(wildcard pieces/*.h)
 OBJSH := $(HDRS:.h=.o)
 DEPSH := $(OBJSH:.o=.d)
 

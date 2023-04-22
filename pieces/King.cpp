@@ -2,7 +2,7 @@
 
 #include <bits/stdc++.h>
 
-King::King(uint64_t _king) : kings(_king) {}
+King::King(uint64_t _king) : king(_king) {}
 
 void King::Move() {
 

@@ -2,7 +2,7 @@
 #define QUEEN_H
 
 #include <bits/stdc++.h>
-
+class BitBoard;
 class Queens {
 public:
     uint64_t queens;

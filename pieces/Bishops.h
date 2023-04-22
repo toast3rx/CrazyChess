@@ -15,4 +15,6 @@ public:
     void Move();
 };
 
+void debug(uint64_t matrix);
+
 #endif

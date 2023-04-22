@@ -9,7 +9,7 @@
 #include "PlaySide.h"
 
 static PlaySide sideToMove;
-static PlaySide engineSide;
+PlaySide engineSide;
 
 static void toggleSideToMove() {
     static const PlaySide switchTable[] = {
