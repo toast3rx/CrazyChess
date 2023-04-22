@@ -161,7 +161,13 @@ Move *Bot::calculateNextMove()
     std::vector<Move *> moves = allyPawns->getMoves(engineSide,
                                                     BitBoard::blackPieces,
                                                     BitBoard::whitePieces,
-                                                    BitBoard::allPieces); 
+                                                    BitBoard::allPieces);
+                                                    
+    std::vector<Move *> rookMoves = allyRooks->getMoves(engineSide,
+                                                    BitBoard::blackPieces,
+                                                    BitBoard::whitePieces,
+                                                    BitBoard::allPieces);
+    moves.insert(moves.end(), rookMoves.begin(), rookMoves.end());
 
     // Debugging code
     // for (int i = 0; i < moves.size(); ++i) {

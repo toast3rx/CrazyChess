@@ -50,7 +50,56 @@ Rooks::Rooks(uint64_t _rooks) : rooks(_rooks) {
 }
 
 
-void Rooks::Move() {
+std::vector<Move*> Rooks::getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces) {
+
+    std::vector<Move*> moves;
+    uint64_t botPieces = 0;
+    uint64_t enemyPieces = 0;
+    if (side == PlaySide::WHITE) {
+        botPieces = whitePieces;
+        enemyPieces = blackPieces;
+    } else {
+        botPieces = blackPieces;
+        enemyPieces = whitePieces;
+    }
+
+    uint64_t currentRooks = rooks;
+    int rooksCount = getBits(currentRooks);
+    while (rooksCount--) {
+        int rookPos = popLsb(currentRooks);
+
+        uint64_t possibleMoves = RookAttacks[rookPos][getRookKey(rookPos, allPieces)];
+        // uint64_t attackingMoves = possibleMoves & blackPieces;
+        uint64_t blockedMoves = possibleMoves & whitePieces;
+        possibleMoves = possibleMoves & ~blockedMoves;
+
+        int currentRookMoves = getBits(possibleMoves);
+        while (currentRookMoves--) {
+            int destPos = popLsb(possibleMoves);
+
+            int rookRank = rookPos / 8;
+            int rookFile = rookPos % 8;
+
+            std::string prev = "";
+			char fileChar = rookFile + 'a';
+			char rankChar = rookRank + '0';
+			prev.append(1, fileChar);
+			prev.append(1, rankChar);
+
+            int destRank = destPos / 8;
+            int destFile = destPos % 8;
+
+            std::string next = "";
+            char fileChar2 = destFile + 'a';
+			char rankChar2 = destRank + '0';
+			next.append(1, fileChar2);
+			next.append(1, rankChar2);
+
+            moves.push_back(Move::moveTo(prev, next));
+        }
+    }
+
+    return moves;
 
 }
 

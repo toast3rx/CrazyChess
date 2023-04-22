@@ -1,7 +1,10 @@
 #ifndef ROOKS_H
 #define ROOKS_H
 #include <bits/stdc++.h>
+#include "../Move.h"
+#include "../PlaySide.h"
 #include "../Utils.h"
+#include "../Bot.h"
 
 class Rooks {
 public:
@@ -9,7 +12,7 @@ public:
 
     Rooks(uint64_t _rooks);
 
-    void Move();
+    std::vector<Move*> getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces);
 
     void initRookAllMoves();
 
