@@ -255,23 +255,23 @@ Move *Bot::calculateNextMove()
                                                     BitBoard::whitePieces,
                                                     BitBoard::allPieces);
                                                     
-    // std::vector<Move *> knightMoves = allyKnights->getMoves(engineSide,
-    //                                                 BitBoard::blackPieces,
-    //                                                 BitBoard::whitePieces,
-    //                                                 BitBoard::allPieces);
+    std::vector<Move *> knightMoves = allyKnights->getMoves(engineSide,
+                                                    BitBoard::blackPieces,
+                                                    BitBoard::whitePieces,
+                                                    BitBoard::allPieces);
     std::vector<Move *> kingMoves = allyKing->getMoves(engineSide,
                                                     BitBoard::blackPieces,
                                                     BitBoard::whitePieces,
                                                     BitBoard::allPieces);
-    std::vector<Move *> bishopMoves = allyBishops->getMoves(engineSide,
-                                                    BitBoard::blackPieces,
-                                                    BitBoard::whitePieces,
-                                                    BitBoard::allPieces);
+    // std::vector<Move *> bishopMoves = allyBishops->getMoves(engineSide,
+    //                                                 BitBoard::blackPieces,
+    //                                                 BitBoard::whitePieces,
+    //                                                 BitBoard::allPieces);
 
     moves.insert(moves.end(), rookMoves.begin(), rookMoves.end());
     // moves.insert(moves.end(), kingMoves.begin(), kingMoves.end());
     // moves.insert(moves.end(), bishopMoves.begin(), bishopMoves.end());
-    // moves.insert(moves.end(), knightMoves.begin(), knightMoves.end());
+    moves.insert(moves.end(), knightMoves.begin(), knightMoves.end());
     
 
     // random

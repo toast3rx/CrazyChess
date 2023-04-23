@@ -71,7 +71,7 @@ std::vector<Move*> Rooks::getMoves(PlaySide side, uint64_t blackPieces, uint64_t
     while (rooksCount--) {
         int rookPos = Utils::popLsb(currentRooks);
 
-        uint64_t possibleMoves = RookAttacks[rookPos][getRookKey(rookPos, allPieces)];
+        uint64_t possibleMoves = RookAttacks[rookPos][getRookKey(rookPos, allPieces & RookMoveFromSquare[rookPos])];
         // uint64_t attackingMoves = possibleMoves & blackPieces;
         uint64_t blockedMoves = possibleMoves & botPieces;
         possibleMoves = possibleMoves & ~blockedMoves;
