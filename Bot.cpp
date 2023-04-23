@@ -198,7 +198,7 @@ void Bot::recordMove(Move *move, PlaySide sideToMove)
 
     BitBoard::updateWhitePieces();
     BitBoard::updateBlackPieces();
-    BitBoard::updateAllPieces();
+    BitBoard::updateAllPieces ();
 }
 static int nr = -1;
 Move *Bot::calculateNextMove()
