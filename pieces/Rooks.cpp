@@ -1,5 +1,21 @@
 #include "Rooks.h"
 
+std::vector<int> getOneBitsPositions(uint64_t number)
+{
+	std::vector<int> positions;
+
+	int position = 0;
+	while (number != 0) {
+		if (number & 1) {
+			positions.push_back(position);
+		}
+		number >>= 1;
+		++position;
+	}
+
+	return positions;
+}
+
 int getLsbIdx(uint64_t n) {
     int pos = 0;
     while ((n & 1) == 0) {
@@ -12,16 +28,6 @@ int getLsbIdx(uint64_t n) {
     return pos;
 }
 
-int popLsb(uint64_t &n) {
-    int LsbIndex = __builtin_ffsll(n) - 1;
-    n = n & (n - 1);
-    return LsbIndex;
-}
-
-int getBits(uint64_t n) {
-    return __builtin_popcountll(n);
-}
-
 int getRookKey(int square, uint64_t blockers) {
 
     return (blockers * Rooks::RookMagic[square]) >> (64 - Rooks::RookOnes[square]);
@@ -29,11 +35,11 @@ int getRookKey(int square, uint64_t blockers) {
 
 uint64_t getBlockersFromPerm(int perm, uint64_t mask, int debug) {
     uint64_t blockers = 0;
-    int bits = getBits(mask);
+    int bits = Utils::getBits(mask);
     // iterate through all "one" bits of the mask
     for (int i = 0; i < bits; i++) {
         // find it's position
-        int bitPos = popLsb(mask);
+        int bitPos = Utils::popLsb(mask);
         // if it is a blocker from the permutation add it to the blockers
         if (perm & (1 << i)) {
             blockers = (blockers | (1ULL << bitPos));
@@ -54,30 +60,27 @@ std::vector<Move*> Rooks::getMoves(PlaySide side, uint64_t blackPieces, uint64_t
 
     std::vector<Move*> moves;
     uint64_t botPieces = 0;
-    uint64_t enemyPieces = 0;
     if (side == PlaySide::WHITE) {
         botPieces = whitePieces;
-        enemyPieces = blackPieces;
     } else {
         botPieces = blackPieces;
-        enemyPieces = whitePieces;
     }
 
     uint64_t currentRooks = rooks;
-    int rooksCount = getBits(currentRooks);
+    int rooksCount = Utils::getBits(currentRooks);
     while (rooksCount--) {
-        int rookPos = popLsb(currentRooks);
+        int rookPos = Utils::popLsb(currentRooks);
 
         uint64_t possibleMoves = RookAttacks[rookPos][getRookKey(rookPos, allPieces)];
         // uint64_t attackingMoves = possibleMoves & blackPieces;
-        uint64_t blockedMoves = possibleMoves & whitePieces;
+        uint64_t blockedMoves = possibleMoves & botPieces;
         possibleMoves = possibleMoves & ~blockedMoves;
 
-        int currentRookMoves = getBits(possibleMoves);
+        int currentRookMoves = Utils::getBits(possibleMoves);
         while (currentRookMoves--) {
-            int destPos = popLsb(possibleMoves);
+            int destPos = Utils::popLsb(possibleMoves);
 
-            int rookRank = rookPos / 8;
+            int rookRank = rookPos / 8 + 1;
             int rookFile = rookPos % 8;
 
             std::string prev = "";
@@ -86,7 +89,7 @@ std::vector<Move*> Rooks::getMoves(PlaySide side, uint64_t blackPieces, uint64_t
 			prev.append(1, fileChar);
 			prev.append(1, rankChar);
 
-            int destRank = destPos / 8;
+            int destRank = destPos / 8 + 1;
             int destFile = destPos % 8;
 
             std::string next = "";

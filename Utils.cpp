@@ -8,6 +8,16 @@ uint64_t Utils::getRank(int r) {
 	return (0xffULL << (8 * (r - 1)));
 }
 
+int Utils::popLsb(uint64_t &n) {
+    int LsbIndex = __builtin_ffsll(n) - 1;
+    n = n & (n - 1);
+    return LsbIndex;
+}
+
+int Utils::getBits(uint64_t n) {
+    return getOneBitsPositions(n).size();
+}
+
 /**
  *  Return bit string notation from bitboard to human readable string notation
  *  (ex: 1 -> b1)
@@ -50,4 +60,30 @@ std::vector<int> Utils::getOneBitsPositions(uint64_t number)
 
 	return positions;
 }
+
+/**
+ * @brief Print a bitboard with a1 on the bottom left corner
+ * 		and h8 on the top right corner in a file
+ * @param board  bitboard to print
+ * @param fileName name of the file to print the board
+ */
+void Utils::printBoard(uint64_t board, std::string fileName)
+{
+	std::ofstream fout(fileName, std::ios::app);
+
+	int64_t aux_row;
+	int64_t aux_column;
+
+		// sunt pe pozitia i, afisez tabla cu pozitii de aici.
+		for (aux_row = 8 - 1; aux_row >= 0; --aux_row) {
+			for (aux_column = 0; aux_column < 8; ++aux_column) {
+				fout << ((board & (1ULL << ((aux_row) * 8 + aux_column))) > 0) << " ";
+			}
+			fout << "\n";
+		}
+		fout << "\n";
+
+	fout.close();
+}
+
 

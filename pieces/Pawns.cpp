@@ -3,98 +3,93 @@
 
 Pawns::Pawns(uint64_t _pawns) : pawns(_pawns) {}
 
-std::vector<Move *> Pawns::getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces)
+std::vector<Move *> Pawns::getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces, uint64_t enPassantWhite, uint64_t enPassantBlack)
 {
 	std::vector<Move *> moves;
-	getAttacks(moves, side, whitePieces, blackPieces);
+	getAttacks(moves, side, blackPieces, whitePieces, enPassantWhite, enPassantBlack);
 	getPush(moves, side, allPieces);
-	getPromotion(moves, side);
-	getEnPassant(moves, side);
 	return moves;
 }
 
-void Pawns::getAttacks(std::vector<Move *> &moves, PlaySide side, uint64_t blackPieces, uint64_t whitePieces)
+void Pawns::getAttacks(std::vector<Move *> &moves, PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t enPassantWhite, uint64_t enPassantBlack)
 {
 	uint64_t westAttacks;
 	uint64_t eastAttacks;
 
 	if (side == PlaySide::WHITE) {
-		eastAttacks = (pawns << 7) & ~Utils::getFile(1);
-		westAttacks = (pawns << 9) & ~Utils::getFile(8);
+		eastAttacks = (pawns << 9) & ~Utils::getFile(1);
+		westAttacks = (pawns << 7) & ~Utils::getFile(8);
 	} else {
-		eastAttacks = (pawns >> 9) & ~Utils::getFile(8);
-		westAttacks = (pawns >> 7) & ~Utils::getFile(1);
+		eastAttacks = (pawns >> 7) & ~Utils::getFile(1);
+		westAttacks = (pawns >> 9) & ~Utils::getFile(8);
 	}
 
-	eastAttacks &= side == PlaySide::BLACK ? blackPieces : whitePieces;
-	westAttacks &= side == PlaySide::BLACK ? blackPieces : whitePieces;
+	eastAttacks &= ((side == PlaySide::BLACK) ? whitePieces | enPassantWhite : blackPieces | enPassantBlack);
+	westAttacks &= ((side == PlaySide::BLACK) ? whitePieces | enPassantWhite : blackPieces | enPassantBlack);
 
-	for (int i = 8; i < 56; i++) {
+	for (int i = 0; i < 64; i++) {
 		uint64_t bitEast = (1ULL << i) & eastAttacks;
 		uint64_t bitWest = (1ULL << i) & westAttacks;
-		int file = i % 8;
 		int rank = i / 8 + 1;
-		std::string next = std::to_string(Bot::numberToFiles[file]) + std::to_string(rank + 1);
+		std::string next = Utils::bitToPos(i);
 
 		if (bitEast) {
-			std::string prev = std::to_string(Bot::numberToFiles[file - 1]) + std::to_string(rank + 1 * PlaySide::BLACK ? 1 : -1);
-			moves.push_back(Move::moveTo(prev, next));
+			std::string prev = Utils::bitToPos(i + (side == PlaySide::BLACK ? 7 : -9));
+			if (rank != (side == PlaySide::BLACK ? 1 : 8)) {
+				moves.push_back(Move::moveTo(prev, next));
+			} else {
+				moves.push_back(Move::promote(prev, next, Piece::QUEEN));
+				moves.push_back(Move::promote(prev, next, Piece::BISHOP));
+				moves.push_back(Move::promote(prev, next, Piece::ROOK));
+				moves.push_back(Move::promote(prev, next, Piece::KNIGHT));
+			} 
+				
 		}
 
 		if (bitWest) {
-			std::string prev = std::to_string(Bot::numberToFiles[file + 1]) + std::to_string(rank + 1 * PlaySide::BLACK ? 1 : -1);
-			moves.push_back(Move::moveTo(prev, next));
+			std::string prev = Utils::bitToPos(i + (side == PlaySide::BLACK ? 9 : -7));
+			if (rank != (side == PlaySide::BLACK ? 1 : 8)) {
+				moves.push_back(Move::moveTo(prev, next));
+			} else {
+				moves.push_back(Move::promote(prev, next, Piece::QUEEN));
+				moves.push_back(Move::promote(prev, next, Piece::BISHOP));
+				moves.push_back(Move::promote(prev, next, Piece::ROOK));
+				moves.push_back(Move::promote(prev, next, Piece::KNIGHT));
+			} 
 		}
 	}
 }
 
 void Pawns::getPush(std::vector<Move *> &moves, PlaySide side, uint64_t allPieces)
 {
-	uint64_t pawnMoves = pawns & ~Utils::getRank(7);
-
 	for (int i = 8; i < 56; i++) {
-		uint64_t bit = (1ULL << i) & pawnMoves;
-		int file = i % 8;
+		uint64_t bit = (1ULL << i) & pawns;
 		int rank = i / 8 + 1;
 
-		if (!(allPieces & (1ULL << (i + 8)))) {
-			// std::string prev = std::to_string(Bot::numberToFiles[file]) + std::to_string(rank);
-			// std::string next = std::to_string(Bot::numberToFiles[file]) + std::to_string(rank + 1);
+		if ((((side == PlaySide::WHITE) && !(allPieces & (1ULL << (i + 8))))
+		 	|| ((side == PlaySide::BLACK) && !(allPieces & (1ULL << (i - 8))))) && bit) {	
+			std::string prev = Utils::bitToPos(i);
+			std::string next = Utils::bitToPos(i + 8 * (side == PlaySide::BLACK ? -1 : 1));
 
-			// Codul de sus nu merge, to_string se comporta dubios
-			// Cel de jos merge foarte bine
-			// Approved by Mihai
-			std::string prev = "";
-			char fileChar = file + 'a';
-			char rankChar = rank + '0';
-
-			prev.append(1, fileChar);
-			prev.append(1, rankChar);
-
-			std::string next = "";
-			char rankChar2 = rank + 1 + '0';
-			next.append(1, fileChar);
-			next.append(1, rankChar2);
-			
-			moves.push_back(Move::moveTo(prev, next));
+			if (rank != (side == PlaySide::BLACK ? 2 : 7)) {
+				moves.push_back(Move::moveTo(prev, next));
+			} else {
+				moves.push_back(Move::promote(prev, next, Piece::QUEEN));
+				moves.push_back(Move::promote(prev, next, Piece::BISHOP));
+				moves.push_back(Move::promote(prev, next, Piece::ROOK));
+				moves.push_back(Move::promote(prev, next, Piece::KNIGHT));
+			}
 		}
 
-		if (!(allPieces & (1ULL << (i + 16))) && rank == 1) {
-			std::string prev = std::to_string(Bot::numberToFiles[file]) + std::to_string(rank);
-			std::string next = std::to_string(Bot::numberToFiles[file]) + std::to_string(rank + 2);
-
+		if (rank == (side == PlaySide::BLACK ? 7 : 2)
+			&& (((side == PlaySide::WHITE) && !(allPieces & (1ULL << (i + 8))))
+		 	|| ((side == PlaySide::BLACK) && !(allPieces & (1ULL << (i - 8)))))
+			&& (((side == PlaySide::WHITE) && !(allPieces & (1ULL << (i + 16))))
+		 	|| ((side == PlaySide::BLACK) && !(allPieces & (1ULL << (i - 16))))) 
+			&& bit) {
+			std::string prev = Utils::bitToPos(i);
+			std::string next = Utils::bitToPos(i + 16 * (side == PlaySide::BLACK ? -1 : 1));
 			moves.push_back(Move::moveTo(prev, next));
 		}
 	}
 }
-
-void Pawns::getPromotion(std::vector<Move *> &moves, PlaySide side)
-{
-
-}
-
-void Pawns::getEnPassant(std::vector<Move *> &moves, PlaySide side)
-{
-
-};
-

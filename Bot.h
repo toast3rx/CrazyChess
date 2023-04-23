@@ -1,9 +1,9 @@
 #ifndef BOT_H
 #define BOT_H
-#include <bits/stdc++.h>
 
 #include "Move.h"
 #include "PlaySide.h"
+#include "BitBoard.h"
 
 class Bot {
  private:
@@ -13,6 +13,8 @@ class Bot {
   /* Declare custom fields below */
   static std::unordered_map<char, int> filesToNumber;
   static std::unordered_map<char, int> numberToFiles;
+
+  std::multiset<Piece> captured[2];
   /* Declare custom fields above */
   Bot();
 
@@ -32,6 +34,9 @@ class Bot {
    * @return your move
    */
   Move* calculateNextMove();
+
+  bool movePiece(int src, int dst, PlaySide side);
+  void checkCapture(int src, int dst, PlaySide side);
 
   static std::string getBotName();
 };

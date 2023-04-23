@@ -11,5 +11,8 @@ public:
 	static uint64_t getRank(int r);
 	static std::string bitToPos(uint64_t bit);
 	static std::vector<int> getOneBitsPositions(uint64_t number);
+	static void printBoard(uint64_t board, std::string fileName);
+	static int getBits(uint64_t n);
+	static int popLsb(uint64_t &n);
 };
 #endif

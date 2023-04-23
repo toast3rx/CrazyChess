@@ -1,0 +1,172 @@
+a2 to a3
+a2 to a4
+b2 to b3
+b2 to b4
+c2 to c3
+c2 to c4
+d2 to d3
+d2 to d4
+e2 to e3
+e2 to e4
+f2 to f3
+f2 to f4
+g2 to g3
+g2 to g4
+h2 to h3
+h2 to h4
+
+
+a2 to a3
+a2 to a4
+b2 to b3
+b2 to b4
+c2 to c3
+c2 to c4
+e2 to e3
+e2 to e4
+f2 to f3
+f2 to f4
+g2 to g3
+g2 to g4
+h2 to h3
+h2 to h4
+d4 to d5
+
+
+b2 to b3
+b2 to b4
+c2 to c3
+c2 to c4
+e2 to e3
+e2 to e4
+f2 to f3
+f2 to f4
+g2 to g3
+g2 to g4
+h2 to h3
+h2 to h4
+a4 to a5
+d4 to d5
+a1 to a2
+a1 to a3
+h1 to h3
+
+
+g4 to h5
+b2 to b3
+b2 to b4
+c2 to c3
+c2 to c4
+e2 to e3
+e2 to e4
+f2 to f3
+f2 to f4
+h2 to h3
+h2 to h4
+a4 to a5
+d4 to d5
+g4 to g5
+a1 to a2
+
+
+g4 to h5
+b2 to b3
+b2 to b4
+c2 to c3
+c2 to c4
+e2 to e3
+e2 to e4
+f2 to f3
+f2 to f4
+a4 to a5
+g4 to g5
+a1 to a2
+a1 to a3
+h1 to h2
+h1 to h3
+
+
+g4 to h5
+b2 to b3
+b2 to b4
+c2 to c3
+c2 to c4
+e2 to e3
+e2 to e4
+f4 to f5
+g4 to g5
+a1 to a2
+a1 to a3
+h1 to h2
+
+
+g4 to h5
+b2 to b3
+b2 to b4
+c2 to c3
+c2 to c4
+e2 to e3
+e2 to e4
+g4 to g5
+f5 to f6
+a1 to a2
+a1 to a3
+a1 to a4
+a1 to a5
+a1 to a6
+h1 to h2
+
+
+g4 to f5
+g4 to h5
+c2 to c3
+c2 to c4
+e2 to e3
+e2 to e4
+b3 to b4
+g4 to g5
+a1 to a2
+h1 to h2
+
+
+g4 to h5
+e2 to e3
+e2 to e4
+b3 to b4
+c3 to c4
+g4 to g5
+a1 to a2
+h1 to h2
+
+
+b3 to b4
+c3 to c4
+e3 to e4
+a1 to a2
+h1 to h2
+h1 to h3
+h1 to h5
+h1 to h6
+
+
+b3 to b4
+c3 to c4
+e3 to e4
+a1 to a2
+a1 to a3
+a1 to a4
+h3 to h2
+h3 to f3
+h3 to g3
+h3 to h4
+
+
+b3 to b4
+c3 to c4
+a1 to a2
+h3 to h2
+h3 to f3
+h3 to g3
+h3 to h4
+
+

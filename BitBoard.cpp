@@ -15,10 +15,13 @@ Knights *BitBoard::whiteKnights = new Knights(0x42ULL);
 Knights *BitBoard::blackKnights = new Knights(0x4200000000000000ULL);
 
 Queens *BitBoard::whiteQueens = new Queens(0x8ULL);
-Queens *BitBoard::blackQueens = new Queens(0x8000000000000000ULL);
+Queens *BitBoard::blackQueens = new Queens(0x800000000000000ULL);
 
 King *BitBoard::whiteKing = new King(0x10ULL);
 King *BitBoard::blackKing = new King(0x1000000000000000ULL);
+
+uint64_t BitBoard::enPassantWhite = 0;
+uint64_t BitBoard::enPassantBlack = 0;
 
 uint64_t BitBoard::blackPieces =
                     BitBoard::blackPawns->pawns |

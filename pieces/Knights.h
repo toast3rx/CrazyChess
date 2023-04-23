@@ -6,6 +6,7 @@
 #include <string>
 #include "../Move.h"
 #include "../Utils.h"
+#include "../PlaySide.h"
 
 
 class Knights {
@@ -17,7 +18,8 @@ class Knights {
 
         uint64_t generateMoves(int square);
 
-        void convertMoves ();
+		void getAttacks(std::vector<Move *> &moves, PlaySide side, uint64_t blackPieces, uint64_t whitePieces);
+		std::vector<Move *> getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces);
 };
 
 #endif
