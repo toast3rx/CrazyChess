@@ -36,6 +36,8 @@ bool Bot::movePiece(int bitsrc, int bitdst, PlaySide side) {
     Pawns *enemyPawns = PlaySide::BLACK ? BitBoard::whitePawns : BitBoard::blackPawns;
     bool enPassant = 0;
 
+    Utils::printBoard(pawns->pawns, "pioniAiMeicica.txt");
+
     if (pawns->pawns & (1ULL << bitsrc)) {
 
         std::ofstream output("toataTabla.txt", std::ios::app);
@@ -57,7 +59,8 @@ bool Bot::movePiece(int bitsrc, int bitdst, PlaySide side) {
 
         if (side == PlaySide::BLACK && abs(bitdst - bitsrc) == 7 && !(enemyPieces & (1ULL << bitdst))) {
             output << "AM intrat in if :(" << std::endl;
-            BitBoard::clearBit(enemyPawns->pawns, bitsrc + 1);
+            BitBoard::clearBit(BitBoard::whitePawns->pawns, bitsrc + 1);
+            output << "BIT SRC este: " << Utils::bitToPos(bitsrc) << "BIT SRC + 1 ESTE: " << Utils::bitToPos(bitsrc + 1) << std::endl;
         }
 
         BitBoard::clearBit(pawns->pawns, bitsrc);
@@ -204,7 +207,6 @@ static int nr = -1;
 Move *Bot::calculateNextMove()
 {
 
-    
     /* Play move for the side the engine is playing (Hint: Main.getEngineSide())
      * Make sure to record your move in custom structures before returning.
      *
@@ -255,10 +257,10 @@ Move *Bot::calculateNextMove()
                                                     BitBoard::whitePieces,
                                                     BitBoard::allPieces);
                                                     
-    // std::vector<Move *> knightMoves = allyKnights->getMoves(engineSide,
-    //                                                 BitBoard::blackPieces,
-    //                                                 BitBoard::whitePieces,
-    //                                                 BitBoard::allPieces);
+    std::vector<Move *> knightMoves = allyKnights->getMoves(engineSide,
+                                                    BitBoard::blackPieces,
+                                                    BitBoard::whitePieces,
+                                                    BitBoard::allPieces);
     std::vector<Move *> kingMoves = allyKing->getMoves(engineSide,
                                                     BitBoard::blackPieces,
                                                     BitBoard::whitePieces,
@@ -268,9 +270,9 @@ Move *Bot::calculateNextMove()
                                                     BitBoard::whitePieces,
                                                     BitBoard::allPieces);
 
-    moves.insert(moves.end(), rookMoves.begin(), rookMoves.end());
+    // moves.insert(moves.end(), rookMoves.begin(), rookMoves.end());
     // moves.insert(moves.end(), kingMoves.begin(), kingMoves.end());
-    // moves.insert(moves.end(), bishopMoves.begin(), bishopMoves.end());
+    moves.insert(moves.end(), bishopMoves.begin(), bishopMoves.end());
     // moves.insert(moves.end(), knightMoves.begin(), knightMoves.end());
     
 

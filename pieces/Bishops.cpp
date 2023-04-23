@@ -196,7 +196,7 @@ std::pair < std::string, std::string > convert_table_to_positions(uint64_t sourc
 {
     uint64_t goodPos = popLSB(goodSquares);
     if ((1 << goodPos) & myPieces) {
-        return std::make_pair("RAZVAN", "MATRIX");
+        return std::make_pair("a", "a");
     }
     return std::make_pair(Utils::bitToPos(source), Utils::bitToPos(goodPos));
 }
@@ -218,7 +218,7 @@ std::vector<Move*> Bishops::getMoves(PlaySide side, uint64_t blackPieces, uint64
         uint64_t possibleMoves = Bishops::bishopAttacks[bishopPos][get_key(bishopPos, blockers)];
         while (possibleMoves) {
             std::pair < std::string, std::string > new_pair = convert_table_to_positions(bishopPos, possibleMoves, myPieces);
-            if (!new_pair.first.compare("RAZVAN")) {
+            if (new_pair.first.compare("a")) {
                 sol.push_back(Move::moveTo(new_pair.first, new_pair.second));
             }
         }
