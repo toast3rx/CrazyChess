@@ -4,6 +4,7 @@
 #include "Move.h"
 #include "PlaySide.h"
 #include "BitBoard.h"
+#include <chrono>
 
 class Bot {
  private:
@@ -24,7 +25,7 @@ class Bot {
    * @param move received move
    * @param sideToMode side to move
    */
-  void recordMove(Move* move, PlaySide sideToMove);
+  void recordMove(Move *move, PlaySide sideToMove, int testMove);
 
   /**
    * Calculates next move, in response to enemyMove
@@ -35,9 +36,20 @@ class Bot {
    */
   Move* calculateNextMove();
 
+  std::vector<Move *> getAvailableMoves(std::vector<Move *> allMoves,
+    King *allyKingPiece,
+    Knights *enemyKnightsPiece,
+    Rooks *enemyRooksPiece,
+    Pawns *enemyPawnsPiece,
+    Bishops *enemyBishopsPiece,
+    Queens *enemyQueensPiece,
+    King *enemyKingPiece
+  );
   bool movePiece(int src, int dst, PlaySide side);
-  void checkCapture(int src, int dst, PlaySide side);
-
+  void checkCapture(int src, int dst, PlaySide side, int testMove);
+  std::vector<Move*> getDropInMoves(PlaySide side);
   static std::string getBotName();
+  
+
 };
 #endif

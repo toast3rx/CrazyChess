@@ -175,30 +175,9 @@ uint64_t Bishops::gen_number()
 
     for (int i = 0; i < 4; ++i) {
         rand_nr[i] = (uint64_t)rand() & 0xFFFF;
-        sol |= (rand_nr[i] << (i * 16));
+        sol |= ((1ULL * rand_nr[i]) << (i * 16));
     }
     return sol;
-}
-
-
-uint64_t popLSB(uint64_t &n)
-{
-    uint64_t pos = 0ULL;
-    while (!((1ULL << pos) & n)) {
-        ++pos;
-    }
-    n &= (n - 1);
-
-    return pos;
-}
-
-std::pair < std::string, std::string > convert_table_to_positions(uint64_t source, uint64_t &goodSquares, uint64_t myPieces)
-{
-    uint64_t goodPos = popLSB(goodSquares);
-    if ((1 << goodPos) & myPieces) {
-        return std::make_pair("RAZVAN", "MATRIX");
-    }
-    return std::make_pair(Utils::bitToPos(source), Utils::bitToPos(goodPos));
 }
 
 std::vector<Move*> Bishops::getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces)
@@ -213,16 +192,66 @@ std::vector<Move*> Bishops::getMoves(PlaySide side, uint64_t blackPieces, uint64
     uint64_t currentBishops = bishops;
 
     while (currentBishops) {
-        uint64_t bishopPos = popLSB(currentBishops);
+        uint64_t bishopPos = Utils::popLsb(currentBishops);
         uint64_t blockers = allPieces & Bishops::all_moves[bishopPos];
         uint64_t possibleMoves = Bishops::bishopAttacks[bishopPos][get_key(bishopPos, blockers)];
+
+        /* Scot acele mutari care mi-ar fi luat piesele mele. Daca lucrul asta este verificat atunci sterge liniile de cod in plus*/
+        uint64_t blockedMoves = possibleMoves & myPieces;
+        possibleMoves = possibleMoves & ~blockedMoves;
+        /* -----------------------------------------------------------------------------------------------------------------------*/
+
         while (possibleMoves) {
-            std::pair < std::string, std::string > new_pair = convert_table_to_positions(bishopPos, possibleMoves, myPieces);
-            if (!new_pair.first.compare("RAZVAN")) {
+            std::pair < std::string, std::string > new_pair = Utils::convert_table_to_positions(bishopPos, possibleMoves, myPieces);
+            if (new_pair.first.compare("a")) {
                 sol.push_back(Move::moveTo(new_pair.first, new_pair.second));
             }
         }
     }
 
     return sol;
+}
+
+uint64_t Bishops::getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces)
+{
+    uint64_t attacks = 0;
+    uint64_t myPieces = 0;
+    if (side == 0) {
+        myPieces = blackPieces;
+    } else {
+        myPieces = whitePieces;
+    }
+    uint64_t currentBishops = bishops;
+
+    while (currentBishops) {
+        uint64_t bishopPos = Utils::popLsb(currentBishops);
+        uint64_t blockers = allPieces & Bishops::all_moves[bishopPos];
+        uint64_t possibleMoves = Bishops::bishopAttacks[bishopPos][get_key(bishopPos, blockers)];
+        
+        /* Scot acele mutari care mi-ar fi luat piesele mele. Daca lucrul asta este verificat atunci sterge liniile de cod in plus*/
+        uint64_t blockedMoves = possibleMoves & myPieces;
+        possibleMoves = possibleMoves & ~blockedMoves;
+        /* -----------------------------------------------------------------------------------------------------------------------*/;
+
+        attacks |= possibleMoves;
+        
+    }
+
+    // uint64_t allyPieces = side == PlaySide::WHITE ? whitePieces : blackPieces;
+
+    // Utils::printBoard(allyPieces, "allyPiecesLaNebunero.txt");
+
+    // uint64_t attacks = 0ULL;
+    
+    // std::vector<int> bishopPos = Utils::getOneBitsPositions(bishops);
+
+    // for (int i = 0; i < bishopPos.size(); ++i) {
+
+    //     uint64_t knightIAttack = knightsMoves[knightsPos[i]] & ~allyPieces;
+
+    //     attacks |= knightIAttack;
+    // }
+
+
+    return attacks;
 }

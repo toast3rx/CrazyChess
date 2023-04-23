@@ -1,5 +1,9 @@
 #include "Rooks.h"
 
+uint64_t Rooks::RookAttacks[64][4096] = {{0}};
+
+uint64_t Rooks::RookMoveFromSquare[64] = {0};
+
 std::vector<int> getOneBitsPositions(uint64_t number)
 {
 	std::vector<int> positions;
@@ -120,7 +124,7 @@ void Rooks::initRookMagicTable() {
     for (int sq = 0; sq < 64; sq++) {
 
         for (int blockersPerm = 0; blockersPerm < (1 << RookOnes[sq]); blockersPerm++) {
-            uint64_t blockers = getBlockersFromPerm(blockersPerm, RookMoveFromSquare[sq], 0) & ~(1 << sq);
+            uint64_t blockers = getBlockersFromPerm(blockersPerm, RookMoveFromSquare[sq], 0) & ~(1ULL << sq);
             RookAttacks[sq][getRookKey(sq, blockers)] = 0;
             RookAttacks[sq][getRookKey(sq, blockers)] = makeValidMove(sq, blockers);
         }
@@ -179,3 +183,28 @@ uint64_t Rooks::makeValidMove(int square, uint64_t blockers) {
     return attacks;
 }
 
+uint64_t Rooks::getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces) {
+
+    uint64_t attacks = 0ULL;
+    uint64_t botPieces;
+    if (side == PlaySide::WHITE) {
+        botPieces = whitePieces;
+    } else {
+        botPieces = blackPieces;
+    }
+
+    uint64_t currentRooks = rooks;
+    int rooksCount = Utils::getBits(currentRooks);
+    while (rooksCount--) {
+        int rookPos = Utils::popLsb(currentRooks);
+
+        uint64_t possibleMoves = RookAttacks[rookPos][getRookKey(rookPos, allPieces & RookMoveFromSquare[rookPos])];
+        uint64_t blockedMoves = possibleMoves & botPieces;
+        possibleMoves = possibleMoves & ~blockedMoves;
+
+        attacks |= possibleMoves;
+    }
+
+    return attacks;
+
+}

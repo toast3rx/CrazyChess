@@ -15,6 +15,8 @@ public:
     King(uint64_t _king);
 
     std::vector<Move*> getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces);
+
+    uint64_t getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t whitePieces);
     
     void initKingAllMoves();
 };
