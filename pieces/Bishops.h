@@ -19,7 +19,7 @@ public:
 std::vector<Move*> getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces);
 
 // std::pair < std::string, std::string > convert_table_to_positions(uint64_t source, uint64_t &goodSquares);
-
+uint64_t getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces);
 void debug(uint64_t matrix);
 
 int64_t count_set_bits(uint64_t n);

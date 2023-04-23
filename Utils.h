@@ -14,5 +14,7 @@ public:
 	static void printBoard(uint64_t board, std::string fileName);
 	static int getBits(uint64_t n);
 	static int popLsb(uint64_t &n);
+	static std::pair <std::string, std::string > convert_table_to_positions(uint64_t source, uint64_t &goodSquares, uint64_t myPieces);
+	static std::uint64_t posToBit(std::string pos);
 };
 #endif

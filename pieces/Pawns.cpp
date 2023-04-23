@@ -93,3 +93,19 @@ void Pawns::getPush(std::vector<Move *> &moves, PlaySide side, uint64_t allPiece
 		}
 	}
 }
+
+uint64_t Pawns::getAllAttacks(PlaySide side) {
+	uint64_t westAttacks;
+	uint64_t eastAttacks;
+
+	if (side == PlaySide::WHITE) {
+		eastAttacks = (pawns << 9) & ~Utils::getFile(1);
+		westAttacks = (pawns << 7) & ~Utils::getFile(8);
+	} else {
+		eastAttacks = (pawns >> 7) & ~Utils::getFile(1);
+		westAttacks = (pawns >> 9) & ~Utils::getFile(8);
+	}
+
+
+	return eastAttacks | westAttacks;
+}

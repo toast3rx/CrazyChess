@@ -97,4 +97,29 @@ std::vector<Move *> Knights::getMoves(PlaySide side, uint64_t blackPieces, uint6
     return result;
 }
 
+/**
+ * @brief Return all attacks of the knights on the board
+ *  in bitboard format
+ * @return uint64_t bitboard
+ */
+uint64_t Knights::getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t whitePieces)
+{
+
+    uint64_t allyPieces = side == PlaySide::WHITE ? whitePieces : blackPieces;
+
+    uint64_t attacks = 0ULL;
+    
+    std::vector<int> knightsPos = Utils::getOneBitsPositions(knights);
+
+    for (int i = 0; i < knightsPos.size(); ++i) {
+
+        uint64_t knightIAttack = knightsMoves[knightsPos[i]] & ~allyPieces;
+
+        attacks |= knightIAttack;
+    }
+
+
+    return attacks;
+}
+
 

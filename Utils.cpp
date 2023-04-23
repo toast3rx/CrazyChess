@@ -85,5 +85,21 @@ void Utils::printBoard(uint64_t board, std::string fileName)
 
 	fout.close();
 }
+std::pair < std::string, std::string > Utils::convert_table_to_positions(uint64_t source, uint64_t &goodSquares, uint64_t myPieces)
+{
+    uint64_t goodPos = Utils::popLsb(goodSquares);
+    if ((1ULL << goodPos) & myPieces) {
+        return std::make_pair("a", "a");
+    }
+    return std::make_pair(Utils::bitToPos(source), Utils::bitToPos(goodPos));
+}
+
+std::uint64_t Utils::posToBit(std::string pos)
+{	
+	int row = pos[1] - '1';
+	int file = pos[0] - 'a';
+
+	return (1ULL << (row * 8 + file));
+}
 
 

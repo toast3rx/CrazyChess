@@ -44,6 +44,10 @@ std::vector<Move*> King::getMoves(PlaySide side, uint64_t blackPieces, uint64_t 
     return moves;
 }
 
+// uint64_t King::getAllAttacks(PlayingSide ) {
+
+// }
+
 King::King(uint64_t _king) : king(_king) {
     initKingAllMoves();
 }
@@ -86,7 +90,21 @@ void King::initKingAllMoves() {
         kingMoves[square] = next;
     }
 
-    for (uint64_t i = 0; i < 64; i++) {
-        Utils::printBoard(kingMoves[i], "KingAllMoves.txt");
+}
+
+uint64_t King::getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t whitePieces) {
+
+    uint64_t botPieces = 0;
+    if (side == PlaySide::WHITE) {
+        botPieces = whitePieces;
+    } else {
+        botPieces = blackPieces;
     }
+
+    uint64_t currentKing = king;
+    int kingPos = Utils::getOneBitsPositions(currentKing)[0];
+    uint64_t possibleMoves = kingMoves[kingPos];
+    uint64_t validMoves = possibleMoves & ~botPieces;
+
+    return validMoves;
 }

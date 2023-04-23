@@ -21,9 +21,11 @@ public:
 
     uint64_t makeValidMove(int square, uint64_t blockers);
 
-    uint64_t RookMoveFromSquare[64] = {0};
+    uint64_t getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces);
 
-    uint64_t RookAttacks[64][4096] = {{0}};
+    static uint64_t RookMoveFromSquare[64];
+
+    static uint64_t RookAttacks[64][4096];
 
     constexpr static const uint64_t RookMagic[64] = {
     0x80008120504000ULL,
