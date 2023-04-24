@@ -1,0 +1,32 @@
+locale = en_US.UTF-8
+recognized 'normal' (-1) as variant normal
+recognized 'normal' (-1) as variant normal
+recognized 'normal' (-1) as variant normal
+shuffleOpenings = 0
+shuffleOpenings = 0
+Version: xboard 4.9.1 + make ()
+Reset(1, 0) from gameMode 0
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+shuffleOpenings = 0
+StartChildProcess (dir=".") make run
+189 >first : xboard
+protover 2
+198 <first : make: *** No rule to make target 'run'.  Stop.
+10189 >first : new
+random
+10189 >first : level 40 5 0
+10189 >first : post
+10189 >first : hard
+32046 >first : black
+32080 >first : time 30000
+32087 >first : otim 30000
+32090 >first : white
+book hit = (NULL)
+32094 >first : go
+nps: w=-1, b=-1
+GameEnds(27, Error writing to first chess program, 2)
+Interrupting first
+33706 >first : result 0-1 {Error writing to first chess program}
+33706 >first : force
+33706 >first : quit

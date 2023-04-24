@@ -208,3 +208,14 @@ uint64_t Rooks::getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t whit
     return attacks;
 
 }
+
+void Rooks::updateCastlePermissions(PlaySide engineSide, uint64_t myPieces)
+{
+    if (engineSide == PlaySide::WHITE) {
+        canCastleLeft &= (rooks & (1ULL << 0));
+        canCastleRight &= (rooks & (1ULL << 7));
+    } else {
+        canCastleLeft &= (rooks & (1ULL << 56));
+        canCastleRight &= (rooks & (1ULL << 63));
+    }
+}

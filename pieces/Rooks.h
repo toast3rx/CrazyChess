@@ -8,10 +8,13 @@
 class Rooks {
 public:
     uint64_t rooks;
+    bool canCastleLeft = true, canCastleRight = true;
 
     Rooks(uint64_t _rooks);
 
     std::vector<Move*> getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces);
+    
+    void updateCastlePermissions(PlaySide engineSide, uint64_t myPieces);
 
     void initRookAllMoves();
 

@@ -328,6 +328,27 @@ void Bot::recordMove(Move *move, PlaySide sideToMove, int isTestMove)
     BitBoard::updateAllPieces();
 }
 static int nr = -1;
+
+uint64_t getEnemyAttacks(Knights *enemyKnightsPiece,
+    Rooks *enemyRooksPiece,
+    Pawns *enemyPawnsPiece,
+    Bishops *enemyBishopsPiece,
+    Queens *enemyQueensPiece,
+    King *enemyKingPiece)
+{
+    PlaySide enemySide = engineSide == PlaySide::WHITE ? PlaySide::BLACK : PlaySide::WHITE;
+
+    uint64_t knightAttacks = enemyKnightsPiece->getAllAttacks(enemySide, BitBoard::blackPieces, BitBoard::whitePieces);
+    uint64_t rookAttacks = enemyRooksPiece->getAllAttacks(enemySide, BitBoard::blackPieces, BitBoard::whitePieces, BitBoard::allPieces);
+    uint64_t pawnAttacks = enemyPawnsPiece->getAllAttacks(enemySide);
+    uint64_t bishopAttacks = enemyBishopsPiece->getAllAttacks(enemySide, BitBoard::blackPieces, BitBoard::whitePieces, BitBoard::allPieces);
+    uint64_t queenAttacks = enemyQueensPiece->getAllAttacks(enemySide, BitBoard::blackPieces, BitBoard::whitePieces, BitBoard::allPieces);
+    uint64_t kingAttacks = enemyKingPiece->getAllAttacks(enemySide, BitBoard::blackPieces, BitBoard::whitePieces);
+
+
+    return knightAttacks | rookAttacks | pawnAttacks | bishopAttacks | queenAttacks | kingAttacks;
+}
+
 Move *Bot::calculateNextMove()
 {
 
@@ -337,6 +358,8 @@ Move *Bot::calculateNextMove()
      * Return move that you are willing to submit
      * Move is to be constructed via one of the factory methods declared in Move.h */
     nr++;
+    std::mt19937 rng(std::chrono::steady_clock::now().time_since_epoch().count());
+
     Pawns *allyPawns = engineSide == PlaySide::WHITE ? BitBoard::whitePawns : BitBoard::blackPawns;
     Knights *allyKnights = engineSide == PlaySide::WHITE ? BitBoard::whiteKnights : BitBoard::blackKnights;
     Rooks *allyRooks = engineSide == PlaySide::WHITE ? BitBoard::whiteRooks : BitBoard::blackRooks;
@@ -353,6 +376,27 @@ Move *Bot::calculateNextMove()
     uint64_t enemyPieces = engineSide == PlaySide::BLACK ? BitBoard::whitePieces : BitBoard::blackPieces;
 
     std::vector<Move *> moves;
+    
+        allyRooks->updateCastlePermissions(PlaySide::WHITE, BitBoard::whitePieces);
+        enemyRooks->updateCastlePermissions(PlaySide::BLACK, BitBoard::blackPieces);
+
+        allyKing->updateCastlePermissions(PlaySide::WHITE, BitBoard::whitePieces);
+        enemyKing->updateCastlePermissions(PlaySide::BLACK, BitBoard::blackPieces);
+        uint64_t enemyAttacks = getEnemyAttacks(enemyKnights, enemyRooks, enemyPawns,
+                                                        enemyBishops, enemyQueens, enemyKing);
+    if (allyKing->canCastle) {
+        std::vector<Move *> castleMove = allyKing->tryCastle(engineSide, allyRooks, enemyAttacks,
+            BitBoard::blackPieces,
+            BitBoard::whitePieces,
+            BitBoard::allPieces
+            );
+        
+        if (castleMove.size() > 0) {
+            nr = rng () % castleMove.size();
+            recordMove(castleMove[nr], engineSide, 0);
+            return castleMove[nr];
+        }
+    }
 
     std::vector<Move *> pawnMoves = allyPawns->getMoves(engineSide,
         BitBoard::blackPieces,
@@ -365,7 +409,6 @@ Move *Bot::calculateNextMove()
         BitBoard::blackPieces,
         BitBoard::whitePieces,
         BitBoard::allPieces);
-
     std::vector<Move *> knightMoves = allyKnights->getMoves(engineSide,
         BitBoard::blackPieces,
         BitBoard::whitePieces,
@@ -408,11 +451,7 @@ Move *Bot::calculateNextMove()
     if (validMoves.size() == 0) {
         return Move::resign();
     }
-
-    // nr = rand() % validMoves.size();
-    std::mt19937 rng(std::chrono::steady_clock::now().time_since_epoch().count());
     nr = rng () % validMoves.size();
-
 
     recordMove(validMoves[nr], engineSide, 0);
 
@@ -465,15 +504,8 @@ std::vector<Move *> Bot::getAvailableMoves(std::vector<Move *> allMoves,
 
         PlaySide enemySide = engineSide == PlaySide::WHITE ? PlaySide::BLACK : PlaySide::WHITE;
 
-        uint64_t knightAttacks = enemyKnightsPiece->getAllAttacks(enemySide, BitBoard::blackPieces, BitBoard::whitePieces);
-        uint64_t rookAttacks = enemyRooksPiece->getAllAttacks(enemySide, BitBoard::blackPieces, BitBoard::whitePieces, BitBoard::allPieces);
-        uint64_t pawnAttacks = enemyPawnsPiece->getAllAttacks(enemySide);
-        uint64_t bishopAttacks = enemyBishopsPiece->getAllAttacks(enemySide, BitBoard::blackPieces, BitBoard::whitePieces, BitBoard::allPieces);
-        uint64_t queenAttacks = enemyQueensPiece->getAllAttacks(enemySide, BitBoard::blackPieces, BitBoard::whitePieces, BitBoard::allPieces);
-        uint64_t kingAttacks = enemyKingPiece->getAllAttacks(enemySide, BitBoard::blackPieces, BitBoard::whitePieces);
-
-
-        uint64_t allEnemyAttacks = knightAttacks | rookAttacks | pawnAttacks | bishopAttacks | queenAttacks | kingAttacks;
+        uint64_t allEnemyAttacks = getEnemyAttacks(enemyKnightsPiece, enemyRooksPiece, enemyPawnsPiece,
+                                                    enemyBishopsPiece, enemyQueensPiece, enemyKingPiece);
 
         int kingPos = Utils::getOneBitsPositions(allyKingPiece->king)[0];
 
