@@ -109,12 +109,12 @@ uint64_t King::getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t white
     return validMoves;
 }
 
-void King::updateCastlePermissions(PlaySide engineSide, uint64_t myPieces)
+void King::updateCastlePermissions(PlaySide side, uint64_t myPieces)
 {
-    if (engineSide == PlaySide::WHITE) {
-        canCastle &= (king & (1ULL << 4));
+    if (side == PlaySide::WHITE) {
+        canCastle &= ((king & 0x10ULL) > 0ULL);
     } else {
-        canCastle &= (king & (1ULL << 60));
+        canCastle &= ((king & 0x1000000000000000ULL) > 0ULL);
     }
 }
 
@@ -127,21 +127,22 @@ std::vector<Move *> King::tryCastle(PlaySide side, Rooks *rooks, uint64_t enemyA
 
     std::vector<Move *> sol;
     if (side == PlaySide::WHITE) {
-        uint64_t leftSide = (1ULL << 2) | (1ULL << 3);
+        uint64_t leftSide = (1ULL << 1) | (1ULL << 2) | (1ULL << 3);
         uint64_t rightSide = (1ULL << 5) | (1ULL << 6);
-        if (rooks->canCastleLeft && !(enemyAttacks & leftSide)) {
+        if (rooks->canCastleLeft && !(enemyAttacks & leftSide) && !(allPieces & leftSide)) {
             sol.push_back(Move::moveTo("e1", "c1"));
         }
-        if (rooks->canCastleRight && !(enemyAttacks & rightSide)) {
+        if (rooks->canCastleRight && !(enemyAttacks & rightSide) && !(allPieces & rightSide)) {
             sol.push_back(Move::moveTo("e1", "g1"));
         }
     } else {
-        uint64_t leftSide = (1ULL << 58) | (1ULL << 59);
+        uint64_t leftSide = (1ULL << 57) | (1ULL << 58) | (1ULL << 59);
         uint64_t rightSide = (1ULL << 61) | (1ULL << 62);
-        if (rooks->canCastleLeft && !(enemyAttacks & leftSide)) {
+
+        if (rooks->canCastleLeft && !(enemyAttacks & leftSide) && !(allPieces & leftSide)) {
             sol.push_back(Move::moveTo("e8", "c8"));
         }
-        if (rooks->canCastleRight && !(enemyAttacks & rightSide)) {
+        if (rooks->canCastleRight && !(enemyAttacks & rightSide) && !(allPieces & rightSide)) {
             sol.push_back(Move::moveTo("e8", "g8"));
         }
     }

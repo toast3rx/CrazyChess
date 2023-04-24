@@ -1,4 +1,4 @@
-CXXFLAGS = -g -Wall -std=c++17
+CXXFLAGS = -g -Wall -Werror -std=c++17
 LDLIBS =
 
 PRGM  = Main

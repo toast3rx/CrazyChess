@@ -65,7 +65,7 @@ void Knights::getAttacks(std::vector<Move *> &moves, PlaySide side, uint64_t bla
         // Get Positions of bits where the knights are situated
     std::vector<int> knightsPos = Utils::getOneBitsPositions(knights);
 
-    for (int i = 0; i < knightsPos.size(); ++i) {
+    for (size_t i = 0; i < knightsPos.size(); ++i) {
 
         std::string source = Utils::bitToPos(knightsPos[i]);
 
@@ -75,7 +75,7 @@ void Knights::getAttacks(std::vector<Move *> &moves, PlaySide side, uint64_t bla
 
         std::vector<int> attacksPos = Utils::getOneBitsPositions(availableAttacks);
 
-        for (int j = 0; j < attacksPos.size(); ++j) {
+        for (size_t j = 0; j < attacksPos.size(); ++j) {
             moves.push_back(Move::moveTo(source, Utils::bitToPos(attacksPos[j])));
         }
     }
@@ -111,7 +111,7 @@ uint64_t Knights::getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t wh
     
     std::vector<int> knightsPos = Utils::getOneBitsPositions(knights);
 
-    for (int i = 0; i < knightsPos.size(); ++i) {
+    for (size_t i = 0; i < knightsPos.size(); ++i) {
 
         uint64_t knightIAttack = knightsMoves[knightsPos[i]] & ~allyPieces;
 

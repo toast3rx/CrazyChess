@@ -2,7 +2,7 @@
 
 extern PlaySide engineSide;
 
-const std::string Bot::BOT_NAME = "MyBot"; /* Edit this, escaped characters are forbidden */
+const std::string Bot::BOT_NAME = "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"; /* Edit this, escaped characters are forbidden */
 std::unordered_map<char, int> Bot::filesToNumber = { {'a', 0},
                                                     {'b', 1},
                                                     {'c', 2},
@@ -73,10 +73,7 @@ bool Bot::movePiece(int bitsrc, int bitdst, PlaySide side)
     King *king = side == PlaySide::WHITE ? BitBoard::whiteKing : BitBoard::blackKing;
 
     uint64_t enemyPieces = side == PlaySide::WHITE ? BitBoard::blackPieces : BitBoard::whitePieces;
-    Pawns *enemyPawns = side == PlaySide::BLACK ? BitBoard::whitePawns : BitBoard::blackPawns;
     bool enPassant = 0;
-
-
 
     if (pawns->pawns & (1ULL << bitsrc)) {
 
@@ -114,6 +111,7 @@ bool Bot::movePiece(int bitsrc, int bitdst, PlaySide side)
         BitBoard::clearBit(knights->knights, bitsrc);
         BitBoard::setBit(knights->knights, bitdst);
     } else if (rooks->rooks & (1ULL << bitsrc)) {
+
         if (pawns->promotedPawns & (1ULL << bitsrc)) {
             BitBoard::clearBit(pawns->promotedPawns, bitsrc);
             BitBoard::setBit(pawns->promotedPawns, bitdst);
@@ -137,6 +135,21 @@ bool Bot::movePiece(int bitsrc, int bitdst, PlaySide side)
     } else {
         BitBoard::clearBit(king->king, bitsrc);
         BitBoard::setBit(king->king, bitdst);
+        if (abs(bitsrc - bitdst) == 2) {
+            if (bitdst == 2) {
+                BitBoard::clearBit(rooks->rooks, 0);
+                BitBoard::setBit(rooks->rooks, 3);
+            } else if (bitdst == 6) {
+                BitBoard::clearBit(rooks->rooks, 7);
+                BitBoard::setBit(rooks->rooks, 5);
+            } else if (bitdst == 58) {
+                BitBoard::clearBit(rooks->rooks, 56);
+                BitBoard::setBit(rooks->rooks, 59);
+            } else if (bitdst == 62) {
+                BitBoard::clearBit(rooks->rooks, 63);
+                BitBoard::setBit(rooks->rooks, 61);
+            }
+        }
     }
 
     return enPassant;
@@ -149,8 +162,6 @@ void Bot::checkCapture(int bitsrc, int bitdst, PlaySide side, int testMove)
     Rooks *rooks = side == PlaySide::WHITE ? BitBoard::whiteRooks : BitBoard::blackRooks;
     Bishops *bishops = side == PlaySide::WHITE ? BitBoard::whiteBishops : BitBoard::blackBishops;
     Queens *queens = side == PlaySide::WHITE ? BitBoard::whiteQueens : BitBoard::blackQueens;
-    King *king = side == PlaySide::WHITE ? BitBoard::whiteKing : BitBoard::blackKing;
-
     PlaySide otherSide = side == PlaySide::WHITE ? PlaySide::BLACK : PlaySide::WHITE;
     int pos = otherSide == PlaySide::WHITE ? 1 : 0;
 
@@ -165,8 +176,7 @@ void Bot::checkCapture(int bitsrc, int bitdst, PlaySide side, int testMove)
             if (pawns->promotedPawns & (1ULL << bitdst)) {
                 captured[pos].insert(Piece::PAWN);
                 BitBoard::clearBit(pawns->promotedPawns, bitdst);
-            }
-            else
+            } else
                 captured[pos].insert(Piece::KNIGHT);
         }
     } else if (rooks->rooks & (1ULL << bitdst)) {
@@ -175,8 +185,7 @@ void Bot::checkCapture(int bitsrc, int bitdst, PlaySide side, int testMove)
             if (pawns->promotedPawns & (1ULL << bitdst)) {
                 captured[pos].insert(Piece::PAWN);
                 BitBoard::clearBit(pawns->promotedPawns, bitdst);
-            }
-            else
+            } else
                 captured[pos].insert(Piece::ROOK);
         }
     } else if (bishops->bishops & (1ULL << bitdst)) {
@@ -185,8 +194,7 @@ void Bot::checkCapture(int bitsrc, int bitdst, PlaySide side, int testMove)
             if (pawns->promotedPawns & (1ULL << bitdst)) {
                 captured[pos].insert(Piece::PAWN);
                 BitBoard::clearBit(pawns->promotedPawns, bitdst);
-            }
-            else
+            } else
                 captured[pos].insert(Piece::BISHOP);
         }
     } else if (queens->queens & (1ULL << bitdst)) {
@@ -195,8 +203,7 @@ void Bot::checkCapture(int bitsrc, int bitdst, PlaySide side, int testMove)
             if (pawns->promotedPawns & (1ULL << bitdst)) {
                 captured[pos].insert(Piece::PAWN);
                 BitBoard::clearBit(pawns->promotedPawns, bitdst);
-            }
-            else
+            } else
                 captured[pos].insert(Piece::QUEEN);
         }
     }
@@ -206,7 +213,6 @@ void Bot::recordMove(Move *move, PlaySide sideToMove, int isTestMove)
 {
     /* You might find it useful to also separately
      * record last move in another custom field */
-
 
     std::string src = move->source.value_or("");
     std::string dst = move->destination.value();
@@ -218,14 +224,20 @@ void Bot::recordMove(Move *move, PlaySide sideToMove, int isTestMove)
     Rooks *rooks = sideToMove == PlaySide::WHITE ? BitBoard::whiteRooks : BitBoard::blackRooks;
     Bishops *bishops = sideToMove == PlaySide::WHITE ? BitBoard::whiteBishops : BitBoard::blackBishops;
     Queens *queens = sideToMove == PlaySide::WHITE ? BitBoard::whiteQueens : BitBoard::blackQueens;
+    King *king = sideToMove == PlaySide::WHITE ? BitBoard::whiteKing : BitBoard::blackKing;
+
+    uint64_t pieces = pawns->pawns | knights->knights | rooks->rooks | bishops->bishops | queens->queens | king->king;
 
     if (move->isNormal()) {
 
         bitsrc = filesToNumber[src[0]] + 8 * (src[1] - '0' - 1);
         bitdst = filesToNumber[dst[0]] + 8 * (dst[1] - '0' - 1);
+
         enPassant = movePiece(bitsrc, bitdst, sideToMove);
         if (enPassant) {
+
             if (sideToMove == PlaySide::BLACK) {
+
                 BitBoard::setBit(BitBoard::enPassantBlack, bitsrc + 8);
             } else {
                 BitBoard::setBit(BitBoard::enPassantWhite, bitsrc - 8);
@@ -234,6 +246,8 @@ void Bot::recordMove(Move *move, PlaySide sideToMove, int isTestMove)
             BitBoard::enPassantBlack = 0ULL;
             BitBoard::enPassantWhite = 0ULL;
         }
+
+
         checkCapture(bitsrc, bitdst, sideToMove == PlaySide::WHITE ? PlaySide::BLACK : PlaySide::WHITE, isTestMove);
     } else if (move->isPromotion()) {
 
@@ -242,7 +256,9 @@ void Bot::recordMove(Move *move, PlaySide sideToMove, int isTestMove)
         bitsrc = filesToNumber[src[0]] + 8 * (src[1] - '0' - 1);
         bitdst = filesToNumber[dst[0]] + 8 * (dst[1] - '0' - 1);
         BitBoard::clearBit(pawns->pawns, bitsrc);
+
         checkCapture(bitsrc, bitdst, sideToMove == PlaySide::WHITE ? PlaySide::BLACK : PlaySide::WHITE, isTestMove);
+
         BitBoard::setBit(pawns->promotedPawns, bitdst);
         switch (move->getReplacement().value()) {
         case Piece::BISHOP:
@@ -261,6 +277,7 @@ void Bot::recordMove(Move *move, PlaySide sideToMove, int isTestMove)
             break;
         }
     } else {
+
 
         BitBoard::enPassantBlack = 0ULL;
         BitBoard::enPassantWhite = 0ULL;
@@ -326,6 +343,19 @@ void Bot::recordMove(Move *move, PlaySide sideToMove, int isTestMove)
     BitBoard::updateWhitePieces();
     BitBoard::updateBlackPieces();
     BitBoard::updateAllPieces();
+
+    if (isTestMove == 0) {
+        rooks->updateCastlePermissions(engineSide, pieces);
+
+        Rooks *enemyRooks = sideToMove == PlaySide::WHITE ? BitBoard::blackRooks : BitBoard::whiteRooks;
+        enemyRooks->updateCastlePermissions(sideToMove == PlaySide::WHITE ? PlaySide::BLACK : PlaySide::WHITE, pieces);
+
+        King *enemyKing = sideToMove == PlaySide::WHITE ? BitBoard::blackKing : BitBoard::whiteKing;
+        enemyKing->updateCastlePermissions(sideToMove == PlaySide::WHITE ? PlaySide::BLACK : PlaySide::WHITE, pieces);
+
+        king->updateCastlePermissions(engineSide, pieces);
+    }
+
 }
 static int nr = -1;
 
@@ -366,34 +396,32 @@ Move *Bot::calculateNextMove()
     Bishops *allyBishops = engineSide == PlaySide::WHITE ? BitBoard::whiteBishops : BitBoard::blackBishops;
     Queens *allyQueens = engineSide == PlaySide::WHITE ? BitBoard::whiteQueens : BitBoard::blackQueens;
     King *allyKing = engineSide == PlaySide::WHITE ? BitBoard::whiteKing : BitBoard::blackKing;
-    uint64_t allyPieces = engineSide == PlaySide::WHITE ? BitBoard::whitePieces : BitBoard::blackPieces;
     Pawns *enemyPawns = engineSide == PlaySide::BLACK ? BitBoard::whitePawns : BitBoard::blackPawns;
     Knights *enemyKnights = engineSide == PlaySide::BLACK ? BitBoard::whiteKnights : BitBoard::blackKnights;
     Rooks *enemyRooks = engineSide == PlaySide::BLACK ? BitBoard::whiteRooks : BitBoard::blackRooks;
     Bishops *enemyBishops = engineSide == PlaySide::BLACK ? BitBoard::whiteBishops : BitBoard::blackBishops;
     Queens *enemyQueens = engineSide == PlaySide::BLACK ? BitBoard::whiteQueens : BitBoard::blackQueens;
     King *enemyKing = engineSide == PlaySide::BLACK ? BitBoard::whiteKing : BitBoard::blackKing;
-    uint64_t enemyPieces = engineSide == PlaySide::BLACK ? BitBoard::whitePieces : BitBoard::blackPieces;
 
     std::vector<Move *> moves;
-    
-        allyRooks->updateCastlePermissions(PlaySide::WHITE, BitBoard::whitePieces);
-        enemyRooks->updateCastlePermissions(PlaySide::BLACK, BitBoard::blackPieces);
 
-        allyKing->updateCastlePermissions(PlaySide::WHITE, BitBoard::whitePieces);
-        enemyKing->updateCastlePermissions(PlaySide::BLACK, BitBoard::blackPieces);
-        uint64_t enemyAttacks = getEnemyAttacks(enemyKnights, enemyRooks, enemyPawns,
-                                                        enemyBishops, enemyQueens, enemyKing);
+
+    uint64_t enemyAttacks = getEnemyAttacks(enemyKnights, enemyRooks, enemyPawns,
+        enemyBishops, enemyQueens, enemyKing);
+
     if (allyKing->canCastle) {
         std::vector<Move *> castleMove = allyKing->tryCastle(engineSide, allyRooks, enemyAttacks,
             BitBoard::blackPieces,
             BitBoard::whitePieces,
             BitBoard::allPieces
-            );
-        
+        );
+
         if (castleMove.size() > 0) {
-            nr = rng () % castleMove.size();
-            recordMove(castleMove[nr], engineSide, 0);
+
+            nr = rng() % castleMove.size();
+
+            recordMove(castleMove[nr], engineSide, 0); // rege
+
             return castleMove[nr];
         }
     }
@@ -429,8 +457,6 @@ Move *Bot::calculateNextMove()
 
 
     moves.insert(moves.end(), pawnMoves.begin(), pawnMoves.end());
-
-
     moves.insert(moves.end(), rookMoves.begin(), rookMoves.end());
     moves.insert(moves.end(), kingMoves.begin(), kingMoves.end());
     moves.insert(moves.end(), bishopMoves.begin(), bishopMoves.end());
@@ -451,8 +477,7 @@ Move *Bot::calculateNextMove()
     if (validMoves.size() == 0) {
         return Move::resign();
     }
-    nr = rng () % validMoves.size();
-
+    nr = rng() % validMoves.size();
     recordMove(validMoves[nr], engineSide, 0);
 
     return validMoves[nr];
@@ -470,8 +495,7 @@ std::vector<Move *> Bot::getAvailableMoves(std::vector<Move *> allMoves,
     King *enemyKingPiece
 )
 {
-
-    PlaySide engineSidePrev = engineSide;
+    // PlaySide engineSidePrev = engineSide;
     // Previous state
     uint64_t whitePawns = BitBoard::whitePawns->pawns;
     uint64_t whiteKnights = BitBoard::whiteKnights->knights;
@@ -479,7 +503,6 @@ std::vector<Move *> Bot::getAvailableMoves(std::vector<Move *> allMoves,
     uint64_t whiteRooks = BitBoard::whiteRooks->rooks;
     uint64_t whiteQueens = BitBoard::whiteQueens->queens;
     uint64_t whiteKing = BitBoard::whiteKing->king;
-    uint64_t whitePieces = whitePawns | whiteKnights | whiteBishops | whiteRooks | whiteQueens | whiteKing;
 
     uint64_t blackPawns = BitBoard::blackPawns->pawns;
     uint64_t blackKnights = BitBoard::blackKnights->knights;
@@ -487,7 +510,6 @@ std::vector<Move *> Bot::getAvailableMoves(std::vector<Move *> allMoves,
     uint64_t blackRooks = BitBoard::blackRooks->rooks;
     uint64_t blackQueens = BitBoard::blackQueens->queens;
     uint64_t blackKing = BitBoard::blackKing->king;
-    uint64_t blackPieces = blackPawns | blackKnights | blackBishops | blackRooks | blackQueens | blackKing;
 
     uint64_t whitePromotedPawns = BitBoard::whitePawns->promotedPawns;
     uint64_t blackPromotedPawns = BitBoard::blackPawns->promotedPawns;
@@ -498,14 +520,12 @@ std::vector<Move *> Bot::getAvailableMoves(std::vector<Move *> allMoves,
 
     std::vector<Move *> validMoves = {};
 
-    for (int i = 0; i < allMoves.size(); ++i) {
+    for (size_t i = 0; i < allMoves.size(); ++i) {
 
         recordMove(allMoves[i], engineSide, 1);
 
-        PlaySide enemySide = engineSide == PlaySide::WHITE ? PlaySide::BLACK : PlaySide::WHITE;
-
         uint64_t allEnemyAttacks = getEnemyAttacks(enemyKnightsPiece, enemyRooksPiece, enemyPawnsPiece,
-                                                    enemyBishopsPiece, enemyQueensPiece, enemyKingPiece);
+            enemyBishopsPiece, enemyQueensPiece, enemyKingPiece);
 
         int kingPos = Utils::getOneBitsPositions(allyKingPiece->king)[0];
 
