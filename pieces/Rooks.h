@@ -12,7 +12,12 @@ public:
 
     Rooks(uint64_t _rooks);
 
-    std::vector<Move*> getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces);
+    void getMoves(PlaySide side, 
+                                uint64_t blackPieces, 
+                                uint64_t whitePieces, 
+                                uint64_t allPieces,
+                                std::vector<Move*> &allMoves
+                                );
     
     void updateCastlePermissions(PlaySide engineSide, uint64_t myPieces);
 

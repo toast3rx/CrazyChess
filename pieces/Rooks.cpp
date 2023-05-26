@@ -1,26 +1,27 @@
 #include "Rooks.h"
 
-uint64_t Rooks::RookAttacks[64][4096] = {{0}};
+uint64_t Rooks::RookAttacks[64][4096] = { {0} };
 
-uint64_t Rooks::RookMoveFromSquare[64] = {0};
+uint64_t Rooks::RookMoveFromSquare[64] = { 0 };
 
 std::vector<int> getOneBitsPositions(uint64_t number)
 {
-	std::vector<int> positions;
+    std::vector<int> positions;
 
-	int position = 0;
-	while (number != 0) {
-		if (number & 1) {
-			positions.push_back(position);
-		}
-		number >>= 1;
-		++position;
-	}
+    int position = 0;
+    while (number != 0) {
+        if (number & 1) {
+            positions.push_back(position);
+        }
+        number >>= 1;
+        ++position;
+    }
 
-	return positions;
+    return positions;
 }
 
-int getLsbIdx(uint64_t n) {
+int getLsbIdx(uint64_t n)
+{
     int pos = 0;
     while ((n & 1) == 0) {
         if (n == 0) {
@@ -32,12 +33,14 @@ int getLsbIdx(uint64_t n) {
     return pos;
 }
 
-int getRookKey(int square, uint64_t blockers) {
+int getRookKey(int square, uint64_t blockers)
+{
 
     return (blockers * Rooks::RookMagic[square]) >> (64 - Rooks::RookOnes[square]);
 }
 
-uint64_t getBlockersFromPerm(int perm, uint64_t mask, int debug) {
+uint64_t getBlockersFromPerm(int perm, uint64_t mask, int debug)
+{
     uint64_t blockers = 0;
     int bits = Utils::getBits(mask);
     // iterate through all "one" bits of the mask
@@ -52,7 +55,8 @@ uint64_t getBlockersFromPerm(int perm, uint64_t mask, int debug) {
     return blockers;
 }
 
-Rooks::Rooks(uint64_t _rooks) : rooks(_rooks) {
+Rooks::Rooks(uint64_t _rooks) : rooks(_rooks)
+{
 
     initRookAllMoves();
     initRookMagicTable();
@@ -60,9 +64,15 @@ Rooks::Rooks(uint64_t _rooks) : rooks(_rooks) {
 }
 
 
-std::vector<Move*> Rooks::getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces) {
+void Rooks::getMoves(PlaySide side,
+    uint64_t blackPieces,
+    uint64_t whitePieces,
+    uint64_t allPieces,
+    std::vector<Move *> &allMoves
+)
+{
 
-    std::vector<Move*> moves;
+    std::vector<Move *> moves;
     uint64_t botPieces = 0;
     if (side == PlaySide::WHITE) {
         botPieces = whitePieces;
@@ -88,38 +98,40 @@ std::vector<Move*> Rooks::getMoves(PlaySide side, uint64_t blackPieces, uint64_t
             int rookFile = rookPos % 8;
 
             std::string prev = "";
-			char fileChar = rookFile + 'a';
-			char rankChar = rookRank + '0';
-			prev.append(1, fileChar);
-			prev.append(1, rankChar);
+            char fileChar = rookFile + 'a';
+            char rankChar = rookRank + '0';
+            prev.append(1, fileChar);
+            prev.append(1, rankChar);
 
             int destRank = destPos / 8 + 1;
             int destFile = destPos % 8;
 
             std::string next = "";
             char fileChar2 = destFile + 'a';
-			char rankChar2 = destRank + '0';
-			next.append(1, fileChar2);
-			next.append(1, rankChar2);
+            char rankChar2 = destRank + '0';
+            next.append(1, fileChar2);
+            next.append(1, rankChar2);
 
-            moves.push_back(Move::moveTo(prev, next));
+            // moves.push_back(Move::moveTo(prev, next));
+            allMoves.push_back(Move::moveTo(prev, next));
         }
     }
 
-    return moves;
-
+    // return moves;
 }
 
-void Rooks::initRookAllMoves() {
+void Rooks::initRookAllMoves()
+{
     for (int sq = 0; sq < 64; sq++) {
         RookMoveFromSquare[sq] = 0;
-		uint64_t sideMoves = (Utils::getRank(sq / 8 + 1) & ~Utils::getFile(1) & ~Utils::getFile(8));
-		uint64_t upDownMoves = (Utils::getFile(sq % 8 + 1) & ~Utils::getRank(1) & ~Utils::getRank(8));
+        uint64_t sideMoves = (Utils::getRank(sq / 8 + 1) & ~Utils::getFile(1) & ~Utils::getFile(8));
+        uint64_t upDownMoves = (Utils::getFile(sq % 8 + 1) & ~Utils::getRank(1) & ~Utils::getRank(8));
         RookMoveFromSquare[sq] = ((sideMoves | upDownMoves) & ~(1ULL << sq));
     }
 }
 
-void Rooks::initRookMagicTable() {
+void Rooks::initRookMagicTable()
+{
 
     for (int sq = 0; sq < 64; sq++) {
 
@@ -131,7 +143,8 @@ void Rooks::initRookMagicTable() {
     }
 }
 
-uint64_t Rooks::getRookAttacks(int square, uint64_t blockers) {
+uint64_t Rooks::getRookAttacks(int square, uint64_t blockers)
+{
 
     blockers &= RookMoveFromSquare[square];
     uint64_t key = getRookKey(square, blockers);
@@ -139,7 +152,8 @@ uint64_t Rooks::getRookAttacks(int square, uint64_t blockers) {
     return RookAttacks[square][key];
 }
 
-uint64_t Rooks::makeValidMove(int square, uint64_t blockers) {
+uint64_t Rooks::makeValidMove(int square, uint64_t blockers)
+{
     uint64_t attacks = 0;
     int column = square % 8;
     int row = square / 8;
@@ -183,7 +197,8 @@ uint64_t Rooks::makeValidMove(int square, uint64_t blockers) {
     return attacks;
 }
 
-uint64_t Rooks::getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces) {
+uint64_t Rooks::getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces)
+{
 
     uint64_t attacks = 0ULL;
     uint64_t botPieces;

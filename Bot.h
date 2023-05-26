@@ -14,7 +14,7 @@ class Bot {
   /* Declare custom fields below */
   static std::unordered_map<char, int> filesToNumber;
   static std::unordered_map<char, int> numberToFiles;
-
+  Move* bestMove;
   std::multiset<Piece> captured[2];
   /* Declare custom fields above */
   Bot();
@@ -49,7 +49,8 @@ class Bot {
   void checkCapture(int src, int dst, PlaySide side, int testMove);
   std::vector<Move*> getDropInMoves(PlaySide side);
   static std::string getBotName();
-  
+  int negamax(int depth, PlaySide currSide, int alpha, int beta, int test);
+  int evaluate(PlaySide side);
 
 };
 #endif

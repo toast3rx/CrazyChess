@@ -1,7 +1,7 @@
 #include "King.h"
 
 
-std::vector<Move*> King::getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces)
+void King::getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces, std::vector<Move*> &allMoves)
 {
     std::vector<Move*> moves;
     uint64_t botPieces = 0;
@@ -41,7 +41,8 @@ std::vector<Move*> King::getMoves(PlaySide side, uint64_t blackPieces, uint64_t 
 
         moves.push_back(Move::moveTo(prev, next));
     }
-    return moves;
+
+    allMoves.insert(allMoves.end(), moves.begin(), moves.end());
 }
 
 // uint64_t King::getAllAttacks(PlayingSide ) {

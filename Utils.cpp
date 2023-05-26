@@ -14,7 +14,8 @@ int Utils::popLsb(uint64_t &n) {
     return LsbIndex;
 }
 
-int Utils::getBits(uint64_t n) {
+int Utils::getBits(const uint64_t n)
+{
     return getOneBitsPositions(n).size();
 }
 

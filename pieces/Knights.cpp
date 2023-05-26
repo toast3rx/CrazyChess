@@ -90,11 +90,11 @@ void Knights::getAttacks(std::vector<Move *> &moves, PlaySide side, uint64_t bla
  * @param allPieces 
  * @return std::vector<Move *> 
  */
-std::vector<Move *> Knights::getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces)
+void Knights::getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces, std::vector<Move*> &allMoves)
 {
     std::vector<Move *> result;
     getAttacks(result, side, blackPieces, whitePieces);
-    return result;
+    allMoves.insert(allMoves.end(), result.begin(), result.end());
 }
 
 /**

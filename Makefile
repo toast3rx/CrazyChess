@@ -1,7 +1,8 @@
-CXXFLAGS = -g -Wall -Werror -std=c++17
+CXXFLAGS = -g -Wall -std=c++17 -O3
 LDLIBS =
 
 PRGM  = Main
+SRCS := $(wildcard pieces/*.cpp) $(wildcard *.cpp) 
 SRCS := $(wildcard pieces/*.cpp) $(wildcard *.cpp) 
 HDRS := $(wildcard *.h) $(wildcard pieces/*.h)
 OBJSH := $(HDRS:.h=.o)
@@ -12,7 +13,9 @@ DEPS := $(OBJS:.o=.d)
 
 .PHONY: all clean
 
-all: $(PRGM)
+run: ./Main
+
+build: $(PRGM)
 
 $(PRGM): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) $(LDLIBS) -o $@

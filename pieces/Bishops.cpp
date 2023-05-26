@@ -180,7 +180,12 @@ uint64_t Bishops::gen_number()
     return sol;
 }
 
-std::vector<Move*> Bishops::getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces)
+void Bishops::getMoves(PlaySide side, 
+                                    uint64_t blackPieces, 
+                                    uint64_t whitePieces, 
+                                    uint64_t allPieces,
+                                    std::vector<Move*> &all_moves
+                                    )
 {
     std::vector< Move* > sol;
     uint64_t myPieces = 0;
@@ -209,7 +214,8 @@ std::vector<Move*> Bishops::getMoves(PlaySide side, uint64_t blackPieces, uint64
         }
     }
 
-    return sol;
+    all_moves.insert(all_moves.end(), sol.begin(), sol.end());
+    // return sol;
 }
 
 uint64_t Bishops::getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces)
