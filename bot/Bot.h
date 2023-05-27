@@ -47,7 +47,7 @@ class Bot {
    * @param state previous state
    * @param captured_prev  previous captured pieces
    */
-  static void go_back(std::unordered_map<std::string, uint64_t> state, std::multiset<Piece> captured_prev[2]);
+  void go_back(std::unordered_map<std::string, uint64_t> state, std::multiset<Piece> captured_prev[2]);
 
   std::vector<Move *> getAvailableMoves(std::vector<Move *> allMoves,
     King *allyKingPiece,

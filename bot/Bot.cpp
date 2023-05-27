@@ -255,7 +255,7 @@ void Bot::recordMove(Move *move, PlaySide sideToMove, int isTestMove) {
         bitdst = filesToNumber[dst[0]] + 8 * (dst[1] - '0' - 1);
         BitBoard::clearBit(pawns->pawns, bitsrc);
 
-        (bitsrc, bitdst, sideToMove == PlaySide::WHITE ? PlaySide::BLACK : PlaySide::WHITE, isTestMove);
+//        (bitsrc, bitdst, sideToMove == PlaySide::WHITE ? PlaySide::BLACK : PlaySide::WHITE, isTestMove); // TODO Ce face aici?
 
         BitBoard::setBit(pawns->promotedPawns, bitdst);
         switch (move->getReplacement().value()) {
@@ -349,8 +349,6 @@ void Bot::recordMove(Move *move, PlaySide sideToMove, int isTestMove) {
 
 }
 
-static int nr = -1;
-
 uint64_t getEnemyAttacks(Knights *enemyKnightsPiece,
                          Rooks *enemyRooksPiece,
                          Pawns *enemyPawnsPiece,
@@ -405,26 +403,11 @@ std::vector<Move *> Bot::getAvailableMoves(std::vector<Move *> allMoves,
 ) {
     // PlaySide engineSidePrev = engineSide;
     // Previous state
-    uint64_t whitePawns = BitBoard::whitePawns->pawns;
-    uint64_t whiteKnights = BitBoard::whiteKnights->knights;
-    uint64_t whiteBishops = BitBoard::whiteBishops->bishops;
-    uint64_t whiteRooks = BitBoard::whiteRooks->rooks;
-    uint64_t whiteQueens = BitBoard::whiteQueens->queens;
-    uint64_t whiteKing = BitBoard::whiteKing->king;
+    std::unordered_map<std::string , uint64_t> state = get_current_state();
 
-    uint64_t blackPawns = BitBoard::blackPawns->pawns;
-    uint64_t blackKnights = BitBoard::blackKnights->knights;
-    uint64_t blackBishops = BitBoard::blackBishops->bishops;
-    uint64_t blackRooks = BitBoard::blackRooks->rooks;
-    uint64_t blackQueens = BitBoard::blackQueens->queens;
-    uint64_t blackKing = BitBoard::blackKing->king;
-
-    uint64_t whitePromotedPawns = BitBoard::whitePawns->promotedPawns;
-    uint64_t blackPromotedPawns = BitBoard::blackPawns->promotedPawns;
-
-    uint64_t enPassantWhite = BitBoard::enPassantWhite;
-    uint64_t enPassantBlack = BitBoard::enPassantBlack;
-
+    std::multiset<Piece> captured_backup[2];
+    captured_backup[0] = captured[0];
+    captured_backup[1] = captured[1];
 
     std::vector<Move *> validMoves = {};
 
@@ -442,29 +425,7 @@ std::vector<Move *> Bot::getAvailableMoves(std::vector<Move *> allMoves,
         }
 
         // restore move
-        BitBoard::whitePawns->pawns = whitePawns;
-        BitBoard::whiteKnights->knights = whiteKnights;
-        BitBoard::whiteBishops->bishops = whiteBishops;
-        BitBoard::whiteRooks->rooks = whiteRooks;
-        BitBoard::whiteQueens->queens = whiteQueens;
-        BitBoard::whiteKing->king = whiteKing;
-
-        BitBoard::blackPawns->pawns = blackPawns;
-        BitBoard::blackKnights->knights = blackKnights;
-        BitBoard::blackBishops->bishops = blackBishops;
-        BitBoard::blackRooks->rooks = blackRooks;
-        BitBoard::blackQueens->queens = blackQueens;
-        BitBoard::blackKing->king = blackKing;
-
-        BitBoard::whitePawns->promotedPawns = whitePromotedPawns;
-        BitBoard::blackPawns->promotedPawns = blackPromotedPawns;
-
-        BitBoard::enPassantWhite = enPassantWhite;
-        BitBoard::enPassantBlack = enPassantBlack;
-
-        BitBoard::updateWhitePieces();
-        BitBoard::updateBlackPieces();
-        BitBoard::updateAllPieces();
+        go_back(state, captured_backup);
     }
 
     return validMoves;
@@ -476,13 +437,14 @@ int Bot::evaluate(PlaySide side) {
     Rooks *allyRooks = side == PlaySide::WHITE ? BitBoard::whiteRooks : BitBoard::blackRooks;
     Bishops *allyBishops = side == PlaySide::WHITE ? BitBoard::whiteBishops : BitBoard::blackBishops;
     Queens *allyQueens = side == PlaySide::WHITE ? BitBoard::whiteQueens : BitBoard::blackQueens;
-    King *allyKing = side == PlaySide::WHITE ? BitBoard::whiteKing : BitBoard::blackKing;
+//    King *allyKing = side == PlaySide::WHITE ? BitBoard::whiteKing : BitBoard::blackKing;
+
     Pawns *enemyPawns = side == PlaySide::BLACK ? BitBoard::whitePawns : BitBoard::blackPawns;
     Knights *enemyKnights = side == PlaySide::BLACK ? BitBoard::whiteKnights : BitBoard::blackKnights;
     Rooks *enemyRooks = side == PlaySide::BLACK ? BitBoard::whiteRooks : BitBoard::blackRooks;
     Bishops *enemyBishops = side == PlaySide::BLACK ? BitBoard::whiteBishops : BitBoard::blackBishops;
     Queens *enemyQueens = side == PlaySide::BLACK ? BitBoard::whiteQueens : BitBoard::blackQueens;
-    King *enemyKing = side == PlaySide::BLACK ? BitBoard::whiteKing : BitBoard::blackKing;
+//    King *enemyKing = side == PlaySide::BLACK ? BitBoard::whiteKing : BitBoard::blackKing;
 
     int allyRooksNumber = Utils::getBits(allyRooks->rooks);
     int allyPawnsNumber = Utils::getBits(allyPawns->pawns);
@@ -491,7 +453,7 @@ int Bot::evaluate(PlaySide side) {
     int allyQueensNumber = Utils::getBits(allyQueens->queens);
     // int allyKing = Utils::getBits(allyKing->king);
 
-    int enemyRooksNumber = Utils::getBits(allyRooks->rooks);
+    int enemyRooksNumber = Utils::getBits(enemyRooks->rooks);
     int enemyPawnsNumber = Utils::getBits(enemyPawns->pawns);
     int enemyKnightsNumber = Utils::getBits(enemyKnights->knights);
     int enemyBishopsNumber = Utils::getBits(enemyBishops->bishops);
@@ -520,6 +482,7 @@ int Bot::negamax(int depth,
     std::vector<Move *> moves;
     std::vector<Move *> validMoves;
 
+    // TODO move this block of code in a new function
     {
         Pawns *allyPawns = currSide == PlaySide::WHITE ? BitBoard::whitePawns : BitBoard::blackPawns;
         Knights *allyKnights = currSide == PlaySide::WHITE ? BitBoard::whiteKnights : BitBoard::blackKnights;
@@ -632,6 +595,8 @@ int Bot::negamax(int depth,
                              1,
                              get_current_state());
 
+        go_back(prev_state, captured_backup);
+
         if (score > bestScore) {
             if (test == 0)
                 bestMove = move;
@@ -641,11 +606,6 @@ int Bot::negamax(int depth,
         if (bestScore > alpha) {
             alpha = bestScore;
         }
-
-        // restore move
-        go_back(prev_state, captured_backup);
-        captured[0] = captured_backup[0];
-        captured[1] = captured_backup[1];
 
         if (alpha >= beta)
             break;
@@ -700,8 +660,10 @@ void Bot::go_back(std::unordered_map<std::string, uint64_t> state,
     BitBoard::enPassantWhite = state["enPassantWhite"];
     BitBoard::enPassantBlack = state["enPassantBlack"];
 
+    captured[0] = captured_prev[0];
+    captured[1] = captured_prev[1];
+
     BitBoard::updateWhitePieces();
     BitBoard::updateBlackPieces();
     BitBoard::updateAllPieces();
-    // TODO Add captured multiset
 }
