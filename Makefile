@@ -2,9 +2,8 @@ CXXFLAGS = -g -Wall -std=c++17 -O3
 LDLIBS =
 
 PRGM  = Main
-SRCS := $(wildcard pieces/*.cpp) $(wildcard *.cpp) 
-SRCS := $(wildcard pieces/*.cpp) $(wildcard *.cpp) 
-HDRS := $(wildcard *.h) $(wildcard pieces/*.h)
+SRCS := $(wildcard pieces/*/*.cpp)  $(wildcard bitboard/*.cpp)  $(wildcard bot/*.cpp)  $(wildcard *.cpp)
+HDRS := $(wildcard pieces/*/*.h)  $(wildcard bitboard/*.h)  $(wildcard bot/*.h)  $(wildcard *.h)
 OBJSH := $(HDRS:.h=.o)
 DEPSH := $(OBJSH:.o=.d)
 

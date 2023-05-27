@@ -3,9 +3,9 @@
 
 #include <cassert>
 
-#include "Bot.h"
-#include "Move.h"
-#include "Piece.h"
+#include "bot/Bot.h"
+#include "bot/Move.h"
+#include "pieces/Piece.h"
 #include "PlaySide.h"
 
 static PlaySide sideToMove;

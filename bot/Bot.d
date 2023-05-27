@@ -1,4 +1,4 @@
-Main.o: Main.cpp bot/Bot.h bot/Move.h bot/../pieces/Piece.h \
+bot/Bot.o: bot/Bot.cpp bot/Bot.h bot/Move.h bot/../pieces/Piece.h \
  bot/../PlaySide.h bot/../bitboard/BitBoard.h \
  bot/../bitboard/../pieces/pawn/Pawns.h \
  bot/../bitboard/../pieces/pawn/../../bot/Move.h \
@@ -27,8 +27,7 @@ Main.o: Main.cpp bot/Bot.h bot/Move.h bot/../pieces/Piece.h \
  bot/../bitboard/../pieces/king/../../bot/Move.h \
  bot/../bitboard/../pieces/king/../../PlaySide.h \
  bot/../bitboard/../pieces/king/../../Utils.h \
- bot/../bitboard/../pieces/king/../rook/Rooks.h bot/Move.h pieces/Piece.h \
- PlaySide.h
+ bot/../bitboard/../pieces/king/../rook/Rooks.h
 bot/Bot.h:
 bot/Move.h:
 bot/../pieces/Piece.h:
@@ -62,6 +61,3 @@ bot/../bitboard/../pieces/king/../../bot/Move.h:
 bot/../bitboard/../pieces/king/../../PlaySide.h:
 bot/../bitboard/../pieces/king/../../Utils.h:
 bot/../bitboard/../pieces/king/../rook/Rooks.h:
-bot/Move.h:
-pieces/Piece.h:
-PlaySide.h:
