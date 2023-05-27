@@ -1,0 +1,6 @@
+- en passant flag
+- captured flag
+- piece type flag 
+- promoted pawn
+- rocada
+1st bit - captured

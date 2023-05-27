@@ -64,11 +64,10 @@ Rooks::Rooks(uint64_t _rooks) : rooks(_rooks)
 }
 
 
-void Rooks::getMoves(PlaySide side,
+std::vector<Move *>  Rooks::getMoves(PlaySide side,
     uint64_t blackPieces,
     uint64_t whitePieces,
-    uint64_t allPieces,
-    std::vector<Move *> &allMoves
+    uint64_t allPieces
 )
 {
 
@@ -112,12 +111,12 @@ void Rooks::getMoves(PlaySide side,
             next.append(1, fileChar2);
             next.append(1, rankChar2);
 
-            // moves.push_back(Move::moveTo(prev, next));
-            allMoves.push_back(Move::moveTo(prev, next));
+            moves.push_back(Move::moveTo(prev, next));
+            // allMoves.push_back(Move::moveTo(prev, next));
         }
     }
 
-    // return moves;
+    return moves;
 }
 
 void Rooks::initRookAllMoves()

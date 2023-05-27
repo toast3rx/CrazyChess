@@ -14,8 +14,10 @@ class Bot {
   /* Declare custom fields below */
   static std::unordered_map<char, int> filesToNumber;
   static std::unordered_map<char, int> numberToFiles;
+  uint8_t flags;
   Move* bestMove;
-  std::multiset<Piece> captured[2];
+  std::multiset<std::pair<int, Piece>> captured[2];
+  int nr = 0;
   /* Declare custom fields above */
   Bot();
 
@@ -47,7 +49,19 @@ class Bot {
    * @param state previous state
    * @param captured_prev  previous captured pieces
    */
-  void go_back(std::unordered_map<std::string, uint64_t> state, std::multiset<Piece> captured_prev[2]);
+  void go_back(std::unordered_map<std::string, uint64_t> state, std::multiset<std::pair<int, Piece>> captured_prev[2]);
+
+  /**
+   * @brief Generate all moves for pieces with the given side and pieces
+   * 
+   */
+  std::vector<Move *> generateMoves(Pawns *pawns,
+    Knights *knights,
+    Bishops *bishops,
+    Rooks *rooks,
+    Queens *queens,
+    King *king,
+    PlaySide currSide);
 
   std::vector<Move *> getAvailableMoves(std::vector<Move *> allMoves,
     King *allyKingPiece,
@@ -62,8 +76,11 @@ class Bot {
   void checkCapture(int src, int dst, PlaySide side, int testMove);
   std::vector<Move*> getDropInMoves(PlaySide side);
   static std::string getBotName();
-  int negamax(int depth, PlaySide currSide, int alpha, int beta, int test, std::unordered_map<std::string, uint64_t> prev_state);
+  double negamax(int depth, PlaySide currSide, int alpha, int beta, int test);
   int evaluate(PlaySide side);
+  double evaluate2();
+  void undoMove(Move *move, PlaySide sideToMove, int mor);
+
 
 };
 #endif

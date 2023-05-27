@@ -3,19 +3,18 @@
 
 Pawns::Pawns(uint64_t _pawns) : pawns(_pawns) {}
 
-void Pawns::getMoves(PlaySide side, 
+std::vector<Move *>  Pawns::getMoves(PlaySide side,
 								    uint64_t blackPieces, 
 									uint64_t whitePieces, 
 									uint64_t allPieces, 
 									uint64_t enPassantWhite, 
-									uint64_t enPassantBlack,
-									std::vector<Move *> &allMoves)
+									uint64_t enPassantBlack)
 {
 	std::vector<Move *> moves;
 	getAttacks(moves, side, blackPieces, whitePieces, enPassantWhite, enPassantBlack);
 	getPush(moves, side, allPieces);
-	allMoves.insert(allMoves.end(), moves.begin(), moves.end());
-	// return moves;
+
+	return moves;
 }
 
 void Pawns::getAttacks(std::vector<Move *> &moves, PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t enPassantWhite, uint64_t enPassantBlack)

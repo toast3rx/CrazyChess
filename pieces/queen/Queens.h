@@ -17,13 +17,12 @@ public:
     // void Move();
     void init();
     
-    void getMoves(PlaySide side, 
+    std::vector<Move *>  getMoves(PlaySide side,
                                 Rooks *rooks, 
                                 Bishops *bishop, 
                                 uint64_t blackPieces, 
                                 uint64_t whitePieces, 
-                                uint64_t allPieces,
-                                std::vector<Move*> &allMoves
+                                uint64_t allPieces
                                 );
 
     uint64_t getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces);

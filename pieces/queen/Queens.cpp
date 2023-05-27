@@ -14,13 +14,12 @@ int32_t get_key_rook(uint64_t square, uint64_t blockers) {
     return (blockers * Rooks::RookMagic[square]) >> (64 - Rooks::RookOnes[square]);
 }
 
-void Queens::getMoves(PlaySide side, 
+std::vector<Move *>  Queens::getMoves(PlaySide side,
                                     Rooks *rooks, 
                                     Bishops *bishop, 
                                     uint64_t blackPieces, 
                                     uint64_t whitePieces, 
-                                    uint64_t allPieces,
-                                    std::vector<Move*> &allMoves
+                                    uint64_t allPieces
                                     )
 {
     std::vector< Move* > sol;
@@ -85,8 +84,7 @@ void Queens::getMoves(PlaySide side,
         }
     }
 
-    allMoves.insert(allMoves.end(), sol.begin(), sol.end());
-    // return sol;
+    return sol;
 }
 
 uint64_t Queens::getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces)

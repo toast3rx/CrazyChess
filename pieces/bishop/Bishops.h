@@ -16,11 +16,10 @@ public:
 
     Bishops(uint64_t _bishops);
 
-    void getMoves(PlaySide side,
+    std::vector<Move *>  getMoves(PlaySide side,
         uint64_t blackPieces,
         uint64_t whitePieces,
-        uint64_t allPieces,
-        std::vector<Move *> &allMoves
+        uint64_t allPieces
     );
 
     // std::pair < std::string, std::string > convert_table_to_positions(uint64_t source, uint64_t &goodSquares);
