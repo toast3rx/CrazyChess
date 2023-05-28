@@ -1,5 +1,5 @@
 #include "Bot.h"
-#define DUDUIE 2
+#define DUDUIE 10
 extern PlaySide engineSide;
 
 std::ofstream fout("log.txt", std::ios::app);
@@ -414,7 +414,7 @@ Move *Bot::calculateNextMove()
         ++depth;
 
     }
-    seen_positions.clear();
+    //seen_positions.clear();
     // nr = rng() % validMoves.size();
 
     fout << "Side to move " << (engineSide == PlaySide::WHITE ? "WHITE" : "BLACK") << std::endl;
@@ -732,15 +732,20 @@ int Bot::getScore(Move *a, PlaySide currSide)
 
     return score;
 }
+std::shared_ptr<std::vector<Move *>> sharedptr;
 
 int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
 {
     std::vector<Move *> validMoves = Bot::generateMoves(currSide);
+    //sharedptr = std::make_shared<std::vector<Move *>>(validMoves);
     // game over
     if (depth == 0) {
         if (validMoves.size() == 0) {
             return -1e9;
         }
+
+        for (int i = 0; i < validMoves.size(); i++)
+            delete validMoves[i];
         return evaluate(currSide);
     }
 
@@ -755,7 +760,7 @@ int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
     
     /////sortam aici ?!
     for (auto move : validMoves) {
-
+        fout << "Move " << move->source.value_or(" ") << " " << move->destination.value_or(" ") << " SCORE " << Bot::getScore(move, currSide) << std::endl;
         std::size_t act_time = std::time(NULL);
 
         // fout << "Act time in negamax " << act_time << "\n";
@@ -814,7 +819,7 @@ int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
         } else {
             seen_positions[string_pos] = score;
         }
-        // fout << "Score: " << score << "Move " << move->source.value_or("-1") << " " << move->destination.value_or("-1") << std::endl;
+        fout << "Score: " << score << "Move " << move->source.value_or("-1") << " " << move->destination.value_or("-1") << std::endl;
 
         // restore move
         BitBoard::whitePawns->pawns = whitePawns;
@@ -848,8 +853,10 @@ int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
         // }
 
         if (score > bestScore) {
-            if (test == 0)
-                bestMove = move;
+            if (test == 0) {
+                delete bestMove;
+                bestMove = Move::promote(move->source, move->destination, move->replacement);
+            }
             bestScore = score;
         }
     
@@ -864,6 +871,10 @@ int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
         }
 
     }
-    validMoves.~vector();
+    
+    for (int i = 0; i < validMoves.size(); i++)
+            delete validMoves[i];
+    // sharedptr.reset();
+    
     return bestScore;
 }

@@ -11,7 +11,7 @@ class Move {
    as strings (i.e. "e1", "f6", "a4" etc.) */
   std::optional<std::string> source;
   std::optional<std::string> destination;
-
+  std::optional<Piece> replacement;
   /*
     Use the following 4 constructors for Move:
     moveTo(src, dst), if emitting a standard move (advance, capture, castle)
@@ -77,7 +77,6 @@ class Move {
  private:
   /* Piece to promote a pawn advancing to last row, or
    *  piece to drop-in (from captured assets) */
-  std::optional<Piece> replacement;
   Move(std::optional<std::string> _source,
        std::optional<std::string> _destination,
        std::optional<Piece> _replacement);
