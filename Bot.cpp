@@ -1,8 +1,9 @@
 #include "Bot.h"
-
+#define DUDUIE 5
 extern PlaySide engineSide;
 
 std::ofstream fout("log.txt", std::ios::app);
+
 
 const std::string Bot::BOT_NAME = "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"; /* Edit this, escaped characters are forbidden */
 std::unordered_map<char, int> Bot::filesToNumber = { {'a', 0},
@@ -259,7 +260,7 @@ void Bot::recordMove(Move *move, PlaySide sideToMove, int isTestMove)
         bitdst = filesToNumber[dst[0]] + 8 * (dst[1] - '0' - 1);
         BitBoard::clearBit(pawns->pawns, bitsrc);
 
-         (bitsrc, bitdst, sideToMove == PlaySide::WHITE ? PlaySide::BLACK : PlaySide::WHITE, isTestMove);
+        checkCapture(bitsrc, bitdst, sideToMove == PlaySide::WHITE ? PlaySide::BLACK : PlaySide::WHITE, isTestMove);
 
         BitBoard::setBit(pawns->promotedPawns, bitdst);
         switch (move->getReplacement().value()) {
@@ -364,9 +365,10 @@ uint64_t getEnemyAttacks(Knights *enemyKnightsPiece,
     Pawns *enemyPawnsPiece,
     Bishops *enemyBishopsPiece,
     Queens *enemyQueensPiece,
-    King *enemyKingPiece)
+    King *enemyKingPiece,
+    PlaySide currSide)
 {
-    PlaySide enemySide = engineSide == PlaySide::WHITE ? PlaySide::BLACK : PlaySide::WHITE;
+    PlaySide enemySide = currSide == PlaySide::WHITE ? PlaySide::BLACK : PlaySide::WHITE;
 
     uint64_t knightAttacks = enemyKnightsPiece->getAllAttacks(enemySide, BitBoard::blackPieces, BitBoard::whitePieces);
     uint64_t rookAttacks = enemyRooksPiece->getAllAttacks(enemySide, BitBoard::blackPieces, BitBoard::whitePieces, BitBoard::allPieces);
@@ -379,6 +381,8 @@ uint64_t getEnemyAttacks(Knights *enemyKnightsPiece,
     return knightAttacks | rookAttacks | pawnAttacks | bishopAttacks | queenAttacks | kingAttacks;
 }
 
+std::unordered_map < std::string, int > seen_positions;
+std::time_t timer;
 Move *Bot::calculateNextMove()
 {
 
@@ -390,11 +394,37 @@ Move *Bot::calculateNextMove()
      // nr++;
      // std::mt19937 rng(std::chrono::steady_clock::now().time_since_epoch().count());
 
+    bestMove = Move::resign();
+    int depth = 1;
+    timer = std::time(NULL);
 
-    negamax(5, engineSide, INT_MIN, INT_MAX, 0);
+    int score = -25;
+    while (1) {
+
+        std::size_t act_time = std::time(NULL);
+        // fout << "Act time in calculateNextMove: " << act_time << "\n";
+
+        if (act_time - timer > DUDUIE) {
+            break;
+        }
+        // fout << "DEPTH IS: " << depth << std::endl;
+        
+        score = negamax(depth, engineSide, INT_MIN, INT_MAX, 0);
+
+        ++depth;
+
+    }
+    seen_positions.clear();
     // nr = rng() % validMoves.size();
 
+    fout << "Side to move " << (engineSide == PlaySide::WHITE ? "WHITE" : "BLACK") << std::endl;
+    fout << "BEST MOVE " << bestMove->source.value_or("NULL") << " " << bestMove->destination.value_or("NULL") << std::endl;
+    fout << "SCORE UNDER NEGAMAX " << score << std::endl;
+    fout << std::endl;
+
     recordMove(bestMove, engineSide, 0);
+
+    
 
     return bestMove;
 }
@@ -408,7 +438,8 @@ std::vector<Move *> Bot::getAvailableMoves(std::vector<Move *> allMoves,
     Pawns *enemyPawnsPiece,
     Bishops *enemyBishopsPiece,
     Queens *enemyQueensPiece,
-    King *enemyKingPiece
+    King *enemyKingPiece,
+    PlaySide currSide
 )
 {
     // PlaySide engineSidePrev = engineSide;
@@ -433,6 +464,7 @@ std::vector<Move *> Bot::getAvailableMoves(std::vector<Move *> allMoves,
     uint64_t enPassantWhite = BitBoard::enPassantWhite;
     uint64_t enPassantBlack = BitBoard::enPassantBlack;
 
+    
 
     std::vector<Move *> validMoves = {};
 
@@ -441,7 +473,7 @@ std::vector<Move *> Bot::getAvailableMoves(std::vector<Move *> allMoves,
         recordMove(allMoves[i], engineSide, 1);
 
         uint64_t allEnemyAttacks = getEnemyAttacks(enemyKnightsPiece, enemyRooksPiece, enemyPawnsPiece,
-            enemyBishopsPiece, enemyQueensPiece, enemyKingPiece);
+            enemyBishopsPiece, enemyQueensPiece, enemyKingPiece, currSide);
 
         int kingPos = Utils::getOneBitsPositions(allyKingPiece->king)[0];
 
@@ -500,7 +532,7 @@ int Bot::evaluate(PlaySide side)
     int allyQueensNumber = Utils::getBits(allyQueens->queens);
     // int allyKing = Utils::getBits(allyKing->king);
 
-    int enemyRooksNumber = Utils::getBits(allyRooks->rooks);
+    int enemyRooksNumber = Utils::getBits(enemyRooks->rooks);
     int enemyPawnsNumber = Utils::getBits(enemyPawns->pawns);
     int enemyKnightsNumber = Utils::getBits(enemyKnights->knights);
     int enemyBishopsNumber = Utils::getBits(enemyBishops->bishops);
@@ -519,9 +551,7 @@ int Bot::evaluate(PlaySide side)
 
 int global_best_score = 0;
 
-int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
-{
-
+std::vector < Move *> Bot::generateMoves(PlaySide currSide) {
     Pawns *allyPawns = currSide == PlaySide::WHITE ? BitBoard::whitePawns : BitBoard::blackPawns;
     Knights *allyKnights = currSide == PlaySide::WHITE ? BitBoard::whiteKnights : BitBoard::blackKnights;
     Rooks *allyRooks = currSide == PlaySide::WHITE ? BitBoard::whiteRooks : BitBoard::blackRooks;
@@ -535,11 +565,10 @@ int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
     Queens *enemyQueens = currSide == PlaySide::BLACK ? BitBoard::whiteQueens : BitBoard::blackQueens;
     King *enemyKing = currSide == PlaySide::BLACK ? BitBoard::whiteKing : BitBoard::blackKing;
 
-
     std::vector<Move *> moves;
 
     uint64_t enemyAttacks = getEnemyAttacks(enemyKnights, enemyRooks, enemyPawns,
-        enemyBishops, enemyQueens, enemyKing);
+        enemyBishops, enemyQueens, enemyKing, currSide);
 
     std::vector<Move *> castleMove;
     if (allyKing->canCastle) {
@@ -557,14 +586,14 @@ int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
         BitBoard::enPassantWhite,
         BitBoard::enPassantBlack,
         moves
-        );
+    );
 
     allyRooks->getMoves(currSide,
         BitBoard::blackPieces,
         BitBoard::whitePieces,
         BitBoard::allPieces,
         moves
-        );
+    );
 
 
     allyKnights->getMoves(currSide,
@@ -572,7 +601,7 @@ int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
         BitBoard::whitePieces,
         BitBoard::allPieces,
         moves
-        );
+    );
 
     allyKing->getMoves(currSide,
         BitBoard::blackPieces,
@@ -585,15 +614,15 @@ int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
         BitBoard::whitePieces,
         BitBoard::allPieces,
         moves
-        );
+    );
 
     allyQueens->getMoves(currSide, allyRooks, allyBishops,
         BitBoard::blackPieces,
         BitBoard::whitePieces,
         BitBoard::allPieces,
         moves);
-  
-    std::vector<Move *> dropInMoves = getDropInMoves(currSide);
+
+    std::vector<Move *> dropInMoves = Bot::getDropInMoves(currSide);
 
 
     // moves.insert(moves.end(), pawnMoves.begin(), pawnMoves.end());
@@ -605,20 +634,110 @@ int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
     moves.insert(moves.end(), dropInMoves.begin(), dropInMoves.end());
     // moves.insert(moves.end(), castleMove.begin(), castleMove.end());
 
-    std::vector<Move *> validMoves = getAvailableMoves(moves,
+    std::vector<Move *> validMoves = Bot::getAvailableMoves(moves,
         allyKing,
         enemyKnights,
         enemyRooks,
         enemyPawns,
         enemyBishops,
         enemyQueens,
-        enemyKing
+        enemyKing,
+        currSide
     );
 
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
     shuffle(validMoves.begin(), validMoves.end(), std::default_random_engine(seed));
 
+    return validMoves;
+}
+
+int Bot::getScore(Move *a, PlaySide currSide)
+{
+    // sort(validMoves.begin(), validMoves.end(), sortCompare);
+    int score = INT_MIN;
+    
+    uint64_t whitePawns = BitBoard::whitePawns->pawns;
+    uint64_t whiteKnights = BitBoard::whiteKnights->knights;
+    uint64_t whiteBishops = BitBoard::whiteBishops->bishops;
+    uint64_t whiteRooks = BitBoard::whiteRooks->rooks;
+    uint64_t whiteQueens = BitBoard::whiteQueens->queens;
+    uint64_t whiteKing = BitBoard::whiteKing->king;
+
+    uint64_t blackPawns = BitBoard::blackPawns->pawns;
+    uint64_t blackKnights = BitBoard::blackKnights->knights;
+    uint64_t blackBishops = BitBoard::blackBishops->bishops;
+    uint64_t blackRooks = BitBoard::blackRooks->rooks;
+    uint64_t blackQueens = BitBoard::blackQueens->queens;
+    uint64_t blackKing = BitBoard::blackKing->king;
+
+    uint64_t whitePromotedPawns = BitBoard::whitePawns->promotedPawns;
+    uint64_t blackPromotedPawns = BitBoard::blackPawns->promotedPawns;
+
+    uint64_t enPassantWhite = BitBoard::enPassantWhite;
+    uint64_t enPassantBlack = BitBoard::enPassantBlack;
+
+    std::multiset<Piece> captured_backup[2];
+    captured_backup[0] = captured[0];
+    captured_backup[1] = captured[1];
+
+    recordMove(a, currSide, 0);
+
+    std::string string_pos = "";
+
+    string_pos += std::to_string(BitBoard::whitePawns->pawns);
+    string_pos += std::to_string(BitBoard::whiteKnights->knights);
+    string_pos += std::to_string(BitBoard::whiteBishops->bishops);
+    string_pos += std::to_string(BitBoard::whiteRooks->rooks);
+    string_pos += std::to_string(BitBoard::whiteQueens->queens);
+    string_pos += std::to_string(BitBoard::whiteKing->king);
+
+    string_pos += std::to_string(BitBoard::blackPawns->pawns);
+    string_pos += std::to_string(BitBoard::blackKnights->knights);
+    string_pos += std::to_string(BitBoard::blackBishops->bishops);
+    string_pos += std::to_string(BitBoard::blackRooks->rooks);
+    string_pos += std::to_string(BitBoard::blackQueens->queens);
+    string_pos += std::to_string(BitBoard::blackKing->king);
+
+
+    if (seen_positions.find(string_pos) != seen_positions.end()) {
+        // fout << "Found position in seen positions" << std::endl;
+        score = seen_positions[string_pos];
+    }
+
+    BitBoard::whitePawns->pawns = whitePawns;
+    BitBoard::whiteKnights->knights = whiteKnights;
+    BitBoard::whiteBishops->bishops = whiteBishops;
+    BitBoard::whiteRooks->rooks = whiteRooks;
+    BitBoard::whiteQueens->queens = whiteQueens;
+    BitBoard::whiteKing->king = whiteKing;
+
+    BitBoard::blackPawns->pawns = blackPawns;
+    BitBoard::blackKnights->knights = blackKnights;
+    BitBoard::blackBishops->bishops = blackBishops;
+    BitBoard::blackRooks->rooks = blackRooks;
+    BitBoard::blackQueens->queens = blackQueens;
+    BitBoard::blackKing->king = blackKing;
+
+    BitBoard::whitePawns->promotedPawns = whitePromotedPawns;
+    BitBoard::blackPawns->promotedPawns = blackPromotedPawns;
+
+    BitBoard::enPassantWhite = enPassantWhite;
+    BitBoard::enPassantBlack = enPassantBlack;
+
+    captured[0] = captured_backup[0];
+    captured[1] = captured_backup[1];
+
+    BitBoard::updateWhitePieces();
+    BitBoard::updateBlackPieces();
+    BitBoard::updateAllPieces();
+
+    return score;
+}
+
+int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
+{
+    std::vector<Move *> validMoves = Bot::generateMoves(currSide);
     // game over
     if (depth == 0) {
         if (validMoves.size() == 0) {
@@ -628,8 +747,24 @@ int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
     }
 
     int bestScore = INT_MIN;
+    sort(validMoves.begin(), validMoves.end(), [&]( Move* &a,  Move* &b) {
+        return Bot::getScore(a, currSide) > Bot::getScore(b, currSide);
+    });
 
+    // for (auto move : validMoves) {
+    //     fout << "Move " << move->source.value_or(" ") << " " << move->destination.value_or(" ") << " SCORE " << Bot::getScore(move, currSide) << std::endl;
+    // }
+    
+    /////sortam aici ?!
     for (auto move : validMoves) {
+
+        std::size_t act_time = std::time(NULL);
+
+        // fout << "Act time in negamax " << act_time << "\n";
+
+        if (act_time - timer > DUDUIE) {
+            break;
+        }
 
         uint64_t whitePawns = BitBoard::whitePawns->pawns;
         uint64_t whiteKnights = BitBoard::whiteKnights->knights;
@@ -657,18 +792,38 @@ int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
 
         recordMove(move, currSide, 0); // rege
 
+        
         int score = -negamax(depth - 1, currSide == PlaySide::WHITE ? PlaySide::BLACK : PlaySide::WHITE, -beta, -alpha, 1);
+        
+        std::string string_pos = "";
 
+        string_pos += std::to_string(BitBoard::whitePawns->pawns);
+        string_pos += std::to_string(BitBoard::whiteKnights->knights);
+        string_pos += std::to_string(BitBoard::whiteBishops->bishops);
+        string_pos += std::to_string(BitBoard::whiteRooks->rooks);
+        string_pos += std::to_string(BitBoard::whiteQueens->queens);
+        string_pos += std::to_string(BitBoard::whiteKing->king);
+
+        string_pos += std::to_string(BitBoard::blackPawns->pawns);
+        string_pos += std::to_string(BitBoard::blackKnights->knights);
+        string_pos += std::to_string(BitBoard::blackBishops->bishops);
+        string_pos += std::to_string(BitBoard::blackRooks->rooks);
+        string_pos += std::to_string(BitBoard::blackQueens->queens);
+        string_pos += std::to_string(BitBoard::blackKing->king);
+
+        if (seen_positions.find(string_pos) != seen_positions.end()) {
+            seen_positions[string_pos] = std::max(seen_positions[string_pos], score);
+        } else {
+            seen_positions[string_pos] = score;
+        }
         // fout << "Score: " << score << "Move " << move->source.value_or("-1") << " " << move->destination.value_or("-1") << std::endl;
 
         if (score > bestScore) {
-            // Mihai said risky
-            // memcpy(bestMove, move, sizeof(Move));
             if (test == 0)
                 bestMove = move;
             bestScore = score;
         }
-
+    
         if (bestScore > alpha) {
             alpha = bestScore;
         }
@@ -700,7 +855,7 @@ int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
         BitBoard::updateWhitePieces();
         BitBoard::updateBlackPieces();
         BitBoard::updateAllPieces();
-
+        
         if (alpha >= beta)
             break;
 

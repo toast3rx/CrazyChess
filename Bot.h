@@ -36,6 +36,8 @@ class Bot {
    */
   Move* calculateNextMove();
 
+  int getScore(Move *a, PlaySide currSide);
+  std::vector<Move *> getDropInMoves(PlaySide side);
   std::vector<Move *> getAvailableMoves(std::vector<Move *> allMoves,
     King *allyKingPiece,
     Knights *enemyKnightsPiece,
@@ -43,14 +45,14 @@ class Bot {
     Pawns *enemyPawnsPiece,
     Bishops *enemyBishopsPiece,
     Queens *enemyQueensPiece,
-    King *enemyKingPiece
+    King *enemyKingPiece,
+    PlaySide currSide
   );
   bool movePiece(int src, int dst, PlaySide side);
   void checkCapture(int src, int dst, PlaySide side, int testMove);
-  std::vector<Move*> getDropInMoves(PlaySide side);
   static std::string getBotName();
   int negamax(int depth, PlaySide currSide, int alpha, int beta, int test);
   int evaluate(PlaySide side);
-
+  std::vector < Move *> generateMoves(PlaySide currSide);
 };
 #endif
