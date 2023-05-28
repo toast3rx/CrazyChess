@@ -1,5 +1,5 @@
 #include "Bot.h"
-#define DUDUIE 5
+#define DUDUIE 2
 extern PlaySide engineSide;
 
 std::ofstream fout("log.txt", std::ios::app);
@@ -407,9 +407,9 @@ Move *Bot::calculateNextMove()
         if (act_time - timer > DUDUIE) {
             break;
         }
-        // fout << "DEPTH IS: " << depth << std::endl;
+        fout << "DEPTH IS: " << depth << std::endl;
         
-        score = negamax(depth, engineSide, INT_MIN, INT_MAX, 0);
+        score = negamax(depth, engineSide, -1e9, 1e9, 0);
 
         ++depth;
 
@@ -470,7 +470,7 @@ std::vector<Move *> Bot::getAvailableMoves(std::vector<Move *> allMoves,
 
     for (size_t i = 0; i < allMoves.size(); ++i) {
 
-        recordMove(allMoves[i], engineSide, 1);
+        recordMove(allMoves[i], currSide, 1);
 
         uint64_t allEnemyAttacks = getEnemyAttacks(enemyKnightsPiece, enemyRooksPiece, enemyPawnsPiece,
             enemyBishopsPiece, enemyQueensPiece, enemyKingPiece, currSide);
@@ -647,15 +647,13 @@ std::vector < Move *> Bot::generateMoves(PlaySide currSide) {
 
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
-    shuffle(validMoves.begin(), validMoves.end(), std::default_random_engine(seed));
-
     return validMoves;
 }
 
 int Bot::getScore(Move *a, PlaySide currSide)
 {
     // sort(validMoves.begin(), validMoves.end(), sortCompare);
-    int score = INT_MIN;
+    int score = -1e9;
     
     uint64_t whitePawns = BitBoard::whitePawns->pawns;
     uint64_t whiteKnights = BitBoard::whiteKnights->knights;
@@ -741,12 +739,12 @@ int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
     // game over
     if (depth == 0) {
         if (validMoves.size() == 0) {
-            return INT_MIN;
+            return -1e9;
         }
         return evaluate(currSide);
     }
 
-    int bestScore = INT_MIN;
+    int bestScore = -1e9;
     sort(validMoves.begin(), validMoves.end(), [&]( Move* &a,  Move* &b) {
         return Bot::getScore(a, currSide) > Bot::getScore(b, currSide);
     });
@@ -762,9 +760,9 @@ int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
 
         // fout << "Act time in negamax " << act_time << "\n";
 
-        if (act_time - timer > DUDUIE) {
-            break;
-        }
+        // if (act_time - timer > DUDUIE) {
+        //     break;
+        // }
 
         uint64_t whitePawns = BitBoard::whitePawns->pawns;
         uint64_t whiteKnights = BitBoard::whiteKnights->knights;
@@ -818,16 +816,6 @@ int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
         }
         // fout << "Score: " << score << "Move " << move->source.value_or("-1") << " " << move->destination.value_or("-1") << std::endl;
 
-        if (score > bestScore) {
-            if (test == 0)
-                bestMove = move;
-            bestScore = score;
-        }
-    
-        if (bestScore > alpha) {
-            alpha = bestScore;
-        }
-
         // restore move
         BitBoard::whitePawns->pawns = whitePawns;
         BitBoard::whiteKnights->knights = whiteKnights;
@@ -855,11 +843,27 @@ int Bot::negamax(int depth, PlaySide currSide, int alpha, int beta, int test)
         BitBoard::updateWhitePieces();
         BitBoard::updateBlackPieces();
         BitBoard::updateAllPieces();
-        
-        if (alpha >= beta)
+        // if (act_time - timer > DUDUIE) {
+        //     break;
+        // }
+
+        if (score > bestScore) {
+            if (test == 0)
+                bestMove = move;
+            bestScore = score;
+        }
+    
+        if (bestScore > alpha) {
+            alpha = bestScore;
+        }
+
+    
+        if (alpha >= beta) {
+            fout << "ne am oprit" << std::endl;
             break;
+        }
 
     }
-
+    validMoves.~vector();
     return bestScore;
 }

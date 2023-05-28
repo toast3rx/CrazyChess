@@ -1,0 +1,65 @@
+[Event "Computer Chess Game"]
+[Site "uso.local"]
+[Date "2023.05.28"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. a3 b6 2. d4 d6
+{xboard exit (Clocks: 275, 282)} *
+
+[Event "Computer Chess Game"]
+[Site "uso.local"]
+[Date "2023.05.28"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. a3 d6
+{xboard exit (Clocks: 282, 291)} *
+
+[Event "Computer Chess Game"]
+[Site "uso.local"]
+[Date "2023.05.28"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. d3 e5 2. c3 b6 3. Bd2
+{xboard exit (Clocks: 272, 275)} *
+
+[Event "Computer Chess Game"]
+[Site "uso.local"]
+[Date "2023.05.28"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. a4 a5 2. g3 g6 3. h3
+{xboard exit (Clocks: 237, 239)} *
+
+[Event "Computer Chess Game"]
+[Site "uso.local"]
+[Date "2023.05.28"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. a4 a5 2. g3 g6 3. h3 f5 4. f4 b6 5. h4 Ra6 6. e4 Ra8 7. Bc4
+{xboard exit (Clocks: 222, 204)} *
+
