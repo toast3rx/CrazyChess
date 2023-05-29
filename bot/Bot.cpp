@@ -569,81 +569,81 @@ float Bot::evaluate(PlaySide side)
 
     ////////////// Get material score for pieces ////////////
     // evaluate position
-    int allyPositionScore = 0, enemyPositionScore = 0, positionScore = 0;
+    float allyPositionScore = 0, enemyPositionScore = 0, positionScore = 0;
     int row, col;
 
     // ---- Scores for the engine side ----
     for (int i = 0; i < allyPawnsPos.size(); i++) {
         row = allyPawnsPos[i] / 8;
         col = allyPawnsPos[i] % 8;
-        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whitePawnsPositions[7 - row][col] : whitePawnsPositions[7 - col][7 - row]);
+        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whitePawnsPositions[7 - row][col] : whitePawnsPositions[row][7 - col]);
     }
 
     for (int i = 0; i < allyKnighsPos.size(); i++) {
         row = allyKnighsPos[i] / 8;
         col = allyKnighsPos[i] % 8;
-        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whiteKnightPositions[7 - row][col] : whiteKnightPositions[7 - col][7 - row]);
+        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whiteKnightPositions[7 - row][col] : whiteKnightPositions[row][7 - col]);
     }
 
     for (int i = 0; i < allyBishopsPos.size(); i++) {
         row = allyBishopsPos[i] / 8;
         col = allyBishopsPos[i] % 8;
-        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whiteBishopPositions[7 - row][col] : whiteBishopPositions[7 - col][7 - row]);
+        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whiteBishopPositions[7 - row][col] : whiteBishopPositions[row][7 - col]);
     }
 
     for (int i = 0; i < allyRooksPos.size(); i++) {
         row = allyRooksPos[i] / 8;
         col = allyRooksPos[i] % 8;
-        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whiteRookPositions[7 - row][col] : whiteRookPositions[7 - col][7 - row]);
+        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whiteRookPositions[7 - row][col] : whiteRookPositions[row][7 - col]);
     }
 
     for (int i = 0; i < allyQueensPos.size(); i++) {
         row = allyQueensPos[i] / 8;
         col = allyQueensPos[i] % 8;
-        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whiteQueenPositions[7 - row][col] : whiteQueenPositions[7 - col][7 - row]);
+        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whiteQueenPositions[7 - row][col] : whiteQueenPositions[row][7 - col]);
     }
 
     for (int i = 0; i < allyKingPos.size(); i++) {
         row = allyKingPos[i] / 8;
         col = allyKingPos[i] % 8;
-        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whiteKingPositions[7 - row][col] : whiteKingPositions[7 - col][7 - row]);
+        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whiteKingPositions[7 - row][col] : whiteKingPositions[row][7 - col]);
     }
 
     // ---- Scores for the enemy side ----
     for (int i = 0; i < enemyPawnsPos.size(); i++) {
         row = enemyPawnsPos[i] / 8;
         col = enemyPawnsPos[i] % 8;
-        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whitePawnsPositions[7 - row][col] : whitePawnsPositions[7 - col][7 - row]);
+        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whitePawnsPositions[7 - row][col] : whitePawnsPositions[row][7 - col]);
     }
 
     for (int i = 0; i < enemyKnighsPos.size(); i++) {
         row = enemyKnighsPos[i] / 8;
         col = enemyKnighsPos[i] % 8;
-        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whiteKnightPositions[7 - row][col] : whiteKnightPositions[7 - col][7 - row]);
+        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whiteKnightPositions[7 - row][col] : whiteKnightPositions[row][7 - col]);
     }
 
     for (int i = 0; i < enemyBishopsPos.size(); i++) {
         row = enemyBishopsPos[i] / 8;
         col = enemyBishopsPos[i] % 8;
-        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whiteBishopPositions[7 - row][col] : whiteBishopPositions[7 - col][7 - row]);
+        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whiteBishopPositions[7 - row][col] : whiteBishopPositions[row][7 - col]);
     }
 
     for (int i = 0; i < enemyRooksPos.size(); i++) {
         row = enemyRooksPos[i] / 8;
         col = enemyRooksPos[i] % 8;
-        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whiteRookPositions[7 - row][col] : whiteRookPositions[7 - col][7 - row]);
+        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whiteRookPositions[7 - row][col] : whiteRookPositions[row][7 - col]);
     }
 
     for (int i = 0; i < enemyQueensPos.size(); i++) {
         row = enemyQueensPos[i] / 8;
         col = enemyQueensPos[i] % 8;
-        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whiteQueenPositions[7 - row][col] : whiteQueenPositions[7 - col][7 - row]);
+        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whiteQueenPositions[7 - row][col] : whiteQueenPositions[row][7 - col]);
     }
 
     for (int i = 0; i < enemyKingPos.size(); i++) {
         row = enemyKingPos[i] / 8;
         col = enemyKingPos[i] % 8;
-        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whiteKingPositions[7 - row][col] : whiteKingPositions[7 - col][7 - row]);
+        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whiteKingPositions[7 - row][col] : whiteKingPositions[row][7 - col]);
     }
 
     allyScore += allyPositionScore;

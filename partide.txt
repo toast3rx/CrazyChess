@@ -1,0 +1,222 @@
+[Event "Computer Chess Game"]
+[Site "bobu"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,44"]
+
+1. e4 {+1,44/17} Nf6 2. Qf3 {+1,80/15 1,3}
+{xboard exit (Clocks: 300, 230)} *
+
+[Event "Computer Chess Game"]
+[Site "bobu"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "1-0"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,44"]
+
+1. e4 {+1,44/17} Nf6 2. Qf3 {+1,92/15 1,6} Nc6 3. Qd3 {-3,30/23 0,1} Nd4 4.
+Nf3 {+5,86/18 4} Nxe4 5. Ng1 {+5,17/15 1,3} P@g3 6. fxg3 {+0,97/17 3} Nxc2+
+7. Ke2 {-7,97/19 0,1} Nd4+ 8. Kd1 {-3,58/15 0,7} Nf2+ 9. Ke1
+{-19,17/16 0,8}
+{White wins on time} 1-0
+
+[Event "Computer Chess Game"]
+[Site "bobu"]
+[Date "2023.05.29"]
+[Round "2"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "Stockfish Easy"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1... -0,84"]
+
+1. Nf3 d5 {-0,84/17 2,5} 2. d4 e6 {-0,69/22 0,1} 3. e4 Nf6 {+1,73/16 2,2}
+{xboard exit (Clocks: 177, 301)} *
+
+[Event "Computer Chess Game"]
+[Site "bobu"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,21"]
+
+1. d3 {+1,21/17} Nc6 2. e4 {-0,38/17 2,9} Nf6 3. Bf4 {-0,30/17 3} Nxe4 4.
+Nf3 {+2,07/15 1,4} Ne5 5. Nbd2 {+6,00/16 1,8} P@e3 6. fxe3 {+3,92/16 2,3}
+Nxf3+ 7. Ke2 {+3,87/19 0,1}
+{xboard exit (Clocks: 299, 154)} *
+
+[Event "Computer Chess Game"]
+[Site "bobu"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,60"]
+
+1. d3 {+1,60/17} Nf6 2. Nh3 {+0,07/16 2,9}
+{xboard exit (Clocks: 298, 264)} *
+
+[Event "Computer Chess Game"]
+[Site "bobu"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,21"]
+
+1. e4 {+1,21/17} Nf6 2. e5 {+1,69/17 1,6} Nc6 3. Nf3 {+1,92/16 0,6}
+{xboard exit (Clocks: 301, 178)} *
+
+[Event "Computer Chess Game"]
+[Site "bobu"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,21"]
+
+1. d3 {+1,21/17} e6 2. Nh3 {+0,00/18 2,9} Bc5 3. e4 {+1,07/15 1,5}
+{xboard exit (Clocks: 299, 30)} *
+
+[Event "Computer Chess Game"]
+[Site "bobu"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,21"]
+
+1. d3 {+1,21/17} a5 2. d4 {+1,66/17 2,9} b6 3. Nc3 {+2,59/17 2,7} Bb7 4.
+Bg5 {+2,53/18 4} Na6 5. Bf4 {+2,92/18 4}
+{xboard exit (Clocks: 294, 285)} *
+
+[Event "Computer Chess Game"]
+[Site "bobu"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,21"]
+
+1. e3 {+1,21/17} a6 2. d4 {+0,92/18 2,9} Nh6 3. Nc3 {+2,74/16 3} d6 4. d5
+{+3,23/17 3} Ng4 5. Qf3 {+2,98/18 4} Nxe3 6. Bd3 {+8,00/16 3} Nxd5 7. Nge2
+{+2,05/17 0,1} Nd7 8. Bg5 {+2,16/16 4} Nc5 9. Bxe7 {+1,84/16 4} Qxe7 10.
+O-O {-2,69/14 4} Qxe2 11. Nxe2 {+4,61/16 6} Be6 12. Q@g5 {-1,84/17 7} Be7
+13. P@d7+ {+2,23/14 2,5} Kxd7 14. Qc1 {-2,07/16 7} Nxd3 15. Qd1
+{-9,61/16 7} Nxb2 16. Qe1 {-3,07/15 2,8} Bh4 17. g4 {-11,38/16 8} Nd1 18.
+Qa5 {-12,56/15 5} P@f4 19. Kg2 {-14,16/15 9} Rae8 20. Nd4 {-13,35/14 4}
+Rhf8 21. c4 {-14,07/14 9} P@c3
+{xboard exit (Clocks: 240, 224)} *
+
+[Event "Computer Chess Game"]
+[Site "bobu"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,44"]
+
+1. d3 {+1,44/17}
+{xboard exit (Clocks: 299, 281)} *
+
+[Event "Computer Chess Game"]
+[Site "bobu"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,21"]
+
+1. e4 {+1,21/17} d5 2. Qe2 {+1,82/22 0,1}
+{xboard exit (Clocks: 301, 263)} *
+
+[Event "Computer Chess Game"]
+[Site "bobu"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "0-1"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,21"]
+
+1. e3 {+1,21/17} a6 2. Nc3 {+1,00/16 2,0} c5 3. d4 {+2,61/16 2,7} cxd4 4.
+Qg4 {+2,51/18 0,1} dxc3 5. Nf3 {-7,23/18 0,1} Nf6 6. Qd4 {-8,32/17 0,1}
+P@f4 7. a3 {-5,32/17 5} cxb2 8. Bd2 {-7,15/15 5} g6 9. Bd3 {-5,76/15 2,2}
+bxa1=Q+ 10. Bc1 {-20,74/16 0,2} Qxc1+ 11. Ke2 {-1000,06/25 0,1} R@g5 12.
+Rg1 {-24,15/12 2,3} Qxg1 13. Qc3 {-54,15/15 2,2} N@c1+ 14. Kd2
+{Black wins} 0-1
+
+[Event "Computer Chess Game"]
+[Site "bobu"]
+[Date "2023.05.29"]
+[Round "2"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "Stockfish Easy"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1... +1,69"]
+
+1. Na3 d6 {+1,69/16 2,7} 2. Nb5 e5 {+1,20/16 3} 3. Nf3 e4 {+1,17/17 3} 4.
+Nxd6+ Ke7 {+6,24/16 3} 5. Nxc8+ Ke6 {-8,61/14 1,3} 6. Nxa7 Qd5
+{-11,84/15 5} 7. a4 Nd7 {-13,15/15 5} 8. P@d4 Ngf6 {-13,69/15 5} 9. B@d8
+Bd6 {-7,53/17 6} 10. Ne5 Rxa7 {-3,61/16 3}
+{xboard exit (Clocks: 259, 282)} *
+
+[Event "Computer Chess Game"]
+[Site "bobu"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,44"]
+
+1. d3 {+1,44/17} a5 2. e4 {+1,15/16 2,9} Nc6 3. Bg5 {+1,92/17 3} d5 4. Nd2
+{+1,46/19 4} Qd6 5. Ngf3 {+1,97/17 3} dxe4 6. dxe4 {+1,34/19 0,1} f6 7.
+P@d5 {+6,38/17 5} fxg5 8. Bb5 {+7,30/16 3} Bd7 9. Nxg5 {+13,23/17 5} Nf6
+10. P@e6 {+14,30/15 2,1} B@g6 11. exd7+ {+17,99/18 4} Qxd7 12. Ne6
+{+20,84/19 4} Bf7 13. dxc6 {+18,23/15 2,4} bxc6 14. N@c5 {+19,64/18 0,1}
+Bxe6 15. Nxd7 {+14,38/17 1,7} N@b1 16. Nxf8 {+38,63/16 4} Nxd2 17. Qxd2
+{+37,69/14 1,5} Kxf8
+{xboard exit (Clocks: 284, 239)} *
+
