@@ -1,6 +1,22 @@
 #include "King.h"
 
 
+int King::getNumberOfMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces)
+{
+    std::vector<Move*> moves;
+    int sol = 0;
+
+    getMoves(side, blackPieces, whitePieces, allPieces, moves);
+
+    sol = moves.size();
+
+    for (auto move : moves) {
+        delete move;
+    }
+
+    return sol;
+}
+
 void King::getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces, std::vector<Move*> &allMoves)
 {
     std::vector<Move*> moves;

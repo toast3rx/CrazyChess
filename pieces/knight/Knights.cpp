@@ -81,6 +81,25 @@ void Knights::getAttacks(std::vector<Move *> &moves, PlaySide side, uint64_t bla
     }
 }
 
+
+int Knights::getNumberOfMoves(PlaySide side, 
+                              uint64_t blackPieces, 
+                              uint64_t whitePieces, 
+                              uint64_t allPieces)
+{
+    std::vector <Move *> moves;
+
+    getMoves(side, blackPieces, whitePieces, allPieces, moves);
+
+    int res = moves.size();
+
+    for (size_t i = 0; i < moves.size(); ++i) {
+        delete moves[i];
+    }
+
+    return res;
+}
+
 /**
  * @brief Retrn all available moves for the knights
  * 

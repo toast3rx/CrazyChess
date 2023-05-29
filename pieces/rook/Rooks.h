@@ -1,9 +1,9 @@
 #ifndef ROOKS_H
 #define ROOKS_H
 #include <bits/stdc++.h>
-#include "../Move.h"
-#include "../PlaySide.h"
-#include "../Utils.h"
+#include "../../board/Move.h"
+#include "../../bot/PlaySide.h"
+#include "../../Utils.h"
 
 class Rooks {
 public:
@@ -12,13 +12,18 @@ public:
 
     Rooks(uint64_t _rooks);
 
-    void getMoves(PlaySide side, 
-                                uint64_t blackPieces, 
-                                uint64_t whitePieces, 
-                                uint64_t allPieces,
-                                std::vector<Move*> &allMoves
-                                );
-    
+    void getMoves(PlaySide side,
+        uint64_t blackPieces,
+        uint64_t whitePieces,
+        uint64_t allPieces,
+        std::vector<Move *> &allMoves
+    );
+
+    int getNumberOfMoves(PlaySide side,
+        uint64_t blackPieces,
+        uint64_t whitePieces,
+        uint64_t allPieces);
+
     void updateCastlePermissions(PlaySide engineSide, uint64_t myPieces);
 
     void initRookAllMoves();
@@ -100,7 +105,7 @@ public:
     0x4041008204004801ULL,
     0xa112000809009402ULL,
     0x2201000865420283ULL,
-};
+    };
 
     constexpr static const int RookOnes[64] = {
         12, 11, 11, 11, 11, 11, 11, 12,

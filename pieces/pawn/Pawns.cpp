@@ -3,13 +3,32 @@
 
 Pawns::Pawns(uint64_t _pawns) : pawns(_pawns) {}
 
-void Pawns::getMoves(PlaySide side, 
-								    uint64_t blackPieces, 
-									uint64_t whitePieces, 
-									uint64_t allPieces, 
-									uint64_t enPassantWhite, 
-									uint64_t enPassantBlack,
-									std::vector<Move *> &allMoves)
+int Pawns::getNumberOfMoves(PlaySide side,
+	uint64_t blackPieces,
+	uint64_t whitePieces,
+	uint64_t allPieces,
+	uint64_t enPassantWhite,
+	uint64_t enPassantBlack)
+{
+
+	std::vector<Move *> moves;
+	getMoves(side, blackPieces, whitePieces, allPieces, enPassantWhite, enPassantBlack, moves);
+
+	int res = moves.size();
+	for (Move *move : moves) {
+		delete move;
+	}
+
+	return res;
+}
+
+void Pawns::getMoves(PlaySide side,
+	uint64_t blackPieces,
+	uint64_t whitePieces,
+	uint64_t allPieces,
+	uint64_t enPassantWhite,
+	uint64_t enPassantBlack,
+	std::vector<Move *> &allMoves)
 {
 	std::vector<Move *> moves;
 	getAttacks(moves, side, blackPieces, whitePieces, enPassantWhite, enPassantBlack);
@@ -49,8 +68,8 @@ void Pawns::getAttacks(std::vector<Move *> &moves, PlaySide side, uint64_t black
 				moves.push_back(Move::promote(prev, next, Piece::BISHOP));
 				moves.push_back(Move::promote(prev, next, Piece::ROOK));
 				moves.push_back(Move::promote(prev, next, Piece::KNIGHT));
-			} 
-				
+			}
+
 		}
 
 		if (bitWest) {
@@ -62,7 +81,7 @@ void Pawns::getAttacks(std::vector<Move *> &moves, PlaySide side, uint64_t black
 				moves.push_back(Move::promote(prev, next, Piece::BISHOP));
 				moves.push_back(Move::promote(prev, next, Piece::ROOK));
 				moves.push_back(Move::promote(prev, next, Piece::KNIGHT));
-			} 
+			}
 		}
 	}
 }
@@ -74,7 +93,7 @@ void Pawns::getPush(std::vector<Move *> &moves, PlaySide side, uint64_t allPiece
 		int rank = i / 8 + 1;
 
 		if ((((side == PlaySide::WHITE) && !(allPieces & (1ULL << (i + 8))))
-		 	|| ((side == PlaySide::BLACK) && !(allPieces & (1ULL << (i - 8))))) && bit) {	
+			|| ((side == PlaySide::BLACK) && !(allPieces & (1ULL << (i - 8))))) && bit) {
 			std::string prev = Utils::bitToPos(i);
 			std::string next = Utils::bitToPos(i + 8 * (side == PlaySide::BLACK ? -1 : 1));
 
@@ -90,9 +109,9 @@ void Pawns::getPush(std::vector<Move *> &moves, PlaySide side, uint64_t allPiece
 
 		if (rank == (side == PlaySide::BLACK ? 7 : 2)
 			&& (((side == PlaySide::WHITE) && !(allPieces & (1ULL << (i + 8))))
-		 	|| ((side == PlaySide::BLACK) && !(allPieces & (1ULL << (i - 8)))))
+				|| ((side == PlaySide::BLACK) && !(allPieces & (1ULL << (i - 8)))))
 			&& (((side == PlaySide::WHITE) && !(allPieces & (1ULL << (i + 16))))
-		 	|| ((side == PlaySide::BLACK) && !(allPieces & (1ULL << (i - 16))))) 
+				|| ((side == PlaySide::BLACK) && !(allPieces & (1ULL << (i - 16)))))
 			&& bit) {
 			std::string prev = Utils::bitToPos(i);
 			std::string next = Utils::bitToPos(i + 16 * (side == PlaySide::BLACK ? -1 : 1));
@@ -101,7 +120,8 @@ void Pawns::getPush(std::vector<Move *> &moves, PlaySide side, uint64_t allPiece
 	}
 }
 
-uint64_t Pawns::getAllAttacks(PlaySide side) {
+uint64_t Pawns::getAllAttacks(PlaySide side)
+{
 	uint64_t westAttacks;
 	uint64_t eastAttacks;
 

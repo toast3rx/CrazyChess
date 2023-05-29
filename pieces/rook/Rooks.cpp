@@ -64,6 +64,22 @@ Rooks::Rooks(uint64_t _rooks) : rooks(_rooks)
 }
 
 
+int Rooks::getNumberOfMoves(PlaySide side,
+    uint64_t blackPieces,
+    uint64_t whitePieces,
+    uint64_t allPieces)
+{
+
+    std::vector<Move *> moves;
+    getMoves(side, blackPieces, whitePieces, allPieces, moves);
+
+    int numberOfMoves = moves.size();
+
+    for (auto move : moves) {
+        delete move;
+    }
+}
+
 void Rooks::getMoves(PlaySide side,
     uint64_t blackPieces,
     uint64_t whitePieces,

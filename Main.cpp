@@ -3,10 +3,10 @@
 
 #include <cassert>
 
-#include "Bot.h"
-#include "Move.h"
-#include "Piece.h"
-#include "PlaySide.h"
+#include "bot/Bot.h"
+#include "./board/Move.h"
+#include "./board/Piece.h"
+#include "bot/PlaySide.h"
 
 static PlaySide sideToMove;
 PlaySide engineSide;

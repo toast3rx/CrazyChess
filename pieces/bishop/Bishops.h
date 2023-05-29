@@ -4,9 +4,9 @@
 #define ROWS 8
 #define COLUMNS 8
 #include <bits/stdc++.h>
-#include "../PlaySide.h"
-#include "../Move.h"
-#include "../Utils.h"
+#include "../../bot/PlaySide.h"
+#include "../..//board/Move.h"
+#include "../../Utils.h"
 
 class Bishops {
 public:
@@ -22,6 +22,11 @@ public:
         uint64_t allPieces,
         std::vector<Move *> &allMoves
     );
+
+    int getNumberOfMoves(PlaySide side,
+        uint64_t blackPieces,
+        uint64_t whitePieces,
+        uint64_t allPieces);
 
     // std::pair < std::string, std::string > convert_table_to_positions(uint64_t source, uint64_t &goodSquares);
     uint64_t getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces);

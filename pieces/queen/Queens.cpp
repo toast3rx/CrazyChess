@@ -1,7 +1,8 @@
 #include "Queens.h"
 #include <bits/stdc++.h>
 
-Queens::Queens(uint64_t _queens) : queens(_queens) {
+Queens::Queens(uint64_t _queens) : queens(_queens)
+{
     // init();
 }
 
@@ -9,21 +10,42 @@ int32_t get_key_bishop(uint64_t square, uint64_t blockers)
 {
     return (Bishops::bishopMagic[square] * blockers) >> (SQUARES - Bishops::bishop_bits[square]);
 }
-int32_t get_key_rook(uint64_t square, uint64_t blockers) {
+int32_t get_key_rook(uint64_t square, uint64_t blockers)
+{
 
     return (blockers * Rooks::RookMagic[square]) >> (64 - Rooks::RookOnes[square]);
 }
 
-void Queens::getMoves(PlaySide side, 
-                                    Rooks *rooks, 
-                                    Bishops *bishop, 
-                                    uint64_t blackPieces, 
-                                    uint64_t whitePieces, 
-                                    uint64_t allPieces,
-                                    std::vector<Move*> &allMoves
-                                    )
+int Queens::getNumberOfMoves(PlaySide side,
+    Rooks *rooks,
+    Bishops *bishop,
+    uint64_t blackPieces,
+    uint64_t whitePieces,
+    uint64_t allPieces)
 {
-    std::vector< Move* > sol;
+    std::vector<Move *> moves;
+
+    getMoves(side, rooks, bishop, blackPieces, whitePieces, allPieces, moves);
+
+    int numberOfMoves = moves.size();
+
+    for (auto move : moves) {
+        delete move;
+    }
+
+    return numberOfMoves;
+}
+
+void Queens::getMoves(PlaySide side,
+    Rooks *rooks,
+    Bishops *bishop,
+    uint64_t blackPieces,
+    uint64_t whitePieces,
+    uint64_t allPieces,
+    std::vector<Move *> &allMoves
+)
+{
+    std::vector< Move * > sol;
     uint64_t myPieces = 0;
     if (side == 0) {
         myPieces = blackPieces;
@@ -49,7 +71,7 @@ void Queens::getMoves(PlaySide side,
         }
     }
 
-    currentQueens = queens;    
+    currentQueens = queens;
     int rooksCount = Utils::getBits(currentQueens);
     while (rooksCount--) {
         int rookPos = Utils::popLsb(currentQueens);
@@ -67,19 +89,19 @@ void Queens::getMoves(PlaySide side,
             int rookFile = rookPos % 8;
 
             std::string prev = "";
-			char fileChar = rookFile + 'a';
-			char rankChar = rookRank + '0';
-			prev.append(1, fileChar);
-			prev.append(1, rankChar);
+            char fileChar = rookFile + 'a';
+            char rankChar = rookRank + '0';
+            prev.append(1, fileChar);
+            prev.append(1, rankChar);
 
             int destRank = destPos / 8 + 1;
             int destFile = destPos % 8;
 
             std::string next = "";
             char fileChar2 = destFile + 'a';
-			char rankChar2 = destRank + '0';
-			next.append(1, fileChar2);
-			next.append(1, rankChar2);
+            char rankChar2 = destRank + '0';
+            next.append(1, fileChar2);
+            next.append(1, rankChar2);
 
             sol.push_back(Move::moveTo(prev, next));
         }
@@ -107,14 +129,14 @@ uint64_t Queens::getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t whi
         uint64_t possibleMovesFromBishop = Bishops::bishopAttacks[queenPos][get_key_bishop(queenPos, blockersBishop)];
         uint64_t possibleMovesFromRook = Rooks::RookAttacks[queenPos][get_key_rook(queenPos, blockersRook)];
         uint64_t possibleMoves = possibleMovesFromBishop | possibleMovesFromRook;
-        
+
         /* Scot acele mutari care mi-ar fi luat piesele mele. Daca lucrul asta este verificat atunci sterge liniile de cod in plus*/
         uint64_t blockedMoves = possibleMoves & myPieces;
         possibleMoves = possibleMoves & ~blockedMoves;
         /* -----------------------------------------------------------------------------------------------------------------------*/;
 
         attacks |= possibleMoves;
-        
+
     }
 
 

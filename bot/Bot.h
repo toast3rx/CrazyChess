@@ -1,9 +1,9 @@
 #ifndef BOT_H
 #define BOT_H
 
-#include "Move.h"
+#include "../board/Move.h"
 #include "PlaySide.h"
-#include "BitBoard.h"
+#include "../board/BitBoard.h"
 #include <chrono>
 
 class Bot {
@@ -14,6 +14,23 @@ class Bot {
   /* Declare custom fields below */
   static std::unordered_map<char, int> filesToNumber;
   static std::unordered_map<char, int> numberToFiles;
+  float pawnPositionWhite[64] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                0.5, 1.0, 1.0, -2.0, -2.0, 1.0, 1.0, 0.5,
+                                0.5, -0.5, -1.0, 0.0, 0.0, -1.0, -0.5, 0.5,
+                                0.0, 0.0, 0.0, 2.0, 2.0, 0.0, 0.0, 0.0,
+                                0.5, 0.5, 1.0, 2.5, 2.5, 1.0, 0.5, 0.5,
+                                1.0, 1.0, 2.0, 3.0, 3.0, 2.0, 1.0, 1.0,
+                                5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0,
+                                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+
+  float pawnPositionBlack[64] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0,
+                                1.0, 1.0, 2.0, 3.0, 3.0, 2.0, 1.0, 1.0,
+                                0.5, 0.5, 1.0, 2.5, 2.5, 1.0, 0.5, 0.5,
+                                0.0, 0.0, 0.0, 2.0, 2.0, 0.0, 0.0, 0.0,
+                                0.5, -0.5, -1.0, 0.0, 0.0, -1.0, -0.5, 0.5,
+                                0.5, 1.0, 1.0, -2.0, -2.0, 1.0, 1.0, 0.5,
+                                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
   Move* bestMove;
   std::multiset<Piece> captured[2];
   /* Declare custom fields above */
@@ -36,7 +53,7 @@ class Bot {
    */
   Move* calculateNextMove();
 
-  int getScore(Move *a, PlaySide currSide);
+  float getScore(Move *a, PlaySide currSide);
   std::vector<Move *> getDropInMoves(PlaySide side);
   std::vector<Move *> getAvailableMoves(std::vector<Move *> allMoves,
     King *allyKingPiece,
@@ -51,8 +68,8 @@ class Bot {
   bool movePiece(int src, int dst, PlaySide side);
   void checkCapture(int src, int dst, PlaySide side, int testMove);
   static std::string getBotName();
-  int negamax(int depth, PlaySide currSide, int alpha, int beta, int test);
-  int evaluate(PlaySide side);
+  float negamax(int depth, PlaySide currSide, float alpha, float beta, int test);
+  float evaluate(PlaySide side);
   std::vector < Move *> generateMoves(PlaySide currSide);
 };
 #endif

@@ -1,12 +1,12 @@
 #ifndef BITBOARD_H
 #define BITBOARD_H
 #include <bits/stdc++.h>
-#include "./pieces/Pawns.h"
-#include "./pieces/Rooks.h"
-#include "./pieces/Knights.h"
-#include "./pieces/Bishops.h"
-#include "./pieces/Queens.h"
-#include "./pieces/King.h"
+#include "../pieces/pawn/Pawns.h"
+#include "../pieces/rook/Rooks.h"
+#include "../pieces/knight/Knights.h"
+#include "../pieces/bishop/Bishops.h"
+#include "../pieces/queen/Queens.h"
+#include "../pieces/king/King.h"
 
 // in the bitboard bit 0 is a1 and bit 63 is h8
 class BitBoard {
