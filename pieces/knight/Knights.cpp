@@ -84,20 +84,10 @@ void Knights::getAttacks(std::vector<Move *> &moves, PlaySide side, uint64_t bla
 
 int Knights::getNumberOfMoves(PlaySide side, 
                               uint64_t blackPieces, 
-                              uint64_t whitePieces, 
-                              uint64_t allPieces)
+                              uint64_t whitePieces
+                              )
 {
-    std::vector <Move *> moves;
-
-    getMoves(side, blackPieces, whitePieces, allPieces, moves);
-
-    int res = moves.size();
-
-    for (size_t i = 0; i < moves.size(); ++i) {
-        delete moves[i];
-    }
-
-    return res;
+    return Utils::count_set_bits(getAllAttacks(side, blackPieces, whitePieces));
 }
 
 /**

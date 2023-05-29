@@ -27,8 +27,6 @@ public:
     );
 
     int getNumberOfMoves(PlaySide side,
-        Rooks *rooks,
-        Bishops *bishop,
         uint64_t blackPieces,
         uint64_t whitePieces,
         uint64_t allPieces);

@@ -186,15 +186,7 @@ int Bishops::getNumberOfMoves(PlaySide side,
     uint64_t whitePieces,
     uint64_t allPieces)
 {
-    std::vector<Move *> moves;
-
-    getMoves(side, blackPieces, whitePieces, allPieces, moves);
-
-    int sol = moves.size();
-
-    for (auto move : moves) {
-        delete move;
-    }
+   return Utils::count_set_bits(getAllAttacks(side, blackPieces, whitePieces, allPieces));
 }
 
 void Bishops::getMoves(PlaySide side,

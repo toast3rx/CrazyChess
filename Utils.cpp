@@ -103,4 +103,15 @@ std::uint64_t Utils::posToBit(std::string pos)
 	return (1ULL << (row * 8 + file));
 }
 
+int64_t Utils::count_set_bits(uint64_t n)
+{
+    int64_t sol = 0;
+
+    while (n) {
+        sol += n & 1;
+        n >>= 1;
+    }
+    return sol;
+}
+
 

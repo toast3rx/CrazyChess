@@ -10,22 +10,25 @@
 
 
 class Knights {
-	public:
-		uint64_t knights;
-		uint64_t knightsMoves[64];
+public:
+    uint64_t knights;
+    uint64_t knightsMoves[64];
 
-		Knights(uint64_t _pawns);
+    Knights(uint64_t _pawns);
 
-        uint64_t generateMoves(int square);
+    uint64_t generateMoves(int square);
 
-		int getNumberOfMoves(PlaySide side,
-			uint64_t blackPieces,
-			uint64_t whitePieces,
-			uint64_t allPieces);
+    int getNumberOfMoves(PlaySide side,
+                         uint64_t blackPieces,
+                         uint64_t whitePieces
+    );
 
-		void getAttacks(std::vector<Move *> &moves, PlaySide side, uint64_t blackPieces, uint64_t whitePieces);
-		uint64_t getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t whitePieces);
-		void getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces, std::vector<Move*> &allMoves);
+    void getAttacks(std::vector<Move *> &moves, PlaySide side, uint64_t blackPieces, uint64_t whitePieces);
+
+    uint64_t getAllAttacks(PlaySide side, uint64_t blackPieces, uint64_t whitePieces);
+
+    void getMoves(PlaySide side, uint64_t blackPieces, uint64_t whitePieces, uint64_t allPieces,
+                  std::vector<Move *> &allMoves);
 };
 
 #endif

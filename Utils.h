@@ -16,5 +16,6 @@ public:
 	static int popLsb(uint64_t &n);
 	static std::pair <std::string, std::string > convert_table_to_positions(uint64_t source, uint64_t &goodSquares, uint64_t myPieces);
 	static std::uint64_t posToBit(std::string pos);
+    static int64_t count_set_bits(uint64_t n);
 };
 #endif

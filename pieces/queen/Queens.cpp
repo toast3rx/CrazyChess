@@ -17,23 +17,11 @@ int32_t get_key_rook(uint64_t square, uint64_t blockers)
 }
 
 int Queens::getNumberOfMoves(PlaySide side,
-    Rooks *rooks,
-    Bishops *bishop,
     uint64_t blackPieces,
     uint64_t whitePieces,
     uint64_t allPieces)
 {
-    std::vector<Move *> moves;
-
-    getMoves(side, rooks, bishop, blackPieces, whitePieces, allPieces, moves);
-
-    int numberOfMoves = moves.size();
-
-    for (auto move : moves) {
-        delete move;
-    }
-
-    return numberOfMoves;
+    return Utils::count_set_bits(getAllAttacks(side, blackPieces, whitePieces, allPieces));
 }
 
 void Queens::getMoves(PlaySide side,

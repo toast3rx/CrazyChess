@@ -28,11 +28,6 @@ public:
     void getPush(std::vector<Move*> &moves, PlaySide side, uint64_t allPieces);
     uint64_t getAllAttacks(PlaySide side);
 
-    int getNumberOfMoves(PlaySide side,
-        uint64_t blackPieces,
-        uint64_t whitePieces,
-        uint64_t allPieces,
-        uint64_t enPassantWhite,
-        uint64_t enPassantBlack);
+    std::pair<int, int> getNumberOfMoves(PlaySide side, uint64_t allPieces);
 };
 #endif
