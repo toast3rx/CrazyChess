@@ -1,0 +1,41 @@
+[Event "Computer Chess Game"]
+[Site "uso.local"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "0-1"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e4 Nh6 2. d4 Nc6 3. Bxh6 Nxd4 4. Qxd4 gxh6 5. Qxh8 P@g7 6. Qxf8+ Kxf8 7.
+e5 Qe8 8. e6 fxe6 9. Bb5 P@f7 10. Bxd7 Qxd7 11. P@d6 Qxd6 12. h3 Q@d1#
+{Xboard adjudication: Checkmate} 0-1
+
+[Event "Computer Chess Game"]
+[Site "uso.local"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e4 Nf6 2. d4 Nxe4 3. Qf3 Nxf2
+{xboard exit (Clocks: 142, 265)} *
+
+[Event "Computer Chess Game"]
+[Site "uso.local"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. Nf3 d5 2. d4 Qd6 3. a3 Bf5 4. Bg5 e6 5. Qd2 Qb6 6. Qc3 Bd6 7. e3 Bxh2 8.
+Qc5 Qxc5 9. dxc5 Q@c1+ 10. Q@d1 Qxb2 11. Rxh2 Qxa1
+{xboard exit (Clocks: 192, 201)} *
+

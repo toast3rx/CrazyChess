@@ -1,5 +1,5 @@
 #include "Bot.h"
-#define DUDUIE 5
+#define DUDUIE 10
 extern PlaySide engineSide;
 
 [[maybe_unused]] std::ofstream fout("log.txt", std::ios::app);
@@ -396,9 +396,12 @@ Move *Bot::calculateNextMove()
 
     bestMove = Move::resign();
     int depth = 1;
+
     timer = std::time(nullptr);
 
+    
     float score;
+
     while (true) {
 
         std::size_t act_time = std::time(nullptr);
@@ -413,7 +416,7 @@ Move *Bot::calculateNextMove()
 
         ++depth;
     }
-    seen_positions.clear();
+    // seen_positions.clear();
     // nr = rng() % validMoves.size();
 
     // fout << "Side to move " << (engineSide == PlaySide::WHITE ? "WHITE" : "BLACK") << std::endl;
@@ -617,83 +620,83 @@ float Bot::evaluate(PlaySide side)
     allyMaterialScore += allyKnightsNumber * 3.5 + allyBishopsNumber * 3.0 + allyRooksNumber * 4.0 + allyQueensNumber * 6.0;
     enemyMaterialScore += enemyKnightsNumber * 3.5 + enemyBishopsNumber * 3.0 + enemyRooksNumber * 4.0 + enemyQueensNumber * 6.0;
 
-    // //////////// Get mobility score for pieces ////////////
-    // float allyMobilityScore = 0.0;
-    // float enemyMobilityScore = 0.0;
+    //////////// Get mobility score for pieces ////////////
+    float allyMobilityScore = 0.0;
+    float enemyMobilityScore = 0.0;
 
-    // allyMobilityScore += allyPawns->getNumberOfMoves(side,
-    //     BitBoard::blackPieces,
-    //     BitBoard::whitePieces,
-    //     BitBoard::allPieces,
-    //     BitBoard::enPassantBlack,
-    //     BitBoard::enPassantWhite);
+    allyMobilityScore += allyPawns->getNumberOfMoves(side,
+        BitBoard::blackPieces,
+        BitBoard::whitePieces,
+        BitBoard::allPieces,
+        BitBoard::enPassantBlack,
+        BitBoard::enPassantWhite);
 
-    // allyMobilityScore += allyBishops->getNumberOfMoves(side,
-    //     BitBoard::blackPieces,
-    //     BitBoard::whitePieces,
-    //     BitBoard::allPieces);
+    allyMobilityScore += allyBishops->getNumberOfMoves(side,
+        BitBoard::blackPieces,
+        BitBoard::whitePieces,
+        BitBoard::allPieces);
 
-    // allyMobilityScore += allyKnights->getNumberOfMoves(side,
-    //     BitBoard::blackPieces,
-    //     BitBoard::whitePieces,
-    //     BitBoard::allPieces);
+    allyMobilityScore += allyKnights->getNumberOfMoves(side,
+        BitBoard::blackPieces,
+        BitBoard::whitePieces,
+        BitBoard::allPieces);
 
-    // allyMobilityScore += allyRooks->getNumberOfMoves(side,
-    //     BitBoard::blackPieces,
-    //     BitBoard::whitePieces,
-    //     BitBoard::allPieces);
+    allyMobilityScore += allyRooks->getNumberOfMoves(side,
+        BitBoard::blackPieces,
+        BitBoard::whitePieces,
+        BitBoard::allPieces);
 
-    // allyMobilityScore += allyQueens->getNumberOfMoves(side,
-    //     allyRooks,
-    //     allyBishops,
-    //     BitBoard::blackPieces,
-    //     BitBoard::whitePieces,
-    //     BitBoard::allPieces);
+    allyMobilityScore += allyQueens->getNumberOfMoves(side,
+        allyRooks,
+        allyBishops,
+        BitBoard::blackPieces,
+        BitBoard::whitePieces,
+        BitBoard::allPieces);
 
-    // allyMobilityScore += allyKing->getNumberOfMoves(side,
-    //     BitBoard::blackPieces,
-    //     BitBoard::whitePieces,
-    //     BitBoard::allPieces);
-
-
-    // PlaySide enemySide = side == PlaySide::WHITE ? PlaySide::BLACK : PlaySide::WHITE;
-    // enemyMobilityScore += enemyPawns->getNumberOfMoves(enemySide,
-    //     BitBoard::blackPieces,
-    //     BitBoard::whitePieces,
-    //     BitBoard::allPieces,
-    //     BitBoard::enPassantBlack,
-    //     BitBoard::enPassantWhite);
-
-    // enemyMobilityScore += enemyBishops->getNumberOfMoves(enemySide,
-    //     BitBoard::blackPieces,
-    //     BitBoard::whitePieces,
-    //     BitBoard::allPieces);
-
-    // enemyMobilityScore += enemyKnights->getNumberOfMoves(enemySide,
-    //     BitBoard::blackPieces,
-    //     BitBoard::whitePieces,
-    //     BitBoard::allPieces);
-
-    // enemyMobilityScore += enemyRooks->getNumberOfMoves(enemySide,
-    //     BitBoard::blackPieces,
-    //     BitBoard::whitePieces,
-    //     BitBoard::allPieces);
-
-    // enemyMobilityScore += enemyQueens->getNumberOfMoves(enemySide,
-    //     enemyRooks,
-    //     enemyBishops,
-    //     BitBoard::blackPieces,
-    //     BitBoard::whitePieces,
-    //     BitBoard::allPieces);
-
-    // enemyMobilityScore += enemyKing->getNumberOfMoves(enemySide,
-    //     BitBoard::blackPieces,
-    //     BitBoard::whitePieces,
-    //     BitBoard::allPieces);
+    allyMobilityScore += allyKing->getNumberOfMoves(side,
+        BitBoard::blackPieces,
+        BitBoard::whitePieces,
+        BitBoard::allPieces);
 
 
-    allyScore = allyMaterialScore;
-    enemyScore = enemyMaterialScore;
+    PlaySide enemySide = side == PlaySide::WHITE ? PlaySide::BLACK : PlaySide::WHITE;
+    enemyMobilityScore += enemyPawns->getNumberOfMoves(enemySide,
+        BitBoard::blackPieces,
+        BitBoard::whitePieces,
+        BitBoard::allPieces,
+        BitBoard::enPassantBlack,
+        BitBoard::enPassantWhite);
+
+    enemyMobilityScore += enemyBishops->getNumberOfMoves(enemySide,
+        BitBoard::blackPieces,
+        BitBoard::whitePieces,
+        BitBoard::allPieces);
+
+    enemyMobilityScore += enemyKnights->getNumberOfMoves(enemySide,
+        BitBoard::blackPieces,
+        BitBoard::whitePieces,
+        BitBoard::allPieces);
+
+    enemyMobilityScore += enemyRooks->getNumberOfMoves(enemySide,
+        BitBoard::blackPieces,
+        BitBoard::whitePieces,
+        BitBoard::allPieces);
+
+    enemyMobilityScore += enemyQueens->getNumberOfMoves(enemySide,
+        enemyRooks,
+        enemyBishops,
+        BitBoard::blackPieces,
+        BitBoard::whitePieces,
+        BitBoard::allPieces);
+
+    enemyMobilityScore += enemyKing->getNumberOfMoves(enemySide,
+        BitBoard::blackPieces,
+        BitBoard::whitePieces,
+        BitBoard::allPieces);
+
+
+    allyScore = allyMaterialScore + 0.1 * allyMobilityScore;
+    enemyScore = enemyMaterialScore + 0.1 * enemyMobilityScore;
 
     return allyScore - enemyScore;
 }
@@ -918,6 +921,7 @@ float Bot::negamax(int depth, PlaySide currSide, float alpha, float beta, int te
         return evaluate(currSide);
     }
 
+
     if (test == 0 && validMoves.size() == 1) {
         delete bestMove;
         bestMove = Move::promote(validMoves[0]->source, validMoves[0]->destination, validMoves[0]->replacement);
@@ -943,7 +947,11 @@ float Bot::negamax(int depth, PlaySide currSide, float alpha, float beta, int te
         // if (act_time - timer > DUDUIE) {
         //     break;
         // }
+        // fout << "Act time in calculateNextMove: " << act_time << "\n";
 
+        if (act_time - timer > DUDUIE) {
+            break;
+        }
         uint64_t whitePawns = BitBoard::whitePawns->pawns;
         uint64_t whiteKnights = BitBoard::whiteKnights->knights;
         uint64_t whiteBishops = BitBoard::whiteBishops->bishops;
@@ -989,10 +997,15 @@ float Bot::negamax(int depth, PlaySide currSide, float alpha, float beta, int te
         string_pos += std::to_string(BitBoard::blackQueens->queens);
         string_pos += std::to_string(BitBoard::blackKing->king);
 
-        if (seen_positions.find(string_pos) != seen_positions.end()) {
-            seen_positions[string_pos] = std::max(seen_positions[string_pos], score);
-        } else {
-            seen_positions[string_pos] = score;
+        act_time = std::time(nullptr);
+        // fout << "Act time in calculateNextMove: " << act_time << "\n";
+
+        if (act_time - timer < DUDUIE) {
+            if (seen_positions.find(string_pos) != seen_positions.end()) {
+                seen_positions[string_pos] = std::max(seen_positions[string_pos], score);
+            } else {
+                seen_positions[string_pos] = score;
+            }
         }
         // fout << "Score: " << score << "Move " << move->source.value_or("-1") << " " << move->destination.value_or("-1") << std::endl;
 
@@ -1028,7 +1041,8 @@ float Bot::negamax(int depth, PlaySide currSide, float alpha, float beta, int te
         // }
 
         if (score > bestScore) {
-            if (test == 0) {
+            act_time = std::time(nullptr);
+            if (test == 0 && act_time - timer < DUDUIE) {
                 delete bestMove;
                 bestMove = Move::promote(move->source, move->destination, move->replacement);
             }
