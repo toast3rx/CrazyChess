@@ -1,0 +1,616 @@
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. b3 e5 2. Bb2
+{xboard exit (Clocks: 282, 231)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e3
+{xboard exit (Clocks: 291, 272)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e3
+{xboard exit (Clocks: 291, 136)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. b3
+{xboard exit (Clocks: 291, 188)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e4
+{xboard exit (Clocks: 297, 206)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e4 Nc6 2. Qf3
+{xboard exit (Clocks: 291, 250)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e3
+{xboard exit (Clocks: 275, 277)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e3
+{xboard exit (Clocks: 301, 285)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "1-0"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e4
+{White wins on time} 1-0
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. Nf3
+{xboard exit (Clocks: 301, 284)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e3
+{xboard exit (Clocks: 300, 245)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e3
+{xboard exit (Clocks: 301, 286)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e4
+{xboard exit (Clocks: 298, 163)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. c3 Nc6 2. Qc2 d5 3. Qf5 e6 4. Nh3
+{xboard exit (Clocks: 306, 14)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e3
+{xboard exit (Clocks: 297, 281)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "1-0"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e3
+{White wins on time} 1-0
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. f3 Nc6 2. e4 d6 3. e5 Nxe5 4. f4 Nc4 5. Nc3 Nb6 6. Nce2 Nd5 7. h3 Nxf4
+8. g4 Nxh3 9. Rh2 Nf4 10. Rh3 Nxh3 11. Rb1 Nxg1 12. Ra1 Nxe2 13. a3 Nd4 14.
+Kf2 Nxc2 15. Kg3 Nxa3 16. Kf4 Nb1 17. Ke4
+{xboard exit (Clocks: 333, 75)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e4
+{xboard exit (Clocks: 298, 278)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e3
+{xboard exit (Clocks: 301, 140)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e3 Nc6 2. Qg4 d6 3. Qg5 f6 4. Qh5+ g6 5. Qb5 a6 6. Qd5 Ne5 7. Qe4 f5 8.
+Qb4 c5 9. Qa4+ b5 10. Bxb5+ Bd7 11. Bxd7+ Qxd7 12. Qxd7+ Nxd7 13. B@c6 Q@e4
+14. Bxe4
+{xboard exit (Clocks: 246, 231)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,44"]
+
+1. d3 {+1,44/17} e6 2. Nc3 {+0,30/17 2,9}
+{xboard exit (Clocks: 298, 199)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "toaster"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. Nf3 f6 2. Nd4 e6 3. Nxe6 dxe6 4. e4 N@d4 5. c3 Ndc6
+{xboard exit (Clocks: 281, 303)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. f3 Nc6 2. e4 Ne5 3. f4 Ng6 4. Qg4 Nxf4 5. Qxf4 e6
+{xboard exit (Clocks: 262, 275)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e3
+{xboard exit (Clocks: 301, 285)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e3
+{xboard exit (Clocks: 301, 141)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. f3 Nc6 2. c3 Ne5 3. d4 Nxf3+ 4. exf3 c6 5. N@b4
+{xboard exit (Clocks: 307, 233)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. f3 f6 2. e4
+{xboard exit (Clocks: 303, 199)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e3
+{xboard exit (Clocks: 300, 54)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. Nf3
+{xboard exit (Clocks: 301, 40)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. Nc3 d5 2. e3
+{xboard exit (Clocks: 211, 271)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. Nc3 b5 2. Nxb5 a6 3. Nc3 Nc6 4. Nf3 Ne5 5. Nxe5 d6 6. Nc6
+{xboard exit (Clocks: 295, 113)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. Nc3 Nc6
+{xboard exit (Clocks: 255, 290)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. Nc3
+{xboard exit (Clocks: 266, 144)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. Nc3
+{xboard exit (Clocks: 188, 293)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. Nc3
+{xboard exit (Clocks: 269, 171)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "1-0"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. Nc3 c5 2. e4 Qa5 3. Bc4
+{White wins on time} 1-0
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. g4 Nc6 2. b3 Ne5 3. a4 Nc4 4. c3
+{xboard exit (Clocks: 287, 211)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. Nc3
+{xboard exit (Clocks: 268, 288)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. Nc3 Nc6
+{xboard exit (Clocks: 244, 274)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e4 Nf6 2. Qf3 d6 3. Bb5+ Bd7 4. Nc3
+{xboard exit (Clocks: 260, 253)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. Nc3 Nc6
+{xboard exit (Clocks: 61, 294)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e4 Nc6 2. Nc3 f5 3. exf5 e6 4. fxe6 dxe6
+{xboard exit (Clocks: 189, 254)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e4
+{xboard exit (Clocks: 297, 282)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. Nc3 Nf6
+{xboard exit (Clocks: 115, 296)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. c4 d5 2. cxd5 Qxd5 3. f3 Bg4 4. fxg4 Qxg2
+{xboard exit (Clocks: 224, 292)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. e4 d5
+{xboard exit (Clocks: 255, 299)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. Nc3 d5 2. e3 Nc6 3. Bb5 a6 4. Bxc6+ bxc6 5. Qf3 d4 6. exd4 Qxd4
+{xboard exit (Clocks: 159, 299)} *
+
