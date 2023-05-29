@@ -582,7 +582,12 @@ float Bot::evaluate(PlaySide side) {
     int allyBishopsNumber = Utils::getBits(allyBishops->bishops);
     int allyQueensNumber = Utils::getBits(allyQueens->queens);
 //     int allyKing = Utils::getBits(allyKing->king);
-    std::vector<int> allyPawnPos = Utils::getOneBitsPositions(allyPawns->pawns);
+    std::vector<int> allyPawnsPos = Utils::getOneBitsPositions(allyPawns->pawns);
+    std::vector<int> allyKnighsPos = Utils::getOneBitsPositions(allyKnights->knights);
+    std::vector<int> allyBishopsPos = Utils::getOneBitsPositions(allyBishops->bishops);
+    std::vector<int> allyRooksPos = Utils::getOneBitsPositions(allyRooks->rooks);
+    std::vector<int> allyQueensPos = Utils::getOneBitsPositions(allyQueens->queens);
+    std::vector<int> allyKingPos = Utils::getOneBitsPositions(allyKing->king);
 
     int enemyRooksNumber = Utils::getBits(enemyRooks->rooks);
     int enemyPawnsNumber = Utils::getBits(enemyPawns->pawns);
@@ -590,73 +595,147 @@ float Bot::evaluate(PlaySide side) {
     int enemyBishopsNumber = Utils::getBits(enemyBishops->bishops);
     int enemyQueensNumber = Utils::getBits(enemyQueens->queens);
 //     int enemyKing = Utils::getBits(enemyKing->king);
-    std::vector<int> enemyPawnPos = Utils::getOneBitsPositions(enemyPawns->pawns);
+    std::vector<int> enemyPawnsPos = Utils::getOneBitsPositions(enemyPawns->pawns);
+    std::vector<int> enemyKnighsPos = Utils::getOneBitsPositions(enemyKnights->knights);
+    std::vector<int> enemyBishopsPos = Utils::getOneBitsPositions(enemyBishops->bishops);
+    std::vector<int> enemyRooksPos = Utils::getOneBitsPositions(enemyRooks->rooks);
+    std::vector<int> enemyQueensPos = Utils::getOneBitsPositions(enemyQueens->queens);
+    std::vector<int> enemyKingPos = Utils::getOneBitsPositions(enemyKing->king);
 
     float allyScore = 0;
     float enemyScore = 0;
+    float allyMaterialScore = allyPawnsNumber * 10, enemyMaterialScore = enemyPawnsNumber * 10;
 
     ////////////// Get material score for pieces ////////////
-    float allyMaterialScore = 0.0;
-    float enemyMaterialScore = 0.0;
+    // evaluate position
+    float allyPositionScore = 0, enemyPositionScore = 0, positionScore = 0;
+    int row, col;
 
-    for (auto it: allyPawnPos) {
-        allyMaterialScore += 2.0 + side == PlaySide::WHITE ? pawnPositionWhite[it] : pawnPositionBlack[it];
+    // ---- Scores for the engine side ----
+    for (int i = 0; i < allyPawnsPos.size(); i++) {
+        row = allyPawnsPos[i] / 8;
+        col = allyPawnsPos[i] % 8;
+        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whitePawnsPositions[7 - row][col] : whitePawnsPositions[row][7 - col]);
     }
 
-    for (auto it: enemyPawnPos) {
-        enemyMaterialScore += 2.0 + side == PlaySide::WHITE ? pawnPositionBlack[it] : pawnPositionWhite[it];
+    for (int i = 0; i < allyKnighsPos.size(); i++) {
+        row = allyKnighsPos[i] / 8;
+        col = allyKnighsPos[i] % 8;
+        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whiteKnightPositions[7 - row][col] : whiteKnightPositions[row][7 - col]);
     }
+
+    for (int i = 0; i < allyBishopsPos.size(); i++) {
+        row = allyBishopsPos[i] / 8;
+        col = allyBishopsPos[i] % 8;
+        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whiteBishopPositions[7 - row][col] : whiteBishopPositions[row][7 - col]);
+    }
+
+    for (int i = 0; i < allyRooksPos.size(); i++) {
+        row = allyRooksPos[i] / 8;
+        col = allyRooksPos[i] % 8;
+        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whiteRookPositions[7 - row][col] : whiteRookPositions[row][7 - col]);
+    }
+
+    for (int i = 0; i < allyQueensPos.size(); i++) {
+        row = allyQueensPos[i] / 8;
+        col = allyQueensPos[i] % 8;
+        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whiteQueenPositions[7 - row][col] : whiteQueenPositions[row][7 - col]);
+    }
+
+    for (int i = 0; i < allyKingPos.size(); i++) {
+        row = allyKingPos[i] / 8;
+        col = allyKingPos[i] % 8;
+        allyPositionScore = allyPositionScore + (side == PlaySide::WHITE ? whiteKingPositions[7 - row][col] : whiteKingPositions[row][7 - col]);
+    }
+
+    // ---- Scores for the enemy side ----
+    for (int i = 0; i < enemyPawnsPos.size(); i++) {
+        row = enemyPawnsPos[i] / 8;
+        col = enemyPawnsPos[i] % 8;
+        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whitePawnsPositions[7 - row][col] : whitePawnsPositions[row][7 - col]);
+    }
+
+    for (int i = 0; i < enemyKnighsPos.size(); i++) {
+        row = enemyKnighsPos[i] / 8;
+        col = enemyKnighsPos[i] % 8;
+        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whiteKnightPositions[7 - row][col] : whiteKnightPositions[row][7 - col]);
+    }
+
+    for (int i = 0; i < enemyBishopsPos.size(); i++) {
+        row = enemyBishopsPos[i] / 8;
+        col = enemyBishopsPos[i] % 8;
+        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whiteBishopPositions[7 - row][col] : whiteBishopPositions[row][7 - col]);
+    }
+
+    for (int i = 0; i < enemyRooksPos.size(); i++) {
+        row = enemyRooksPos[i] / 8;
+        col = enemyRooksPos[i] % 8;
+        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whiteRookPositions[7 - row][col] : whiteRookPositions[row][7 - col]);
+    }
+
+    for (int i = 0; i < enemyQueensPos.size(); i++) {
+        row = enemyQueensPos[i] / 8;
+        col = enemyQueensPos[i] % 8;
+        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whiteQueenPositions[7 - row][col] : whiteQueenPositions[row][7 - col]);
+    }
+
+    for (int i = 0; i < enemyKingPos.size(); i++) {
+        row = enemyKingPos[i] / 8;
+        col = enemyKingPos[i] % 8;
+        enemyPositionScore = enemyPositionScore + (side == PlaySide::WHITE ? whiteKingPositions[7 - row][col] : whiteKingPositions[row][7 - col]);
+    }
+
+    allyScore += allyPositionScore;
+    enemyScore += enemyPositionScore;
 
     int pos = side == PlaySide::WHITE ? 1 : 0;
 
     for (auto it: captured[pos]) {
         switch (it) {
-            case Piece::PAWN:
-                allyMaterialScore += 3.0;
-                break;
-            case Piece::BISHOP:
-                allyMaterialScore += 4.0;
-                break;
-            case Piece::KNIGHT:
-                allyMaterialScore += 4.5;
-                break;
-            case Piece::ROOK:
-                allyMaterialScore += 5.0;
-                break;
-            case Piece::QUEEN:
-                allyMaterialScore += 7.0;
-                break;
-            default:
-                break;
+        case Piece::PAWN:
+            allyMaterialScore += 30;
+            break;
+        case Piece::BISHOP:
+            allyMaterialScore += 40;
+            break;
+        case Piece::KNIGHT:
+            allyMaterialScore += 45;
+            break;
+        case Piece::ROOK:
+            allyMaterialScore += 50;
+            break;
+        case Piece::QUEEN:
+            allyMaterialScore += 70;
+            break;
+        default:
+            break;
         }
     }
 
     for (auto it: captured[pos ^ 1]) {
         switch (it) {
-            case Piece::PAWN:
-                enemyMaterialScore += 3.0;
-                break;
-            case Piece::BISHOP:
-                enemyMaterialScore += 4.0;
-                break;
-            case Piece::KNIGHT:
-                enemyMaterialScore += 4.5;
-                break;
-            case Piece::ROOK:
-                enemyMaterialScore += 5.0;
-                break;
-            case Piece::QUEEN:
-                enemyMaterialScore += 7.0;
-                break;
-            default:
-                break;
+        case Piece::PAWN:
+            enemyMaterialScore += 30;
+            break;
+        case Piece::BISHOP:
+            enemyMaterialScore += 40;
+            break;
+        case Piece::KNIGHT:
+            enemyMaterialScore += 45;
+            break;
+        case Piece::ROOK:
+            enemyMaterialScore += 50;
+            break;
+        case Piece::QUEEN:
+            enemyMaterialScore += 70;
+            break;
+        default:
+            break;
         }
     }
 
-    allyMaterialScore +=
-            allyKnightsNumber * 3.5 + allyBishopsNumber * 3.0 + allyRooksNumber * 4.0 + allyQueensNumber * 6.0;
-    enemyMaterialScore +=
-            enemyKnightsNumber * 3.5 + enemyBishopsNumber * 3.0 + enemyRooksNumber * 4.0 + enemyQueensNumber * 6.0;
+    allyMaterialScore += allyKnightsNumber * 35 + allyBishopsNumber * 30 + allyRooksNumber * 40 + allyQueensNumber * 60;
+    enemyMaterialScore += enemyKnightsNumber * 35 + enemyBishopsNumber * 30 + enemyRooksNumber * 40 + enemyQueensNumber * 60;
 
     //////////// Get mobility score for pieces ////////////
     float allyMobilityScore = Bot::getMobilityScore(side,
@@ -905,7 +984,7 @@ float Bot::negamax(int depth, PlaySide currSide, float alpha, float beta, int te
         return 0;
     }
 
-    float bestScore = -1000000000.0;
+    float bestScore = -1000000000.7;
     sort(validMoves.begin(), validMoves.end(), [&](Move *&a, Move *&b) {
         return Bot::getScore(a, currSide) > Bot::getScore(b, currSide);
     });
