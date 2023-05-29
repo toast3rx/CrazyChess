@@ -559,7 +559,7 @@ float Bot::getMobilityScore(PlaySide side,
                         Bot::QUEEN_BASE_VALUE;
     result += pawnsMovesNo.first + 0.5f * piecesValue * pawnsMovesNo.second * 0.1f;
 
-    return result;
+    return result * 10; // score is multiplied by 10 in every evaluation
 }
 
 float Bot::evaluate(PlaySide side) {
