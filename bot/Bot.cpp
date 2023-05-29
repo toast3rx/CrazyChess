@@ -1,6 +1,6 @@
 #include "Bot.h"
 
-#define DUDUIE 10
+#define DUDUIE 5
 extern PlaySide engineSide;
 
 [[maybe_unused]] std::ofstream fout("log.txt", std::ios::app);
@@ -394,7 +394,6 @@ Move *Bot::calculateNextMove() {
 
     timer = std::time(nullptr);
 
-
     float score;
 
     while (true) {
@@ -604,7 +603,7 @@ float Bot::evaluate(PlaySide side) {
 
     float allyScore = 0;
     float enemyScore = 0;
-    float allyMaterialScore = allyPawnsNumber * 10, enemyMaterialScore = enemyPawnsNumber * 10;
+    float allyMaterialScore = allyPawnsNumber * Bot::PAWN_BASE_VALUE, enemyMaterialScore = enemyPawnsNumber * Bot::PAWN_BASE_VALUE;
 
     ////////////// Get material score for pieces ////////////
     // evaluate position
@@ -693,19 +692,19 @@ float Bot::evaluate(PlaySide side) {
     for (auto it: captured[pos]) {
         switch (it) {
         case Piece::PAWN:
-            allyMaterialScore += 30;
+            allyMaterialScore += Bot::PAWN_BASE_VALUE * 10 + 2.5;
             break;
         case Piece::BISHOP:
-            allyMaterialScore += 40;
+            allyMaterialScore += Bot::BISHOP_BASE_VALUE * 10 + 2.5;
             break;
         case Piece::KNIGHT:
-            allyMaterialScore += 45;
+            allyMaterialScore += Bot::KNIGHT_BASE_VALUE * 10 + 2.5;
             break;
         case Piece::ROOK:
-            allyMaterialScore += 50;
+            allyMaterialScore += Bot::ROOK_BASE_VALUE * 10 + 2.5;
             break;
         case Piece::QUEEN:
-            allyMaterialScore += 70;
+            allyMaterialScore += Bot::QUEEN_BASE_VALUE * 10 + 2.5;
             break;
         default:
             break;
@@ -715,27 +714,33 @@ float Bot::evaluate(PlaySide side) {
     for (auto it: captured[pos ^ 1]) {
         switch (it) {
         case Piece::PAWN:
-            enemyMaterialScore += 30;
+            enemyMaterialScore += Bot::PAWN_BASE_VALUE * 10 + 2.5;
             break;
         case Piece::BISHOP:
-            enemyMaterialScore += 40;
+            enemyMaterialScore += Bot::BISHOP_BASE_VALUE * 10 + 2.5;
             break;
         case Piece::KNIGHT:
-            enemyMaterialScore += 45;
+            enemyMaterialScore += Bot::KNIGHT_BASE_VALUE * 10 + 2.5;
             break;
         case Piece::ROOK:
-            enemyMaterialScore += 50;
+            enemyMaterialScore += Bot::ROOK_BASE_VALUE * 10 + 2.5;
             break;
         case Piece::QUEEN:
-            enemyMaterialScore += 70;
+            enemyMaterialScore += Bot::QUEEN_BASE_VALUE * 10 + 2.5;
             break;
         default:
             break;
         }
     }
 
-    allyMaterialScore += allyKnightsNumber * 35 + allyBishopsNumber * 30 + allyRooksNumber * 40 + allyQueensNumber * 60;
-    enemyMaterialScore += enemyKnightsNumber * 35 + enemyBishopsNumber * 30 + enemyRooksNumber * 40 + enemyQueensNumber * 60;
+    allyMaterialScore += allyKnightsNumber * Bot::KNIGHT_BASE_VALUE 
+                    + allyBishopsNumber * Bot::BISHOP_BASE_VALUE
+                    + allyRooksNumber * Bot::ROOK_BASE_VALUE +
+                    allyQueensNumber * Bot::QUEEN_BASE_VALUE;
+    enemyMaterialScore += enemyKnightsNumber * Bot::KNIGHT_BASE_VALUE
+                    + enemyBishopsNumber * Bot::BISHOP_BASE_VALUE
+                    + enemyRooksNumber * Bot::ROOK_BASE_VALUE +
+                    enemyQueensNumber * Bot::QUEEN_BASE_VALUE;
 
     //////////// Get mobility score for pieces ////////////
     float allyMobilityScore = Bot::getMobilityScore(side,
@@ -753,8 +758,11 @@ float Bot::evaluate(PlaySide side) {
                                                      enemyQueens,
                                                      enemyKing);
 
-    allyScore = allyMaterialScore + 0.1 * allyMobilityScore;
-    enemyScore = enemyMaterialScore + 0.1 * enemyMobilityScore;
+    allyScore = allyMaterialScore + 0.01f * allyMobilityScore;
+    enemyScore = enemyMaterialScore + 0.01f * enemyMobilityScore;
+
+    allyScore += allyPositionScore * 0.7f;
+    enemyScore += enemyPositionScore * 0.7f;
 
     return allyScore - enemyScore;
 }
@@ -974,7 +982,7 @@ float Bot::negamax(int depth, PlaySide currSide, float alpha, float beta, int te
 
         for (int i = 0; i < validMoves.size(); i++)
             delete validMoves[i];
-        return evaluate(currSide);
+        return evaluate(PlaySide::WHITE) * (currSide == PlaySide::WHITE ? 1 : -1);
     }
 
 

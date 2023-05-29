@@ -1,0 +1,210 @@
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,56"]
+
+1. e3 {+1,56/17} e6 2. Nf3 {+0,76/17 1,1}
+{xboard exit (Clocks: 300, 281)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. b4 Nc6 2. f4
+{xboard exit (Clocks: 293, 275)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,56"]
+
+1. d4 {+1,56/17} e6 2. Nf3 {+1,84/14 0,5} b5 3. Nc3 {+2,53/17 3} Qg5 4. Ne5
+{+21,56/16 1,9} Qd2+ 5. Bxd2 {+23,84/16 1,0} Ke7 6. Nxb5 {+62,23/17 2,1} c6
+{xboard exit (Clocks: 300, 279)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,56"]
+
+1. e4 {+1,56/17} Nf6 2. e5 {+2,00/16 2,9} Nd5 3. Nc3 {+1,76/17 2,9} Nf6 4.
+Nf3 {+5,17/17 2,8} Nh5 5. d4 {+11,07/16 2,4} Nc6 6. g4 {+10,23/16 1,4} Nb8
+7. Qd3 {+15,33/17 5} f6 8. Qc4 {+14,30/15 1,7} d6 9. Nd5 {+19,15/16 4} Kf7
+10. exf6 {+55,53/17 1,7} Ke6 11. Bd3 {+1000,03/42 0,6} c6 12. Bf5+
+{+1000,03/27 0,4}
+{xboard exit (Clocks: 295, 261)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "0-1"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,21"]
+
+1. d3 {+1,21/17} e6 2. Nf3 {+0,30/17 2,9} Qf6 3. Nc3 {+2,46/18 3} Bb4 4.
+Qd2 {+2,23/18} Ne7 5. d4 {+1,76/17 1,8} Bxc3 6. e3 {+2,61/17 4} Bxd2+ 7.
+Bxd2 {-10,81/18 0,1} Nbc6 8. B@d3 {-10,69/16 0,1} Nd5 9. Bb5 {-9,61/16 4}
+Nxe3 10. Bbd3 {-14,38/15 6} Qxf3 11. Rb1 {-13,53/13 0,5} Q@d1+ 12. Rxd1
+{-1000,01/245}
+{Black wins} 0-1
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "2"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "Stockfish Easy"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1... +0,15"]
+
+1. e3 d6 {+0,15/17 2,7} 2. Nc3 c6 {-0,92/17 2,8} 3. Qf3 Nf6 {+0,68/16 2,1}
+{xboard exit (Clocks: 284, 298)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. b4
+{xboard exit (Clocks: 296, 288)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "-"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "toaster"]
+[Result "*"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+
+1. b4
+{xboard exit (Clocks: 296, 279)} *
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "1"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "0-1"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,56"]
+
+1. d3 {+1,56/17} e6 2. Nc3 {+0,23/16 1,8} Qf6 3. Nf3 {+2,22/18 2,6} Nc6 4.
+Bd2 {+2,69/15 0,5} Bb4 5. e4 {+2,46/18 3} Nge7 6. Rc1 {+2,07/18 0,1} e5 7.
+Qe2 {+2,46/18 5} Kf8 8. Qe3 {+4,28/15 1,9} a6 9. Qg5 {+3,84/15 0,8} Qxg5
+10. Bxg5 {+0,61/18 0,8} Ng6 11. Q@g4 {+2,28/17 5} h5 12. Qh4 {-0,53/18 0,6}
+Nxh4 13. Nd2 {-5,93/17 1,7} Bxc3 14. Rb1 {-23,52/16 2,3} Bxd2+ 15. Kd1
+{-46,15/14 4}
+{Black wins} 0-1
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "2"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "Stockfish Easy"]
+[Result "1-0"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1... +1,38"]
+
+1. b4 e5 {+1,38/16 2,7} 2. Bb2 d5 {+1,53/17 3} 3. h4 Qd6 {+3,53/17 2,8} 4.
+a4 d4 {+3,42/17 4} 5. b5 Nf6 {+4,00/17 4} 6. Bxd4 Nc6 {+11,64/15 1,5} 7.
+Be3 Na5 {+3,07/17 5} 8. Nc3 Qe6 {+1,38/16 0,4} 9. Bg5 b6 {-1,97/16 6} 10.
+e4 Qd7 {-5,94/17 0,8} 11. Nf3 Qd6 {-5,71/16 6} 12. Bxf6 Bg4 {-9,61/15 1,6}
+13. Bxe5 Qh6 {-22,84/15 7} 14. Bxg7 Bxf3 {-14,46/14 7} 15. P@d7+ Kd8
+{-52,38/14 0,7} 16. Bxh6 Be7 {-1000,08/18 0,5} 17. Qxf3 N@e8
+{-1000,08/17 8} 18. dxe8=Q+ Kxe8 {-1000,04/44 0,1} 19. h5 P@b2
+{-1000,04/25 1,8} 20. Rb1 Rc8 {-1000,04/23 0,8} 21. N@e5 c5 {-1000,01/245}
+{White wins} 1-0
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "3"]
+[White "Stockfish Easy"]
+[Black "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Result "0-1"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1. +1,56"]
+
+1. d3 {+1,56/17} e6 2. e4 {+0,23/17 2,9} Qh4 3. Nc3 {+3,02/17 3} Bb4 4. Bd2
+{+3,38/17 4} Nc6 5. a3 {+3,00/18 4} Ba5 6. g3 {+3,12/17 3} Qe7 7. h4
+{+1,51/17 2,6} Nf6 8. b4 {-0,30/17 0,1} Nxe4 9. Nf3 {+3,46/15 4} Nxd2 10.
+Bg2 {-6,24/15 0,6} Bxb4 11. Ne5 {-9,84/16 6} Bxc3 12. Nxd7 {-41,10/14 7}
+Ne4+ 13. Qd2 {-33,38/14 7} Bxd2+ 14. Kd1 {-1000,07/27 0,1}
+{Black wins} 0-1
+
+[Event "Computer Chess Game"]
+[Site "linoxarch"]
+[Date "2023.05.29"]
+[Round "4"]
+[White "SuperUltraMegaAlphaCrazyHouseMatrixGiobaniDestroyer"]
+[Black "Stockfish Easy"]
+[Result "1-0"]
+[TimeControl "300+2"]
+[Variant "crazyhouse"]
+[Annotator "1... +1,38"]
+
+1. b4 e6 {+1,38/16 2,7} 2. Bb2 a5 {+0,75/18 3} 3. a4 Qg5 {+4,38/15 0,5} 4.
+c3 Nc6 {+2,84/16 1,8} 5. Ba3 Nf6 {+6,61/15 2,0} 6. bxa5 Bxa3 {+4,92/15 2,3}
+7. g3 Bd6 {+13,25/16 2,4} 8. Bh3 B@e4 {+14,21/18 5} 9. f3 Bxg3+
+{+18,53/16 2,1} 10. hxg3 P@f2+ {+25,38/17 0,1} 11. Kxf2 Nh5 {+7,38/17 0,6}
+12. fxe4 Nxg3 {+18,45/19 7} 13. Bg2 Nxh1+ {+40,74/17 5} 14. Bxh1 P@g2
+{+49,07/17 0,1} 15. Bxg2 R@g6 {+10,92/17 1,9} 16. Bh3 Nxa5
+{+1000,02/15 1,6} 17. Nf3 P@c2 {+19,76/15 2,0} 18. Qxc2 Qf4 {+11,07/17 3}
+19. Kf1 Rg3 {-1,69/16 7} 20. Bg2 Rg5 {+0,00/17 10} 21. Bh3 Qxf3+
+{-6,94/18 10} 22. exf3 N@h5 {-10,74/16 4} 23. Kf2 Nc4 {-8,00/17 8} 24. d4
+Ng3 {-10,93/18 10} 25. Ke1 Nh1 {-19,65/17 10} 26. Qh2 Ne3 {-16,84/16 9} 27.
+Qxh1 Raa5 {-18,23/14 9} 28. Qh2 e5 {-27,69/16 9} 29. dxe5 O-O {-24,53/15 8}
+30. f4 Rh5 {-36,92/13 9} 31. Ra2 Kh8 {-28,15/13 9} 32. Nd2 Rh4
+{-30,46/14 9} 33. Nf3 Ng4 {-40,57/14 9} 34. Qg2 Rxh3 {-32,38/13 9} 35. Qxh3
+B@c1 {-1000,10/17 3} 36. Qxg4 Rxa4 {-1000,06/21 0,7} 37. Rxa4 P@b3
+{-1000,05/32 0,1} 38. f5 b5 {-1000,05/22 0,8} 39. Ra8 Rg8 {-1000,05/23 0,7}
+40. Nd4 b2 {-1000,06/25 2,4} 41. Nxb5 Bd2+ {-1000,07/16 2,7} 42. Kxd2 b1=R
+{-1000,05/35 0,1} 43. Nxc7 d6 {-1000,07/21 0,9} 44. exd6 Rf8
+{-1000,06/25 1,5} 45. Rxc8 Rg8 {-1000,07/23 0,8} 46. Rxg8+ Kxg8 47. Nd5
+Rb2+ {-1000,08/21 1,6} 48. Kd3 Rb8 {-1000,06/26 0,9} 49. Kc2 g6
+{-1000,06/25 2,2} 50. fxg6 hxg6 {-1000,06/24 1,7} 51. Qxg6+ Kh8
+{-1000,03/35 0,8}
+{White wins} 1-0
+

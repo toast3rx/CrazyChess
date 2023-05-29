@@ -14,10 +14,10 @@ private:
 public:
     /* Declare custom fields below */
     constexpr static const float PAWN_BASE_VALUE = 2.0;
-    constexpr static const float KNIGHT_BASE_VALUE = 3.5;
+    constexpr static const float KNIGHT_BASE_VALUE = 3.2;
     constexpr static const float BISHOP_BASE_VALUE = 3.0;
     constexpr static const float ROOK_BASE_VALUE = 4.0;
-    constexpr static const float QUEEN_BASE_VALUE = 6.0;
+    constexpr static const float QUEEN_BASE_VALUE = 7.6;
 
     static std::unordered_map<char, int> filesToNumber;
     static std::unordered_map<char, int> numberToFiles;
