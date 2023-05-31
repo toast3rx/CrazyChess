@@ -153,6 +153,8 @@ constexpr static const float whitePawnsPositions[8][8] = {
 
     std::vector<Move *> generateMoves(PlaySide currSide);
 
+    int isCapture(Move *move, PlaySide currSide);
+
     static float getMobilityScore(PlaySide side,
                            Pawns *pawns,
                            Knights *knights,

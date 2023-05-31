@@ -11,6 +11,7 @@ class King {
 public:
     uint64_t king;
     bool canCastle = true;
+    bool isCastled = false;
 
     uint64_t kingMoves[64] = {0};
 
